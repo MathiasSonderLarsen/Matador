@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.3
+ * @version v.0.4
  */
 
 // Tests the Shaker class
@@ -163,6 +163,16 @@ public class ShakerTest {
         shaker.getDice()[1].setFaceValue(1);
         shaker.incrementDoublesInARow();
         assertEquals(shaker.getDoublesInARow(),1);
+
+        shaker.getDice()[0].setFaceValue(2);
+        shaker.getDice()[1].setFaceValue(2);
+        shaker.incrementDoublesInARow();
+        assertEquals(shaker.getDoublesInARow(),2);
+
+        shaker.getDice()[0].setFaceValue(6);
+        shaker.getDice()[1].setFaceValue(4);
+        shaker.incrementDoublesInARow();
+        assertEquals(shaker.getDoublesInARow(),0);
     }
 
 
