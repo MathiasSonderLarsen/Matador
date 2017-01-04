@@ -11,14 +11,14 @@ package Game;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.2
+ * @version v.0.3
  */
 public class Shaker {
 
     private final Die[] dice;
     //Initializing variables
     private int sum;
-    private int doublesInARow=0;
+    private int doublesInARow = 0;
 
 
     /**
@@ -42,6 +42,7 @@ public class Shaker {
             die.roll();
             sum += die.getFaceValue();
         }
+        incrementDoublesInARow();
     }
 
     /**
@@ -66,13 +67,23 @@ public class Shaker {
      * Checks how many times in a row the Die results in doubles (1-1,2-2,3-3...)
      */
 
-    public Die[] getDoublesInARow() { return doublesInARow; }
+    public int getDoublesInARow() {
+        return doublesInARow;
+    }
 
     /**
      * Increments the doubles in a row counter
      */
-    public void incrementDoublesInARow(){
-       int doublesInARow = doublesInARow++;
+
+    public void incrementDoublesInARow() {
+        if (dice[0].getFaceValue() == dice[1].getFaceValue();) {
+            int doublesInARow = doublesInARow++;
+        }
+        else
+        {
+            doublesInARow=0;
+        }
+
     }
 }
 
