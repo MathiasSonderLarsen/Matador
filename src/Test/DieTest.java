@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 
 /**
@@ -15,7 +15,12 @@ import static org.junit.Assert.assertEquals;
  * <p>
  * Bugs: none known
  *
- * @author Mathias Larsen, Timothy Rasmussen.
+ * @author Mathias S Larsen (2016)
+ * @author Casper Bodskov
+ * @author Lasse Dyrsted
+ * @author Michael Klan
+ * @author Rasmus Blichfeldt
+ * @author Timothy Rasmussen
  * @version v.0.2
  */
 
@@ -50,6 +55,7 @@ public class DieTest {
         die = new Die();
 
     }
+
 
     // Declares variables
     @Test
@@ -115,5 +121,19 @@ public class DieTest {
 
 
     }
+    public void testEntities() {
+        assertNotNull(Die);
+        assertTrue(die instanceof Die);
+    }
+
+    /**
+     * Tests if setFaceValue and getFaceValue works.
+     */
+
+    public void testFaceValue(){
+        die.setFaceValue(5);
+        assertEquals(5,die.getFaceValue());
+    }
+
 
 }

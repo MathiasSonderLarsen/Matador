@@ -14,7 +14,7 @@ import java.util.Random;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.2
+ * @version v.0.3
  */
 public class Die {
 
@@ -42,7 +42,8 @@ public class Die {
 
         return faceValue;
     }
-    public int setFaceValue(){
+    public int setFaceValue(int fValue){
+        faceValue=faceValue=fValue;
         return faceValue;
     }
 
