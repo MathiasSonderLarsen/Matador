@@ -97,12 +97,12 @@ public abstract class Ownable extends Field {
             final String answer2 = Language.getString("yes");
 
             // Checks whether the player wants to buy
-            if (InterfaceController.getUserButtonPressed(question, answer1, answer2) == answer2) {
+            if (BoundaryController.getUserButtonPressed(question, answer1, answer2) == answer2) {
 
                 player.addBalance(-price);
                 player.addRealEstateValue(price);
                 this.setOwner(player);
-                InterfaceController.showMessage(player.getName() + " " + Language.getString("bought") + " " + getName());
+                BoundaryController.showMessage(player.getName() + " " + Language.getString("bought") + " " + getName());
 
             }
         }

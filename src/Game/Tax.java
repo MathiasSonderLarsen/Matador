@@ -62,7 +62,7 @@ public class Tax extends Field {
         final String answer1 = taxAmount + "";
         final String answer2 = "10%";
 
-        if (taxRate != 1.0f && InterfaceController.getUserSelection(question, answer1, answer2) == answer2) {
+        if (taxRate != 1.0f && Game.BoundaryController.getUserSelection(question, answer1, answer2) == answer2) {
             player.addBalance(relativeTax);
 
         } else {

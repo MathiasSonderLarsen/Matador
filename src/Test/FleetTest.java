@@ -32,7 +32,7 @@ public class FleetTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        InterfaceController.setInterfaceMode(InterfaceController.Mode.Test);
+        BoundaryController.setInterfaceMode(BoundaryController.Mode.Test);
         Language.setLanguage("english");
     }
 
@@ -147,7 +147,7 @@ public class FleetTest {
         assertEquals(expected, actual);
 
         //player1 buys fleet 1
-        InterfaceController.setPreDefinedAnswer(Language.getString("yes"));
+        BoundaryController.setPreDefinedAnswer(Language.getString("yes"));
         this.fleet1.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
@@ -174,7 +174,7 @@ public class FleetTest {
          * owner ship of 2 fleets
          */
         //player1 buys fleet 1
-        InterfaceController.setPreDefinedAnswer(Language.getString("yes"));
+        BoundaryController.setPreDefinedAnswer(Language.getString("yes"));
         this.fleet2.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
@@ -200,7 +200,7 @@ public class FleetTest {
          * owner ship of 3 fleets
          */
         //player1 buys fleet 1
-        InterfaceController.setPreDefinedAnswer(Language.getString("yes"));
+        BoundaryController.setPreDefinedAnswer(Language.getString("yes"));
         this.fleet3.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
@@ -226,7 +226,7 @@ public class FleetTest {
          * owner ship of 4 fleets
          */
         //player1 buys fleet 1
-        InterfaceController.setPreDefinedAnswer(Language.getString("yes"));
+        BoundaryController.setPreDefinedAnswer(Language.getString("yes"));
         this.fleet4.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
