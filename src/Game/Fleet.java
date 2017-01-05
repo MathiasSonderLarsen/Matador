@@ -11,15 +11,12 @@ package Game;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.3
+ * @version v.0.4
  */
 
 public class Fleet extends Ownable {
 
-    private final int RENT_1 = 500;
-    private final int RENT_2 = 1000;
-    private final int RENT_3 = 2000;
-    private final int RENT_4 = 4000;
+    private final int[] rent = {500, 1000, 2000, 4000};
 
     public Fleet(int number, String name, int price) {
 
@@ -31,13 +28,13 @@ public class Fleet extends Ownable {
     public int getRent() {
         switch (GameController.getGameBoard().getNoOfFleetsOwned(this.getOwner())) {
             case 1:
-                return RENT_1;
+                return rent[0];
             case 2:
-                return RENT_2;
+                return rent[1];
             case 3:
-                return RENT_3;
+                return rent[2];
             case 4:
-                return RENT_4;
+                return rent[3];
             default:
                 return 0; //Should never happen
         }
