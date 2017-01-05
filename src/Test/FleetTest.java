@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.4
+ * @version v.0.5
  */
 public class FleetTest {
 
@@ -141,7 +141,7 @@ public class FleetTest {
         /**
          * ownership of 1 fleet
          */
-        // testes that tha start balance i correct.
+        // testes that that start balance i correct.
         int expected = 30000;
         int actual = this.player1.getBalance();
         assertEquals(expected, actual);
@@ -150,12 +150,12 @@ public class FleetTest {
         InterfaceController.setPreDefinedAnswer(Language.getString("yes"));
         this.fleet1.landOnField(this.player1);
 
-        //tests that the price of the field have been trancfered.
+        //tests that the price of the field have been transferred.
         expected = 26000;
         actual = this.player1.getBalance();
         assertEquals(expected, actual);
 
-        //tests that the ownership has been terancfered
+        //tests that the ownership has been transferred.
         Player expectedOwner = player1;
         Player actualOwner = fleet1.getOwner();
         assertEquals(expectedOwner, actualOwner);
@@ -177,12 +177,12 @@ public class FleetTest {
         InterfaceController.setPreDefinedAnswer(Language.getString("yes"));
         this.fleet2.landOnField(this.player1);
 
-        //tests that the price of the field have been trancfered.
+        //tests that the price of the field have been transferred.
         expected = 22500;
         actual = this.player1.getBalance();
         assertEquals(expected, actual);
 
-        //tests that the ownership has been terancfered
+        //tests that the ownership has been transferred
         expectedOwner = player1;
         actualOwner = fleet2.getOwner();
         assertEquals(expectedOwner, actualOwner);
@@ -203,12 +203,12 @@ public class FleetTest {
         InterfaceController.setPreDefinedAnswer(Language.getString("yes"));
         this.fleet3.landOnField(this.player1);
 
-        //tests that the price of the field have been trancfered.
+        //tests that the price of the field have been transferred.
         expected = 19500;
         actual = this.player1.getBalance();
         assertEquals(expected, actual);
 
-        //tests that the ownership has been terancfered
+        //tests that the ownership has been transferred.
         expectedOwner = player1;
         actualOwner = fleet3.getOwner();
         assertEquals(expectedOwner, actualOwner);
@@ -229,12 +229,12 @@ public class FleetTest {
         InterfaceController.setPreDefinedAnswer(Language.getString("yes"));
         this.fleet4.landOnField(this.player1);
 
-        //tests that the price of the field have been trancfered.
+        //tests that the price of the field have been transferred.
         expected = 17500;
         actual = this.player1.getBalance();
-        assertEquals(expected, actual); /////////// fail
+        assertEquals(expected, actual);
 
-        //tests that the ownership has been terancfered
+        //tests that the ownership has been transferred.
         expectedOwner = player1;
         actualOwner = fleet4.getOwner();
         assertEquals(expectedOwner, actualOwner);
