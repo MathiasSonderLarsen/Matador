@@ -11,7 +11,7 @@ package Game;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.3
+ * @version v.0.4
  */
 public class Shaker {
 
@@ -76,13 +76,18 @@ public class Shaker {
      */
 
     public void incrementDoublesInARow() {
-        if (dice[0].getFaceValue() == dice[1].getFaceValue();) {
-            int doublesInARow = doublesInARow++;
+
+            if (dice[0].getFaceValue() == dice[1].getFaceValue()) {
+
+                doublesInARow = doublesInARow++;
+            }
+            else {
+                doublesInARow=0;
+            }
+
         }
-        else
-        {
-            doublesInARow=0;
-        }
+
+
 
     }
 }
