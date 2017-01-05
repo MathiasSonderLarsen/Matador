@@ -39,7 +39,7 @@ public class Tax extends Field {
      * @param totalValue The total value of the player
      * @return The amount of money the player needs to pay
      */
-    private calcuateRelativeTax(int totalValue) {
+    private void calcuateRelativeTax(int totalValue) {
         relativeTax = (int) (totalValue * -taxRate);
     }
 
@@ -68,20 +68,5 @@ public class Tax extends Field {
         } else {
             player.addBalance(-taxAmount);
         }
-
-        //InterfaceController.showMessage(Language.getString("landed") + getName());
-
     }
 }
-
-
-
-/* Percent tax calculation
-int tax = (int) value*(10.0f/100.0f)
-where 10.0f is the percentage, value is the amount of points the player has
-and tax is the final calculated tax.
-Then
-taxRate = -1
-taxRate*tax= finalTaxation
-- that with the player's points either here or in another class. (eg. account)
- */
