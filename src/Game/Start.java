@@ -6,11 +6,11 @@ package Game;
  * Bugs: none known
  *
  * @author Lasse Dyrsted
- * @version v.0.2
+ * @version v.0.3
  */
 public class Start extends Field {
 
-    static final int START_BONUS = 4000;
+    final static int START_BONUS = 4000;
 
     public Start(String name) {
         super(name);
@@ -21,5 +21,7 @@ public class Start extends Field {
 
     }
 
-    // TODO: 05-01-2017 Implement Start bonus.
+    public int getStartBonus() {
+        return START_BONUS;
+    }
 }
