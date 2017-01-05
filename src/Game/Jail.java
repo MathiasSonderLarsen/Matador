@@ -14,7 +14,7 @@ import java.util.List;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.1
+ * @version v.0.2
  */
 
 
@@ -25,6 +25,10 @@ public class Jail{
     private ArrayList<Player> jailedPlayers;
 
     public void landOnField(Player player) {
+    }
+
+    private void jailedPlayer.push(player){
+
     }
 
     public boolean getIsJailed(Player player){
