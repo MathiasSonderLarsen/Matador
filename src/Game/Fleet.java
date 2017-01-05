@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Fleet extends Ownable {
 
     //Declares an array of integers
-    private int[] rentArray = new int[]{500,1000,2000,4000};
+    private final int[] rentArray = new int[]{500,1000,2000,4000};
 
 
     public Fleet(int number, String name, int price) {
