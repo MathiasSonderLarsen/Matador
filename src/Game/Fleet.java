@@ -1,8 +1,5 @@
 package Game;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 /**
  * Keeps track of the balance, and adds/subtracts by the points on the board.
  * <p>
@@ -23,9 +20,9 @@ public class Fleet extends Ownable {
     private final int[] rentArray = new int[]{500,1000,2000,4000};
 
 
-    public Fleet(int number, String name, int price) {
+    public Fleet(String name, int price, int groupID) {
 
-        super(number, name, price);
+        super(name, price, groupID);
 
     }
 
