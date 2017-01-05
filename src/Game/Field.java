@@ -10,19 +10,16 @@ package Game;
  */
 public abstract class Field {
 
-    private final int number;
     private String name;
 
     /**
      * Constructs a Field
      *
-     * @param number the id of the Field
      * @param name   The name of the Field
      */
-    public Field(int number, String name) {
+    public Field(String name) {
 
         this.name = name;
-        this.number = number;
     }
 
     public String getName() {
