@@ -162,17 +162,23 @@ public class ShakerTest {
         shaker.getDice()[0].setFaceValue(1);
         shaker.getDice()[1].setFaceValue(1);
         shaker.incrementDoublesInARow();
-        assertEquals(shaker.getDoublesInARow(),1);
+        int expected = 1;
+        int actual = shaker.getDoublesInARow();
+        assertEquals(expected,actual);
 
         shaker.getDice()[0].setFaceValue(2);
         shaker.getDice()[1].setFaceValue(2);
         shaker.incrementDoublesInARow();
-        assertEquals(shaker.getDoublesInARow(),2);
+        expected = 2;
+        actual = shaker.getDoublesInARow();
+        assertEquals(expected,actual);
 
         shaker.getDice()[0].setFaceValue(6);
         shaker.getDice()[1].setFaceValue(4);
         shaker.incrementDoublesInARow();
-        assertEquals(shaker.getDoublesInARow(),0);
+        expected = 0;
+        actual = shaker.getDoublesInARow();
+        assertEquals(expected,actual);
     }
 
 

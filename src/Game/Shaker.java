@@ -79,7 +79,7 @@ public class Shaker {
 
             if (dice[0].getFaceValue() == dice[1].getFaceValue()) {
 
-                doublesInARow = doublesInARow++;
+                doublesInARow++;
             }
             else {
                 doublesInARow=0;

@@ -60,4 +60,8 @@ public class Player {
         this.outOfJailCards++;
     }
 
+    public Account getAccount(){
+        return this.account;
+    }
+
 }

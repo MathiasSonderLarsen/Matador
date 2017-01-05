@@ -1,10 +1,7 @@
 package Test;
 
 import Game.Die;
-import Game.InterfaceController;
-import Game.Language;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -21,7 +18,7 @@ import static org.junit.Assert.*;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.2
+ * @version v.0.3
  */
 
 public class DieTest {
@@ -33,27 +30,12 @@ public class DieTest {
     private Die die;
 
     /**
-     * Setup for test.
-     */
-
-    @BeforeClass
-    public static void setUpBeforeClass() {
-
-        InterfaceController.setInterfaceMode(InterfaceController.Mode.Test);
-
-        Language.setLanguage("english");
-
-    }
-
-    /**
      * Creates the die object.
      */
 
     @Before
-    public void createDice() {
-
+    public void setUp() {
         die = new Die();
-
     }
 
 
@@ -121,15 +103,16 @@ public class DieTest {
 
 
     }
+    @Test
     public void testEntities() {
-        assertNotNull(Die);
+        assertNotNull(die);
         assertTrue(die instanceof Die);
     }
 
     /**
      * Tests if setFaceValue and getFaceValue works.
      */
-
+    @Test
     public void testFaceValue(){
         die.setFaceValue(5);
         assertEquals(5,die.getFaceValue());
