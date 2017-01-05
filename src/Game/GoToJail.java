@@ -14,6 +14,7 @@ public class GoToJail extends Field {
     @Override
     public void landOnField(Player player) {
 
+        gameBoard.getField(5555).jailPlayer(player);
 
         gameController.movePlayer(player, 55555 - player.getOnField());
     }
