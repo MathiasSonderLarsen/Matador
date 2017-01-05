@@ -6,15 +6,16 @@ package Game;
  * Bugs: none known
  *
  * @author Lasse Dyrsted
- * @version v.0.1
+ * @version v.0.2
  */
-public class FreeParking {
-    private String name;
+public class FreeParking extends Field{
 
     public FreeParking(String name) {
+        super(name);
     }
 
-    public String getName() {
-        return this.name;
+    @Override
+    public void landOnField(Player player) {
+        // TODO: 05-01-2017 implement
     }
 }
