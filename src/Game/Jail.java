@@ -28,7 +28,7 @@ public class Jail{
     }
 
     private void isJailed(){
-        jailedPlayer.push(player)
+        jailedPlayer.push(player);
     }
 
     public boolean getIsJailed(Player player){
