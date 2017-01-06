@@ -1,16 +1,18 @@
 package Test;
 
 import Game.Jail;
-import desktop_codebehind.Player;
+import Game.Player;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Testes the Jail class
  * <p>
  * Bugs: none known
+ *
  * @author Mathias S Larsen (2016)
  * @author Casper Bodskov
  * @author Lasse Dyrsted
@@ -22,16 +24,21 @@ import static org.junit.Assert.*;
 
 public class JailTest {
 
+    private Player player1;
+    private Player player2;
+    private Player player3;
+    private Jail jail;
+
     @Before
-    public void setUp(){
-        this.player1 = new Player("Player1", 30000);
-        this.player2 = new Player("Player2", 30000);
-        this.player3 = new Player("Player3", 30000);
-        this.jail = new Jail();
+    public void setUp() {
+        this.player1 = new Player("Player1");
+        this.player2 = new Player("Player2");
+        this.player3 = new Player("Player3");
+        this.jail = new Jail("Jail");
     }
 
     @Test
-    public void testEntities(){
+    public void testEntities() {
         assertNotNull(this.player1);
         assertNotNull(this.player2);
         assertNotNull(this.player3);
@@ -46,7 +53,7 @@ public class JailTest {
     }
 
     @Test
-    public void getIsJailed(){
+    public void getIsJailed() {
 
     }
 }
