@@ -5,7 +5,7 @@ package Game;
  */
 public class GoToJail extends Field {
 
-    public GoToJail(String name){
+    public GoToJail(String name) {
         super(name);
 
     }
