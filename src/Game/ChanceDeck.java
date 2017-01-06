@@ -11,32 +11,35 @@ package Game;
 
 public class ChanceDeck {
 
-    /**
-     * Setting Variables
-     */
+    // Setting Card Amount
 
     int cardsTotal = 46;
+
+    //Creating chance card array
+
     ChanceCard[] ChanceCards = new ChanceCard[cardsTotal];
+
+    //The constructor
 
     ChanceDeck() {
 
     }
 
-    /**
-     * Creating the method to add Channce cards to the deck
-     */
+    //Adding The function to add the card
 
-    public void addCards() {
-
-        for (int i = 0; i < ChanceCards.length ; i++) {
+    public void setCards() {
 
 
-
-        }
 
     }
 
 
+    public void getCards() {
 
+
+
+    }
 
 }
+
+
