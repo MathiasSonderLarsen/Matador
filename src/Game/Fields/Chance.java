@@ -1,6 +1,8 @@
 package Game.Fields;
 
 
+import java.awt.*;
+
 /**
  * Handles the chance card pile
  * <p>
@@ -15,7 +17,6 @@ package Game.Fields;
  * @version v.0.1
  */
 public class Chance extends Field {
-    private String name;
 
     public Chance(String name, int groupID) {
 
@@ -30,5 +31,12 @@ public class Chance extends Field {
     @Override
     public void landOnField(Game.Player player) {
         // TODO: 05-01-2017 implement
+    }
+
+    public desktop_fields.Chance convertToGUI() {
+        desktop_fields.Chance.Builder a = new desktop_fields.Chance.Builder()
+                .setBgColor(Color.black)
+                .setFgColor(Color.green);
+        return a.build();
     }
 }

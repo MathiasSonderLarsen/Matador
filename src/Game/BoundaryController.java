@@ -216,7 +216,7 @@ public class BoundaryController {
                 desktop_fields.Field[] tempField = new desktop_fields.Field[40];
 
                 for (int i = 0; i < board.length; i++) {
-                    tempField[i] = convertToGUI(board[i]);
+                    tempField[i] = board[i].convertToGUI();
                 }
 
                 // Creates the GUI with the fieldarray
@@ -230,13 +230,7 @@ public class BoundaryController {
 
     }
 
-    public static desktop_fields.Field convertToGUI(Field theField) {
-        desktop_fields.Shipping.Builder a = new desktop_fields.Shipping.Builder()
-                .setTitle(theField.getName())
-                .setPicture(null)
-                .setSubText("");
-        return a.build();
-    }
+
 
     /**
      * Creating new variable type "Mode".

@@ -1,6 +1,7 @@
 package Game.Fields;
 
 
+import java.awt.*;
 
 /**
  * Brewery field: Keeps track on the rent of the field.
@@ -61,6 +62,14 @@ public class Brewery extends Ownable {
     @Override
     public int getRent() {
         return 0;
+    }
+
+    public desktop_fields.Brewery convertToGUI() {
+        desktop_fields.Brewery.Builder a = new desktop_fields.Brewery.Builder()
+                .setTitle(this.getName())
+                // .setBgColor(Color.red)
+                .setSubText(getPrice() + "");
+        return a.build();
     }
 }
 

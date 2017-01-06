@@ -3,6 +3,7 @@ package Game;
 import Game.Fields.Field;
 import Game.Fields.Ownable;
 import com.google.gson.Gson;
+import desktop_resources.GUI;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -36,6 +37,7 @@ public class GameBoard {
         board = loadBoardFromFile("board.cfg");
         BoundaryController.showOnGui(board);
 
+
     }
 
     public Field[] getBoard() {
@@ -66,7 +68,15 @@ public class GameBoard {
 
                 String[] lineSplit = line.split("\\|");
                 loadedFields[i] = g.fromJson(lineSplit[1], (Type) Class.forName("Game.Fields." + lineSplit[0]));
-                loadedFields[i].setName(Language.getString(loadedFields[i].getName()));
+
+                String name ;
+                if (loadedFields[i].getName().length() > 10){
+                    name = loadedFields[i].getName().replace(' ','\n');
+                }else {
+                    name = loadedFields[i].getName();
+                }
+
+                loadedFields[i].setName(name);//Language.getString(loadedFields[i].getName()));
                 i++;
 
             }

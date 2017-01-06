@@ -3,6 +3,7 @@ package Game.Fields;
 
 import Game.Player;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -41,6 +42,14 @@ public class Jail extends Field {
     }
 
     public void landOnField(Player player) {
+    }
+
+    public desktop_fields.Street convertToGUI() {
+        desktop_fields.Street.Builder a = new desktop_fields.Street.Builder()
+                .setTitle(this.getName())
+                .setBgColor(Color.red)
+                .setSubText("");
+        return a.build();
     }
 
 }

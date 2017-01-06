@@ -4,6 +4,7 @@ package Game;
 import Game.Fields.Field;
 import Game.Fields.Jail;
 import desktop_codebehind.Car;
+import desktop_resources.GUI;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -109,7 +110,7 @@ public class GameController {
 
     }
 
-    public void playTurn() {
+    public static void playTurn() {
         initializePlayers();
 
         //loop as long as more than one player is in the game (not bankrupt)
@@ -160,6 +161,6 @@ public class GameController {
 
 
     public static void startGame() {
-        //ting
+        playTurn();
     }
 }

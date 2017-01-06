@@ -1,6 +1,8 @@
 package Game.Fields;
 
 
+import java.awt.*;
+
 /**
  * Keeps track of the balance, and adds/subtracts by the points on the board.
  * <p>
@@ -42,6 +44,13 @@ public class Fleet extends Ownable {
             default:
                 return 0; //Should never happen
         }
+    }
+    public desktop_fields.Shipping convertToGUI() {
+        desktop_fields.Shipping.Builder a = new desktop_fields.Shipping.Builder()
+                .setTitle(this.getName())
+                .setBgColor(Color.red)
+                .setSubText(getPrice()+"");
+        return a.build();
     }
 
 }

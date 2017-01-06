@@ -1,6 +1,8 @@
 package Game.Fields;
 
 
+import java.awt.*;
+
 /**
  * FreeParking class
  * <p>
@@ -18,5 +20,13 @@ public class FreeParking extends Field {
     @Override
     public void landOnField(Game.Player player) {
         // TODO: 05-01-2017 implement
+    }
+
+    public desktop_fields.Jail convertToGUI() {
+        desktop_fields.Jail.Builder a = new desktop_fields.Jail.Builder()
+                .setTitle(this.getName())
+                .setBgColor(Color.red)
+                .setSubText("");
+        return a.build();
     }
 }

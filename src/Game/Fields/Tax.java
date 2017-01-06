@@ -1,6 +1,8 @@
 package Game.Fields;
 
 
+import java.awt.*;
+
 /**
  * Keeps track of the balance, and adds/subtracts by the points on the board.
  * <p>
@@ -68,4 +70,14 @@ public class Tax extends Field {
             player.addBalance(-taxAmount);
         }
     }
+
+
+    public desktop_fields.Tax convertToGUI() {
+        desktop_fields.Tax.Builder a = new desktop_fields.Tax.Builder()
+                .setTitle(this.getName())
+                .setBgColor(Color.yellow)
+                .setSubText(getTaxAmount()+"");
+        return a.build();
+    }
+
 }
