@@ -11,32 +11,21 @@ package Game;
 
 public class ChanceDeck {
 
-    // Setting Card Amount
-
     int cardsTotal = 46;
-
-    //Creating chance card array
-
-    ChanceCard[] ChanceCards = new ChanceCard[cardsTotal];
-
-    //The constructor
+    ChanceCard[] ChanceCards;
 
     ChanceDeck() {
+
+        FileReader fileReader = new FileReader("lol");
+        this.ChanceCards = fileReader.getCards(46);
 
     }
 
     //Adding The function to add the card
 
-    public void setCards() {
+    public void getCard() {
 
-
-
-    }
-
-
-    public void getCards() {
-
-
+        
 
     }
 

@@ -17,14 +17,12 @@ import java.lang.reflect.Type;
 
 public class FileReader {
 
-    private String fileName;
-    Gson gson = new Gson();
-    BufferedReader bufferedReader;
+
+    private Gson gson = new Gson();
+    private BufferedReader bufferedReader;
 
 
     FileReader(String fileName) {
-
-        this.fileName = fileName;
 
         try {
             this.bufferedReader = new BufferedReader(new java.io.FileReader(fileName));
