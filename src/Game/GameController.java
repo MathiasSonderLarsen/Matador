@@ -1,8 +1,9 @@
 package Game;
 
 
+import Game.Fields.Field;
+import Game.Fields.Jail;
 import desktop_codebehind.Car;
-import org.junit.Ignore;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -24,10 +25,19 @@ import java.util.Random;
 
 public class GameController {
     private static int FIELD_COUNT = 40;
-    private static GameBoard gameboard = new Gameboard(FIELD_COUNT);
+
+    /**
+     * Getter for property 'gameBoard'.
+     *
+     * @return Value for property 'gameBoard'.
+     */
+    public static GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    private static GameBoard gameBoard = new GameBoard(FIELD_COUNT);
     private static Shaker shaker = new Shaker(2);
     private static Player currentPlayer;
-    private static int START_BALANCE = 30000;
     private static ArrayList<Player> players = new ArrayList<Player>();
 
 
@@ -36,21 +46,70 @@ public class GameController {
 
     private static void initializePlayers() {
 
-        String numberSelected = InterfaceController.getUserSelection(Language.getString("greeting"), "2", "3", "4", "5", "6");
+        String numberSelected = BoundaryController.getUserSelection(Language.getString("greeting"), "2", "3", "4", "5", "6");
         int numberOfPlayers = Integer.parseInt(numberSelected);
         for (int i = 0; i < numberOfPlayers; i++) {
-            String name = InterfaceController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
-            players.add(new Player(name, START_BALANCE)); //creates a new player object.
+            String name = BoundaryController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
+            players.add(new Player(name)); //creates a new player object.
 
             // Adds player to the GUI
             // Adds a car object which has a new color, specified by a random-method between the integers 0-255
-            InterfaceController.addPlayer(players.get(i).getName(), START_BALANCE, new Car.Builder()
+            BoundaryController.addPlayer(players.get(i).getName(), new Car.Builder()
                     .primaryColor(randomColor())
                     .build());
         }
     }
 
-    public void playTurn(){
+    public static void checkIfCanMove() {
+        //if (shaker.DoublesInARow())
+    }
+
+    public static void movePlayer(Player thisPlayer, int moveFields) {
+
+        //stores the players location on the gameBoard
+        if (thisPlayer.getOnField() + moveFields <= FIELD_COUNT) {
+            thisPlayer.setOnField(thisPlayer.getOnField() + moveFields);
+        } else {
+            thisPlayer.setOnField(thisPlayer.getOnField() + moveFields - FIELD_COUNT);
+        }
+
+        //"Moves" the car on the board by removing it in the previous location
+        // and then set it to the new location.
+        BoundaryController.removeAllCars(thisPlayer.getName());
+        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+
+    }
+
+    public static Shaker getShaker() {
+        return shaker;
+    }
+
+    private static void displayDice(Shaker shaker) {
+
+        // Declares face values to show the die in the GUI
+        int faceValue1 = shaker.getDice()[0].getFaceValue();
+        int faceValue2 = shaker.getDice()[1].getFaceValue();
+
+
+        // Displays the dice on the board
+        BoundaryController.setDice(faceValue1, faceValue2);
+    }
+
+    private static Color randomColor() {
+        Random random = new Random();
+        return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+    }
+
+    public static void reset() {
+        FIELD_COUNT = 21;
+        gameBoard = new GameBoard(FIELD_COUNT);
+        shaker = new Shaker(2); //creates a shaker with 2 dice.
+        currentPlayer = null;
+        players = new ArrayList<Player>(); //creates an ArrayList that can contain Player objects
+
+    }
+
+    public void playTurn() {
         initializePlayers();
 
         //loop as long as more than one player is in the game (not bankrupt)
@@ -67,18 +126,18 @@ public class GameController {
                 //displays the dice in the GUI
                 displayDice(shaker);
 
-                if (Jail.getJailed(currentPlayer)==false) {
-                    //moves the player's token on the gameboard in the GUI
+                if (Jail.isJailed(currentPlayer) == false) {
+                    //moves the player's token on the gameBoard in the GUI
                     movePlayer(currentPlayer, shaker.getSum());
                 }
 
-                if (shaker.DoublesInARow()>0){
+                if (shaker.getDoublesInARow() > 0) {
                     movePlayer(currentPlayer, shaker.getSum());
                 }
 
                 //controls what happens when the player lands on a specific field.
                 Field currentField = gameBoard.getField(currentPlayer.getOnField());
-                InterfaceController.showMessage(currentPlayer.getName() + " " + Language.getString("landed") + " " + currentField.getName());
+                BoundaryController.showMessage(currentPlayer.getName() + " " + Language.getString("landed") + " " + currentField.getName());
                 currentField.landOnField(currentPlayer);
 
                 //removes bankrupt players from the game
@@ -94,65 +153,13 @@ public class GameController {
         }
 
         //gets displayed when a winner has been found.
-        InterfaceController.showMessage(players.get(0).getName() + " " + Language.getString("won"));
+        BoundaryController.showMessage(players.get(0).getName() + " " + Language.getString("won"));
 
-        InterfaceController.close();
+        BoundaryController.close();
     }
 
 
-
-
-
-
-    public static void checkIfCanMove(){
-        if (shaker.DoublesInARow())
+    public static void startGame() {
+        //ting
     }
-
-    public static void movePlayer(Player thisPlayer, int moveFields) {
-
-        //stores the players location on the gameboard
-        if (thisPlayer.getOnField() + moveFields <= FIELD_COUNT) {
-            thisPlayer.setOnField(thisPlayer.getOnField() + moveFields);
-        } else {
-            thisPlayer.setOnField(thisPlayer.getOnField() + moveFields - FIELD_COUNT);
-        }
-
-        //"Moves" the car on the board by removing it in the previous location
-        // and then set it to the new location.
-        InterfaceController.removeAllCars(thisPlayer.getName());
-        InterfaceController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
-
-    }
-
-    public static Shaker getShaker() {
-        return shaker;
-    }
-
-    private static void displayDice(Shaker shaker) {
-
-        // Declares face values to show the die in the GUI
-        int faceValue1 = shaker.getDice()[0].getFaceValue();
-        int faceValue2 = shaker.getDice()[1].getFaceValue();
-
-
-        // Displays the dice on the board
-        InterfaceController.setDice(faceValue1, faceValue2);
-    }
-
-    private static Color randomColor() {
-        Random random = new Random();
-        return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
-    }
-
-    public static void reset() {
-        FIELD_COUNT = 21;
-        gameBoard = new GameBoard(FIELD_COUNT);
-        shaker = new Shaker(2); //creates a shaker with 2 dice.
-        currentPlayer = null;
-        START_BALANCE = 30000;
-        players = new ArrayList<Player>(); //creates an ArrayList that can contain Player objects
-
-    }
-
-
 }

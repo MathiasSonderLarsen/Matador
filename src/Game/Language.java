@@ -1,6 +1,7 @@
 package Game;
 
 import javax.management.RuntimeErrorException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 
@@ -25,7 +26,7 @@ public class Language {
         // Selects the language through the String variable "inputString"
         switch (selectLanguage) {
             case "english":
-                language = ResourceBundle.getBundle("Language");
+                language = ResourceBundle.getBundle("Language", new Locale("en","US"));
                 break;
             case "English":
                 language = ResourceBundle.getBundle("Language");

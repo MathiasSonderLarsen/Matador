@@ -15,12 +15,11 @@ package Game;
  */
 public class Account {
 
-    private int balance;
     private final int START_BALANCE = 30000;
+    private int balance;
 
     /**
      * Sets the initial balance of the two players
-     *
      */
     public Account() {
 

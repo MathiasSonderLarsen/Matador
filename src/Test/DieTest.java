@@ -103,6 +103,7 @@ public class DieTest {
 
 
     }
+
     @Test
     public void testEntities() {
         assertNotNull(die);
@@ -113,9 +114,9 @@ public class DieTest {
      * Tests if setFaceValue and getFaceValue works.
      */
     @Test
-    public void testFaceValue(){
+    public void testFaceValue() {
         die.setFaceValue(5);
-        assertEquals(5,die.getFaceValue());
+        assertEquals(5, die.getFaceValue());
     }
 
 

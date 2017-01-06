@@ -1,5 +1,7 @@
 package Game;
 
+import Game.Fields.Field;
+import Game.Fields.Ownable;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -20,6 +22,7 @@ public class GameBoard {
 
     private final Field[] board;
     private int numberOfFields;
+
     /**
      * The constructor of the class GameBoard
      *
@@ -31,7 +34,7 @@ public class GameBoard {
 
         //board = new Field[numberOfFields];
         board = loadBoardFromFile("board.cfg");
-        InterfaceController.showOnGui(board);
+        BoundaryController.showOnGui(board);
 
     }
 
@@ -101,11 +104,13 @@ public class GameBoard {
         int num = 0;
 
         for (Field theField : board) {
-            if (theField.getGroupID == player.getOnField()) {
-                if (theField.getOwner() == player) {
+            if ((theField instanceof Ownable) && ((Ownable) theField).getGroupID() == player.getOnField()) {
+                if (((Ownable) theField).getOwner() == player) {
                     num++;
                 }
             }
+
+
         }
 
         return num;
@@ -115,7 +120,7 @@ public class GameBoard {
         int num = 0;
 
         for (Field theField : board) {
-            if (theField.getGroupID == groupID) {
+            if (theField.getGroupID() == groupID) {
                 num++;
             }
         }
@@ -134,10 +139,11 @@ public class GameBoard {
 
 
     }
+
     public boolean playerOwnsAllInGroup(Player player, int groupID) {
-        if(getNumberOfPropertiesInGroup(groupID) == getNumInGroupOwned(player, groupID))
+        if (getNumberOfPropertiesInGroup(groupID) == getNumInGroupOwned(player, groupID))
             return true;
-        else{
+        else {
             return false;
         }
     }

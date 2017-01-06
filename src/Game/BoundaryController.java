@@ -1,8 +1,7 @@
 package Game;
 
+import Game.Fields.Field;
 import desktop_codebehind.Car;
-import desktop_fields.Empty;
-import desktop_fields.Shipping;
 import desktop_resources.GUI;
 
 
@@ -17,24 +16,11 @@ import desktop_resources.GUI;
 public class BoundaryController {
 
     /**
-     * Creating new variable type "Mode".
-     */
-    public enum Mode {
-
-        //Two types of modes
-
-        GUI,
-        Test
-
-    }
-
-    /**
      * Setting variables for BoundaryController.
      */
 
     private static Mode mode;
     private static String preDefinedAnswer;
-
     private BoundaryController() {
     }
 
@@ -68,11 +54,11 @@ public class BoundaryController {
      * @param car           The players car object.
      */
 
-    public static void addPlayer(String name, int start_balance, Car car) {
+    public static void addPlayer(String name, Car car) {
         switch (mode) {
 
             case GUI:
-                GUI.addPlayer(name, start_balance, car);
+                //GUI.addPlayer(name, start_balance, car);
                 break;
 
             case Test:
@@ -250,6 +236,18 @@ public class BoundaryController {
                 .setPicture(null)
                 .setSubText("");
         return a.build();
+    }
+
+    /**
+     * Creating new variable type "Mode".
+     */
+    public enum Mode {
+
+        //Two types of modes
+
+        GUI,
+        Test
+
     }
 
 }

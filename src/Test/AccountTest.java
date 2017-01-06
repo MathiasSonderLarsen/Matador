@@ -1,14 +1,11 @@
 package Test;
 
 import Game.Account;
-import Game.Die;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Tests the Account class
@@ -34,7 +31,7 @@ public class AccountTest {
     }
 
     @Before
-    public void createAccount(){
+    public void createAccount() {
 
         account = new Account();
     }
@@ -46,7 +43,7 @@ public class AccountTest {
     }
 
     @Test
-    public void startingBalance(){
+    public void startingBalance() {
 
         int balance = account.getBalance();
 
@@ -54,7 +51,7 @@ public class AccountTest {
     }
 
     @Test
-    public void changeBalance(){
+    public void changeBalance() {
 
         int balanceAdded = 1000;
 
@@ -67,7 +64,6 @@ public class AccountTest {
         assertEquals(balanceAdded + oldBalance, newBalance);
 
     }
-
 
 
 }

@@ -53,15 +53,15 @@ public class Player {
         return account.getBalance();
     }
 
-    public int getOutOfJailCards(){
+    public int getOutOfJailCards() {
         return outOfJailCards;
     }
 
-    public void setOutOfJailCards(){
+    public void setOutOfJailCards() {
         this.outOfJailCards++;
     }
 
-    public Account getAccount(){
+    public Account getAccount() {
         return this.account;
     }
 
