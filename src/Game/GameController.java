@@ -154,7 +154,7 @@ public class GameController {
             switch (answer){
                 case "Rul 2 ens":
                     shaker.shake();
-                    if(shaker.getDice()[0] == shaker.getDice()[1]){
+                    if(shaker.getDoublesInARow() > 0){
                         Jail.removePlayer(player);
                     }
                     break;
