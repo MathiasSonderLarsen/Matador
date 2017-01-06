@@ -13,7 +13,7 @@ import java.util.Random;
 /**
  * GameController controls the main flow of the game
  * <p>
- * Bugs: none known
+ * Bugs: If a player gets bankrupt, the player before him get an extra turn.
  *
  * @author Mathias S Larsen (2016)
  * @author Casper Bodskov
@@ -61,10 +61,6 @@ public class GameController {
         }
     }
 
-    public static void checkIfCanMove() {
-        //if (shaker.DoublesInARow())
-    }
-
     public static void movePlayer(Player thisPlayer, int moveFields) {
 
         //stores the players location on the gameBoard
@@ -110,16 +106,7 @@ public class GameController {
 
     }
 
-    public static void playTurn() {
-        initializePlayers();
-
-        //loop as long as more than one player is in the game (not bankrupt)
-        while (players.size() > 1) {
-
-            //go through all the players.
-
-            for (int i = 0; i < players.size(); i++) {
-                currentPlayer = players.get(i);
+    public static void playTurn(Player player) {
 
                 //rolls the dice
                 shaker.shake();
@@ -127,40 +114,90 @@ public class GameController {
                 //displays the dice in the GUI
                 displayDice(shaker);
 
-                if (Jail.isJailed(currentPlayer) == false) {
+                if (Jail.isJailed(player) == false) {
+
                     //moves the player's token on the gameBoard in the GUI
-                    movePlayer(currentPlayer, shaker.getSum());
+                    movePlayer(player, shaker.getSum());
+
+                } else {
+
+                    // Your options in jail
+                    // SKAL IND I LANGUAGE
+                    String answer = BoundaryController.getUserButtonPressed("Sådan kommer du ud af fængsel:",
+                            "Rul 2 ens", "Betal 4000 points", "Brug ud af fængsel kort");
+
+                    switch (answer){
+                        case "Rul 2 ens":
+                            shaker.shake();
+                            if(shaker.getDice()[0] == shaker.getDice()[1]){
+                                Jail.removePlayer(player);
+                            }
+                            break;
+                        case "Betal 4000 points":
+                            player.addBalance(-4000);
+                            Jail.removePlayer(player);
+                            break;
+                        case "Brug ud af fængsel kort":
+                            player.setOutOfJailCards(-1);
+                            Jail.removePlayer(player);
+                            break;
+                        default: System.out.println("Should never happen");
+
+                    }
+                    // Adds jailRound to the player if he still is in jail (Because he rolls dice)
+                    if(Jail.isJailed(player)){
+                        player.addRoundsInJail(1);
+                    }
+
+                    // After 3 rounds in jail, the player must pay bail.
+                    if(player.getRoundsInJail() == 3){
+
+                       player.addBalance(-1000);
+                    }
+
                 }
+
+                //Controls what happens when the player lands on a specific field.
+                Field currentField = gameBoard.getField(player.getOnField());
+                BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
+                currentField.landOnField(player);
+
+                //Removes bankrupt players from the game
+                if (player.getBalance() <= 0) {
+                    players.remove(player);
+                    gameBoard.deleteOwnership(player);
+                }
+
+    }
+
+
+    public static void startGame() {
+
+        // Adds players to the game
+        initializePlayers();
+
+        // While there is more than one person standing
+        while(players.size() > 1){
+
+            // For every player in the game
+            for (int i = 0; i < players.size(); i++) {
+                currentPlayer = players.get(i);
+
+                playTurn(currentPlayer);
 
                 if (shaker.getDoublesInARow() > 0) {
-                    movePlayer(currentPlayer, shaker.getSum());
-                }
 
-                //controls what happens when the player lands on a specific field.
-                Field currentField = gameBoard.getField(currentPlayer.getOnField());
-                BoundaryController.showMessage(currentPlayer.getName() + " " + Language.getString("landed") + " " + currentField.getName());
-                currentField.landOnField(currentPlayer);
-
-                //removes bankrupt players from the game
-                if (currentPlayer.getBalance() <= 0) {
-                    players.remove(currentPlayer);
-                    gameBoard.deleteOwnership(currentPlayer);
-                    // Gives the next person the turn, instead of resetting "i".
-                    --i;
+                    playTurn(currentPlayer);
                 }
 
             }
 
         }
 
-        //gets displayed when a winner has been found.
-        BoundaryController.showMessage(players.get(0).getName() + " " + Language.getString("won"));
+        // Gets displayed when a winner has been found. SKAL OGSÅ IND I LANGUAGE
+        BoundaryController.showMessage(players.get(0).getName() + " " + Language.getString("Vandt!"));
 
         BoundaryController.close();
-    }
 
-
-    public static void startGame() {
-        playTurn();
     }
 }
