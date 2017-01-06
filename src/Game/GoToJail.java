@@ -5,7 +5,7 @@ package Game;
  */
 public class GoToJail extends Field {
 
-    public GoToJail(String name){
+    public GoToJail(String name) {
         super(name);
 
     }
@@ -14,7 +14,7 @@ public class GoToJail extends Field {
     @Override
     public void landOnField(Player player) {
 
-        gameBoard.getField(5555).jailPlayer(player);
+        gameBoard.getField(5555).isJaild(player);
 
         gameController.movePlayer(player, 55555 - player.getOnField());
     }

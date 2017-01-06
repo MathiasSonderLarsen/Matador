@@ -1,0 +1,40 @@
+1 Start|{"groupID":1,"name":"Start"}
+2 Territory|{"groupID":2,"name":"Rødovervej","rent":[100,1h,2h,3h,4h,5h],"housePrice": 1000 ,"price":1200}
+3 Chance|{"groupID":3,"name":"Prøv lykken"}
+4 Territory|{"groupID":2,"name":"Hvidovervej","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":1200}
+5 Tax|{"groupID":4,"name":"Indkomstskat","taxAmount":4000,"taxRate":0.1}
+6 Fleet|{"groupID":5,"name":"Scanliens","price":4000,"rent":{500,1000,2000,4000}}
+7 Territory|{"groupID":7,"name":"Roskildevej","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":2000}
+8 Chance|{"groupID":3,"name":"Prøv lykken"}
+9 Territory|{"groupID":6,"name":"Valby Langgade","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":2000}
+10 Territory|{"groupID":6,"name":"Allégade","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":2400}
+11 Jail|{"groupID":7,"name":"Fængsel"}
+12 Territory|{"groupID":8,"name":"Frederiksberg Allé","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":2800}
+13 Brewery|{"groupID":9,"name":"Tuborg","baseRent":100,"price":3000}
+14 Territory|{"groupID":8,"name":"Büowsvej","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":2800}
+15 Territory|{"groupID":8,"name":"Gl. Kongevej","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":3200}
+16 Fleet|{"groupID":5,"name":"Mols-Linien","price":4000,"rent":{500,1000,2000,4000}}
+17 Territory|{"groupID":10,"name":"Bernstorffsvej","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":3600}
+18 Chance|{"groupID":3,"name":"Prøv lykken"}
+19 Territory|{"groupID":10,"name":"Hellerupvej","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":3600}
+20 Territory|{"groupID":10,"name":"Strandvejen","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":4000}
+21 FreeParking|{"groupID":11,"name":"Parkering"}
+22 Territory|{"groupID":12,"name":"Trianglen","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":4400}
+23 Chance|{"groupID":3,"name":"Prøv lykken"}
+24 Territory|{"groupID":12,"name":"Østerbrogade","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":4400}
+25 Territory|{"groupID":12,"name":"Grønningen","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":4800}
+26 Fleet|{"groupID":5,"name":"Scandlines","price":4000,"rent":{500,1000,2000,4000}}
+27 Territory|{"groupID":13,"name":"Bredgade","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":5200}
+28 Territory|{"groupID":13,"name":"Kgs. Nytorv","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":5200}
+29 Brewery|{"groupID":9,"name":"CocaCola","baseRent":100,"price":3000}
+30 Territory|{"groupID":13,"name":"Østergade","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":5600}
+31 GoToJail|{"groupID":10,"name":"De fængsles"}
+32 Territory|{"groupID":14,"name":"Amagertorv","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":6000}
+33 Territory|{"groupID":14,"name":"Vimmelskarftet","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":6000}
+34 Chance|{"groupID":3,"name":"Prøv lykken"}
+35 Territory|{"groupID":14,"name":"Nygade","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":6400}
+36 Fleet|{"groupID":5,"name":"Scandlines","price":4000,"rent":{500,1000,2000,4000}}
+37 Chance|{"groupID":3,"name":"Prøv lykken"}
+38 Territory|{"groupID":15,"name":"Frederiksberg gade","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":7000}
+39 Tax|{"groupID":4,"name":"Indkomstskat","taxAmount":2000,"taxRate":1.0}
+38 Territory|{"groupID":15,"name":"Rådhuspladsen","rent":{100,1h,2h,3h,4h,5h},"housePrice": 1000 ,"price":8000}
