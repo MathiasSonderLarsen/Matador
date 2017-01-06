@@ -1,5 +1,7 @@
 package Game;
 
+import java.util.Random;
+
 /**
  * Keeps track of the balance, and adds/subtracts by the points on the board.
  *
@@ -11,8 +13,8 @@ package Game;
 
 public class ChanceDeck {
 
-    int cardsTotal = 46;
     ChanceCard[] ChanceCards;
+    private final Random rand = new Random();
 
     ChanceDeck() {
 
@@ -23,9 +25,11 @@ public class ChanceDeck {
 
     //Adding The function to add the card
 
-    public void getCard() {
+    public ChanceCard getCard() {
 
-        
+        int randomNumber = rand.nextInt(46);
+
+        return ChanceCards[randomNumber];
 
     }
 
