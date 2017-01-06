@@ -14,24 +14,27 @@ import java.util.List;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.3
+ * @version v.0.4
  */
 
 
-public class Jail{
-    public Jail(String name){
+public class Jail extends Field{
+
+    private static ArrayList<Player> jailedPlayers;
+
+    public Jail(String name) {
         super(name);
     }
-    private ArrayList<Player> jailedPlayers;
 
-    public void landOnField(Player player) {
-    }
 
-    private void isJailed(){
-        jailedPlayer.push(player);
-    }
+    public void landOnField(Player player) {}
 
-    public boolean getIsJailed(Player player){
+    public static void addPlayer(Player player){jailedPlayers.add(player);}
+
+    public static void removePlayer(Player player) {jailedPlayers.remove(player);}
+
+    public static boolean isJailed(Player player){
         return jailedPlayers.contains(player);
     }
+
 }

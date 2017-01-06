@@ -40,12 +40,12 @@ public abstract class Ownable extends Field {
      * Calculated the Prawn value
      * @return the money amount you get for prawning the ownable.
      */
-    private int calculatePrawnValue(){
+    private int calculatePawnValue(){
         return price / 2;
     }
 
     public int getPawnPrice(){
-        return calculatePrawnValue();
+        return calculatePawnValue();
     }
 
     /**

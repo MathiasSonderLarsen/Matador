@@ -48,6 +48,7 @@ public class Player {
     public void addBalance(int balance) {
         account.addBalance(balance);
     }
+
     public int getBalance() {
         return account.getBalance();
     }
