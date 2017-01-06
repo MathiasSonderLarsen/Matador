@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.2
+ * @version v.0.3
  */
 public class TerritoryTest {
 
@@ -34,8 +34,8 @@ public class TerritoryTest {
     public void setUp(){
 
         rentArrayT1 = new int[]{100, 200, 300, 400, 500, 1000};
-        rentArrayT1 = new int[]{100, 200, 300, 400, 500, 1000};
-        rentArrayT1 = new int[]{200, 400, 500, 600, 700, 1500};
+        rentArrayT2 = new int[]{100, 200, 300, 400, 500, 1000};
+        rentArrayT3 = new int[]{200, 400, 500, 600, 700, 1500};
 
         this.player = new Player("Player1");
 
@@ -93,7 +93,7 @@ public class TerritoryTest {
      * increments dependent on how many houses/hotels is on it and can be returned
      */
     @Test
-    public void getRent(){ //RET MED RIGTIG RENT
+    public void getRent(){
         int actual, expected;
 
         // Case: return rent with 0 houses on territory
@@ -196,19 +196,19 @@ public class TerritoryTest {
      * to the description in appendix XXX
      */
     @Test
-    public void getHousePrice(){ //RET MED HUSPRISER
+    public void getHousePrice(){
         int actual, expected;
 
         actual = territory1.getHousePrice();
-        expected = 1000;
+        expected = 500;
         assertEquals(expected, actual);
 
         actual = territory2.getHousePrice();
-        expected = 1000;
+        expected = 500;
         assertEquals(expected, actual);
 
         actual = territory3.getHousePrice();
-        expected = 1000;
+        expected = 600;
         assertEquals(expected, actual);
 
     }
