@@ -17,11 +17,14 @@ public class Chance extends Field {
     private String name;
 
     public Chance(String name) {
+
+        super(name);
     }
 
     public String getName() {
         return this.name;
     }
+
     @Override
     public void landOnField(Player player) {
         // TODO: 05-01-2017 implement
