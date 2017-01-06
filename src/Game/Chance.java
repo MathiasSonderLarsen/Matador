@@ -1,7 +1,7 @@
 package Game;
 
 /**
- * Is responsible for choosing the chance card
+ * Handles the chance card pile
  * <p>
  * Bugs: none known
  *
@@ -11,14 +11,14 @@ package Game;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.2
+ * @version v.0.1
  */
 public class Chance extends Field {
     private String name;
 
-    public Chance(String name, int groupID) {
+    public Chance(String name) {
 
-        super(name, groupID);
+        super(name);
     }
 
     public String getName() {
