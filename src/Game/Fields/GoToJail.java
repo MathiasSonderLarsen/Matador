@@ -17,9 +17,9 @@ public class GoToJail extends Field {
     @Override
     public void landOnField(Game.Player player) {
 
-        ((Jail) Game.GameController.getGameBoard().getField(5555)).isJailed(player);
+        ((Jail) Game.GameController.getGameBoard().getField(11)).isJailed(player);
 
-        Game.GameController.movePlayer(player, 55555 - player.getOnField());
+        Game.GameController.movePlayer(player, 11 - player.getOnField());
     }
 
     public desktop_fields.Jail convertToGUI() {

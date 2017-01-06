@@ -54,11 +54,11 @@ public class BoundaryController {
      * @param car           The players car object.
      */
 
-    public static void addPlayer(String name, Car car) {
+    public static void addPlayer(String name,int start_balance, Car car) {
         switch (mode) {
 
             case GUI:
-                //GUI.addPlayer(name, start_balance, car);
+                GUI.addPlayer(name, start_balance, car);
                 break;
 
             case Test:

@@ -1,6 +1,8 @@
 package Game.Fields;
 
 
+import Game.BoundaryController;
+import Game.Language;
 import Game.Player;
 
 /**
@@ -83,7 +85,7 @@ public abstract class Ownable extends Field {
      */
     public void landOnField(Game.Player player) {
         // TODO: 05-01-2017 add code
-/*
+
         // No one owns the field and the player has the money to buy it
         if (owner == null && price <= player.getBalance()) {
 
@@ -105,10 +107,10 @@ public abstract class Ownable extends Field {
             }
         }
         //Someone else owns the field
-        if (owner != player && owner != null) {
+        if (owner != player && owner != null && Jail.isJailed(owner)) {
             player.addBalance(-getRent());
             owner.addBalance(getRent());
         }
-*/
+
     }
 }

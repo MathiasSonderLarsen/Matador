@@ -1,6 +1,8 @@
 package Game.Fields;
 
 
+import Game.Player;
+
 import java.awt.*;
 
 /**
@@ -64,6 +66,12 @@ public class Territory extends Ownable {
         return numOfHouses;
     }
 
+    @Override
+    public void landOnField(Player player){
+        super.landOnField(player);
+
+
+    }
 
     public desktop_fields.Street convertToGUI() {
         desktop_fields.Street.Builder a = new desktop_fields.Street.Builder()

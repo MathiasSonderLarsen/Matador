@@ -23,7 +23,8 @@ import java.util.ArrayList;
 
 public class Jail extends Field {
 
-    private static ArrayList<Game.Player> jailedPlayers;
+    private static ArrayList<Player> jailedPlayers = new ArrayList<Player>();
+
 
     public Jail(String name, int groupID) {
         super(name, groupID);
@@ -38,7 +39,8 @@ public class Jail extends Field {
     }
 
     public static boolean isJailed(Player player) {
-        return jailedPlayers.contains(player);
+        boolean a = jailedPlayers.contains(player);
+        return a;
     }
 
     public void landOnField(Player player) {

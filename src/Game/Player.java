@@ -22,6 +22,7 @@ public class Player {
     public Player(String playerName) {
         name = playerName;
         account = new Account();
+
     }
 
     public int getRealEstateValue() {

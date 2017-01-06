@@ -1,6 +1,9 @@
 package Game.Fields;
 
 
+import Game.GameController;
+import Game.Player;
+
 import java.awt.*;
 
 /**
@@ -18,8 +21,10 @@ public class FreeParking extends Field {
     }
 
     @Override
-    public void landOnField(Game.Player player) {
-        // TODO: 05-01-2017 implement
+    public void landOnField(Player player) {
+
+        GameController.playTurn(player);
+
     }
 
     public desktop_fields.Jail convertToGUI() {

@@ -47,17 +47,23 @@ public class GameController {
 
     private static void initializePlayers() {
 
+
+
         String numberSelected = BoundaryController.getUserSelection(Language.getString("greeting"), "2", "3", "4", "5", "6");
         int numberOfPlayers = Integer.parseInt(numberSelected);
         for (int i = 0; i < numberOfPlayers; i++) {
-            String name = BoundaryController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
+            String name = "Kurt"+i;//BoundaryController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
             players.add(new Player(name)); //creates a new player object.
 
+            Player thisPlayer=players.get(i);
             // Adds player to the GUI
             // Adds a car object which has a new color, specified by a random-method between the integers 0-255
-            BoundaryController.addPlayer(players.get(i).getName(), new Car.Builder()
+            BoundaryController.addPlayer(thisPlayer.getName(),thisPlayer.getBalance(), new Car.Builder()
                     .primaryColor(randomColor())
                     .build());
+
+            BoundaryController.setCar(1, thisPlayer.getName());
+
         }
     }
 
@@ -66,6 +72,8 @@ public class GameController {
     }
 
     public static void movePlayer(Player thisPlayer, int moveFields) {
+
+        int playerPos = thisPlayer.getOnField();
 
         //stores the players location on the gameBoard
         if (thisPlayer.getOnField() + moveFields <= FIELD_COUNT) {
@@ -76,8 +84,20 @@ public class GameController {
 
         //"Moves" the car on the board by removing it in the previous location
         // and then set it to the new location.
-        BoundaryController.removeAllCars(thisPlayer.getName());
-        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+//        for (int i = moveFields; i >= 0 ; i--) {
+           BoundaryController.removeAllCars(thisPlayer.getName());
+//           BoundaryController.setCar(thisPlayer.getOnField()-moveFields, thisPlayer.getName());
+
+             BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
+
 
     }
 
@@ -110,7 +130,41 @@ public class GameController {
 
     }
 
-    public static void playTurn() {
+    public static void playTurn(Player player) {
+
+
+        //rolls the dice
+        shaker.shake();
+
+        //displays the dice in the GUI
+        displayDice(shaker);
+
+        if (Jail.isJailed(currentPlayer) == false) {
+            //moves the player's token on the gameBoard in the GUI
+            movePlayer(currentPlayer, shaker.getSum());
+        }
+
+        if (shaker.getDoublesInARow() > 0) {
+            movePlayer(currentPlayer, shaker.getSum());
+        }
+
+        //controls what happens when the player lands on a specific field.
+        Field currentField = gameBoard.getField(currentPlayer.getOnField());
+        BoundaryController.showMessage(currentPlayer.getName() + " " + Language.getString("landed") + " " + currentField.getName());
+        currentField.landOnField(currentPlayer);
+
+        //removes bankrupt players from the game
+        if (currentPlayer.getBalance() <= 0) {
+            players.remove(currentPlayer);
+            gameBoard.deleteOwnership(currentPlayer);
+            // Gives the next person the turn, instead of resetting "i".
+
+        }
+
+    }
+
+
+    public static void startGame() {
         initializePlayers();
 
         //loop as long as more than one player is in the game (not bankrupt)
@@ -121,33 +175,7 @@ public class GameController {
             for (int i = 0; i < players.size(); i++) {
                 currentPlayer = players.get(i);
 
-                //rolls the dice
-                shaker.shake();
-
-                //displays the dice in the GUI
-                displayDice(shaker);
-
-                if (Jail.isJailed(currentPlayer) == false) {
-                    //moves the player's token on the gameBoard in the GUI
-                    movePlayer(currentPlayer, shaker.getSum());
-                }
-
-                if (shaker.getDoublesInARow() > 0) {
-                    movePlayer(currentPlayer, shaker.getSum());
-                }
-
-                //controls what happens when the player lands on a specific field.
-                Field currentField = gameBoard.getField(currentPlayer.getOnField());
-                BoundaryController.showMessage(currentPlayer.getName() + " " + Language.getString("landed") + " " + currentField.getName());
-                currentField.landOnField(currentPlayer);
-
-                //removes bankrupt players from the game
-                if (currentPlayer.getBalance() <= 0) {
-                    players.remove(currentPlayer);
-                    gameBoard.deleteOwnership(currentPlayer);
-                    // Gives the next person the turn, instead of resetting "i".
-                    --i;
-                }
+                playTurn(currentPlayer);
 
             }
 
@@ -157,10 +185,5 @@ public class GameController {
         BoundaryController.showMessage(players.get(0).getName() + " " + Language.getString("won"));
 
         BoundaryController.close();
-    }
-
-
-    public static void startGame() {
-        playTurn();
     }
 }
