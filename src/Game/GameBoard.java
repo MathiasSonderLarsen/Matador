@@ -53,7 +53,7 @@ public class GameBoard {
         try {
             Gson g = new Gson();
 
-            Field[] loadedFields = new Field[21];
+            Field[] loadedFields = new Field[40];
 
             Path relativePath = Paths.get(fileName);
             String absolutePath = relativePath.toAbsolutePath().toString();
@@ -65,7 +65,7 @@ public class GameBoard {
             while ((line = fileReader.readLine()) != null) {
 
                 String[] lineSplit = line.split("\\|");
-                loadedFields[i] = g.fromJson(lineSplit[1], (Type) Class.forName("Game." + lineSplit[0]));
+                loadedFields[i] = g.fromJson(lineSplit[1], (Type) Class.forName("Game.Fields." + lineSplit[0]));
                 loadedFields[i].setName(Language.getString(loadedFields[i].getName()));
                 i++;
 
