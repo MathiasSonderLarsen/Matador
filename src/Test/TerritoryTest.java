@@ -1,9 +1,6 @@
 package Test;
 
-import Game.Field;
-import Game.GameController;
-import Game.Territory;
-import Game.Player;
+import Game.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -21,13 +18,14 @@ import static org.junit.Assert.*;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.1
+ * @version v.0.2
  */
 public class TerritoryTest {
 
     private Player player;
     private Territory territory1, territory2, territory3;
     private GameBoard gameBoard;
+    private int[] rentArrayT1, rentArrayT2, rentArrayT3;
 
     @BeforeClass
     public void setUpBeforeClass(){}
@@ -35,10 +33,15 @@ public class TerritoryTest {
     @Before
     public void setUp(){
 
+        rentArrayT1 = new int[]{100, 200, 300, 400, 500, 1000};
+        rentArrayT1 = new int[]{100, 200, 300, 400, 500, 1000};
+        rentArrayT1 = new int[]{200, 400, 500, 600, 700, 1500};
+
         this.player = new Player("Player1");
-        this.territory1 = (Territory) gameBoard.getField(2);
-        this.territory2 = (Territory) gameBoard.getField(4);
-        this.territory3 = (Territory) gameBoard.getField(7);
+
+        this.territory1 = new Territory("Territory1", 1200, rentArrayT1, 1, 500);
+        this.territory2 = new Territory("Territory2", 1200, rentArrayT2, 1, 500);
+        this.territory3 = new Territory("Territory3", 2000, rentArrayT3, 2, 600);
 
     }
 
@@ -76,11 +79,11 @@ public class TerritoryTest {
         assertEquals(expected, actual);
 
         actual = territory2.getName();
-        expected = "Territory1";
+        expected = "Territory2";
         assertEquals(expected, actual);
 
         actual = territory3.getName();
-        expected = "Territory1";
+        expected = "Territory3";
         assertEquals(expected, actual);
     }
 
@@ -95,95 +98,95 @@ public class TerritoryTest {
 
         // Case: return rent with 0 houses on territory
         actual = territory1.getRent();
-        expected = 1200;
+        expected = 100;
         assertEquals(expected, actual);
 
         actual = territory2.getRent();
-        expected = 1200;
+        expected = 100;
         assertEquals(expected, actual);
 
         actual = territory3.getRent();
-        expected = 7000;
+        expected = 200;
         assertEquals(expected, actual);
 
         //Case: return rent with 1 house on territory
-        territory1.setNumOfHouse(1);
+        territory1.setNumOfHouses(1);
         actual = territory1.getRent();
-        expected = 1200;
+        expected = 200;
         assertEquals(expected, actual);
 
-        territory2.setNumOfHouse(1);
+        territory2.setNumOfHouses(1);
         actual = territory2.getRent();
-        expected = 1200;
+        expected = 200;
         assertEquals(expected, actual);
 
-        territory3.setNumOfHouse(1);
+        territory3.setNumOfHouses(1);
         actual = territory3.getRent();
-        expected = 7000;
+        expected = 400;
         assertEquals(expected, actual);
 
         //Case: return rent with 2 house on territory
-        territory1.setNumOfHouse(2);
+        territory1.setNumOfHouses(2);
         actual = territory1.getRent();
-        expected = 1200;
+        expected = 300;
         assertEquals(expected, actual);
 
-        territory2.setNumOfHouse(2);
+        territory2.setNumOfHouses(2);
         actual = territory2.getRent();
-        expected = 1200;
+        expected = 300;
         assertEquals(expected, actual);
 
-        territory3.setNumOfHouse(2);
+        territory3.setNumOfHouses(2);
         actual = territory3.getRent();
-        expected = 7000;
+        expected = 500;
         assertEquals(expected, actual);
 
         //Case: return rent with 3 house on territory
-        territory1.setNumOfHouse(3);
+        territory1.setNumOfHouses(3);
         actual = territory1.getRent();
-        expected = 1200;
+        expected = 400;
         assertEquals(expected, actual);
 
-        territory2.setNumOfHouse(3);
+        territory2.setNumOfHouses(3);
         actual = territory2.getRent();
-        expected = 1200;
+        expected = 400;
         assertEquals(expected, actual);
 
-        territory3.setNumOfHouse(3);
+        territory3.setNumOfHouses(3);
         actual = territory3.getRent();
-        expected = 7000;
+        expected = 600;
         assertEquals(expected, actual);
 
         //Case: return rent with 4 house on territory
-        territory1.setNumOfHouse(4);
+        territory1.setNumOfHouses(4);
         actual = territory1.getRent();
-        expected = 1200;
+        expected = 500;
         assertEquals(expected, actual);
 
-        territory2.setNumOfHouse(4);
+        territory2.setNumOfHouses(4);
         actual = territory2.getRent();
-        expected = 1200;
+        expected = 500;
         assertEquals(expected, actual);
 
-        territory3.setNumOfHouse(4);
+        territory3.setNumOfHouses(4);
         actual = territory3.getRent();
-        expected = 7000;
+        expected = 700;
         assertEquals(expected, actual);
 
         //Case: return rent with 5 house on territory
-        territory1.setNumOfHouse(5);
+        territory1.setNumOfHouses(5);
         actual = territory1.getRent();
-        expected = 1200;
+        expected = 1000;
         assertEquals(expected, actual);
 
-        territory2.setNumOfHouse(5);
+        territory2.setNumOfHouses(5);
         actual = territory2.getRent();
-        expected = 1200;
+        expected = 1000;
         assertEquals(expected, actual);
 
-        territory3.setNumOfHouse(5);
+        territory3.setNumOfHouses(5);
         actual = territory3.getRent();
-        expected = 7000;
+        expected = 1500;
         assertEquals(expected, actual);
 
     }
@@ -392,11 +395,5 @@ public class TerritoryTest {
         assertEquals(actual, expected);
 
     }
-
-
-
-
-
-
 
 }
