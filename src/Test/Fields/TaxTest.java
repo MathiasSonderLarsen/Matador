@@ -1,7 +1,7 @@
 package Test.Fields;
 
-import Game.Player;
 import Game.Fields.Tax;
+import Game.Player;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,8 +27,8 @@ public class TaxTest {
     public void setUp() throws Exception {
         this.player = new Player("Player");
 
-        this.tax1 = new Tax("Tax1",2, 1000, 1.0f);
-        this.tax2 = new Tax("Tax2",2, 4000, 0.1f);
+        this.tax1 = new Tax("Tax1", 2, 1000, 1.0f);
+        this.tax2 = new Tax("Tax2", 2, 4000, 0.1f);
 
     }
 

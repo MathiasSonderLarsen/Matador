@@ -1,13 +1,10 @@
 package Game.ChanceCards;
 
-import Game.Game;
-
-import java.io.FileReader;
 import java.util.Random;
 
 /**
  * Keeps track of the balance, and adds/subtracts by the points on the board.
- *
+ * <p>
  * Bugs: none known
  *
  * @author Timothy Stoltzner Rasmussen
@@ -16,8 +13,8 @@ import java.util.Random;
 
 public class ChanceDeck {
 
-    ChanceCard[] ChanceCards;
     private final Random rand = new Random();
+    ChanceCard[] ChanceCards;
 
     ChanceDeck() {
 

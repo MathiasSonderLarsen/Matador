@@ -64,7 +64,7 @@ public class FileReader {
 
     public ChanceCard[] getCards(int AmountOfCards) {
 
-        ChanceCard[] Cards = new ChanceCard [AmountOfCards];
+        ChanceCard[] Cards = new ChanceCard[AmountOfCards];
 
         try {
 

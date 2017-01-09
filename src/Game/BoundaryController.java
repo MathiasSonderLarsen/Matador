@@ -21,6 +21,7 @@ public class BoundaryController {
 
     private static Mode mode;
     private static String preDefinedAnswer;
+
     private BoundaryController() {
     }
 
@@ -54,7 +55,7 @@ public class BoundaryController {
      * @param car           The players car object.
      */
 
-    public static void addPlayer(String name,int start_balance, Car car) {
+    public static void addPlayer(String name, int start_balance, Car car) {
         switch (mode) {
 
             case GUI:
@@ -208,13 +209,16 @@ public class BoundaryController {
         }
     }
 
-    public static void buyHouse(int field, int numberOfHouses){
+    public static void buyHouse(int field, int numberOfHouses) {
 
         GUI.setHouses(field, numberOfHouses);
-
     }
 
-    public static void buyHotel(int field, boolean hasHotel){
+    public static void setHotel(int field, boolean setHotel) {
+        GUI.setHotel(field, setHotel);
+    }
+
+    public static void buyHotel(int field, boolean hasHotel) {
         GUI.setHotel(field, hasHotel);
     }
 

@@ -4,7 +4,6 @@ import Game.Fields.Field;
 import Game.Fields.Ownable;
 import Game.Fields.Territory;
 import com.google.gson.Gson;
-import desktop_resources.GUI;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -158,7 +157,7 @@ public class GameBoard {
                 break;
             }
         }
-        return i+1;
+        return i + 1;
     }
 
     public Territory[] getBuyableArray(int groupID, int numberOfFields) {
@@ -166,9 +165,9 @@ public class GameBoard {
         Territory[] houseBuyableFields = new Territory[numberOfFields];
         int j = 0;
 
-        for(int i = 1; i <= 40; i++){
+        for (int i = 1; i <= 40; i++) {
 
-            if(getField(i) instanceof Territory && getField(i).getGroupID() == groupID){
+            if (getField(i) instanceof Territory && getField(i).getGroupID() == groupID) {
                 houseBuyableFields[j] = (Territory) GameController.getGameBoard().getField(i);
                 j++;
             }

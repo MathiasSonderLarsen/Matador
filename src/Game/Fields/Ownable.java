@@ -75,10 +75,10 @@ public abstract class Ownable extends Field {
      */
     public void setOwner(Game.Player owner) {
         this.owner = owner;
-        BoundaryController.setOwner(GameController.getGameBoard().getFieldPos(this),owner.getName());
+        BoundaryController.setOwner(GameController.getGameBoard().getFieldPos(this), owner.getName());
     }
 
-    public void removeOwner(){
+    public void removeOwner() {
         BoundaryController.removeOwner(GameController.getGameBoard().getFieldPos(this));
     }
 

@@ -22,7 +22,7 @@ public class Tax extends Field {
      * @param name      The name of the Field
      * @param taxAmount The permanent tax on the Field
      */
-    public Tax(String name,int groupID, int taxAmount, float taxRate) {
+    public Tax(String name, int groupID, int taxAmount, float taxRate) {
         super(name, groupID);
         this.taxAmount = taxAmount;
         this.taxRate = taxRate;
@@ -76,7 +76,7 @@ public class Tax extends Field {
         desktop_fields.Tax.Builder a = new desktop_fields.Tax.Builder()
                 .setTitle(this.getName())
                 .setBgColor(Color.yellow)
-                .setSubText(getTaxAmount()+"");
+                .setSubText(getTaxAmount() + "");
         return a.build();
     }
 

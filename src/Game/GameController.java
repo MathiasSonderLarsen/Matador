@@ -25,6 +25,13 @@ import java.util.Random;
 
 public class GameController {
     private static int FIELD_COUNT = 40;
+    private static GameBoard gameBoard = new GameBoard(FIELD_COUNT);
+    private static Shaker shaker = new Shaker(2);
+    private static Player currentPlayer;
+    private static ArrayList<Player> players = new ArrayList<Player>();
+
+    private GameController() {
+    }
 
     /**
      * Getter for property 'gameBoard'.
@@ -35,9 +42,6 @@ public class GameController {
         return gameBoard;
     }
 
-    private static GameBoard gameBoard = new GameBoard(FIELD_COUNT);
-    private static Shaker shaker = new Shaker(2);
-
     /**
      * Getter for property 'currentPlayer'.
      *
@@ -45,13 +49,6 @@ public class GameController {
      */
     public static Player getCurrentPlayer() {
         return currentPlayer;
-    }
-
-    private static Player currentPlayer;
-    private static ArrayList<Player> players = new ArrayList<Player>();
-
-
-    private GameController() {
     }
 
     private static void initializePlayers() {

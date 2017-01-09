@@ -1,8 +1,6 @@
 package Game.Fields;
 
 
-import java.awt.*;
-
 /**
  * Brewery field: Keeps track on the rent of the field.
  * <p>

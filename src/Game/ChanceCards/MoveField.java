@@ -13,11 +13,11 @@ package Game.ChanceCards;
  * @author Timothy Rasmussen
  * @version v.0.1
  */
-public class MoveField extends ChanceCard{
+public class MoveField extends ChanceCard {
 
     private int moveAmount;
 
-    public MoveField(String name, String description, int moveAmount){
+    public MoveField(String name, String description, int moveAmount) {
         super(name, description);
     }
 
