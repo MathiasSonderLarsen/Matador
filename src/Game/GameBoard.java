@@ -174,4 +174,17 @@ public class GameBoard {
         }
         return houseBuyableFields;
     }
+
+    public Field[] getFieldsInGroup(int groupID) {
+
+        Field[] fields = new Field[getNumberOfPropertiesInGroup(groupID)];
+        int i = 0;
+        for (Field theField : board) {
+            if (theField.getGroupID() == groupID) {
+                fields[i] = theField;
+                i++;
+            }
+        }
+        return fields;
+    }
 }

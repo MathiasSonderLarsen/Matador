@@ -83,12 +83,11 @@ public class Territory extends Ownable {
 
         //køb huse
 
-        int numberOfPropertiesOwnedInGroup = GameController.getGameBoard().getNumInGroupOwned(player, groupID);
         int numberOfPropertiesInGroup = GameController.getGameBoard().getNumberOfPropertiesInGroup(groupID);
 
 
         // If you own every lot in the group
-        if (numberOfPropertiesOwnedInGroup == numberOfPropertiesInGroup) {
+        if (GameController.getGameBoard().playerOwnsAllInGroup(player, groupID) && !allHousesInGroupHasHotel(groupID)) {
 
 
             final String question = player.getName() + (Language.getString("buyhouse")
@@ -101,6 +100,10 @@ public class Territory extends Ownable {
 
             boolean buyMode = true;
             do {
+                if (allHousesInGroupHasHotel(groupID)){
+                    break;
+                }
+
                 String inputAnswer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
 
                 if (inputAnswer == answer2) {
@@ -112,7 +115,7 @@ public class Territory extends Ownable {
 
                     int numOptions = countTerritoriesWithXHouses(houseBuyableFields, minNumber);
 
-                    String[] listOfBuyableFieldOptions = getListOfByableFields(houseBuyableFields, minNumber, numOptions);
+                    String[] listOfBuyableFieldOptions = getListOfBuyableFields(houseBuyableFields, minNumber, numOptions);
 
                     String answer = BoundaryController.getUserButtonPressed(question, listOfBuyableFieldOptions);
 
@@ -121,7 +124,7 @@ public class Territory extends Ownable {
                         if (answer == theTerritory.getName()) {
 
                             int fieldNumber = GameController.getGameBoard().getFieldPos(theTerritory);
-                            if (theTerritory.getNumOfHouses() <= 4) {
+                            if (theTerritory.getNumOfHouses() < 4) {
                                 int numberOfHouseToSet = theTerritory.getNumOfHouses() + 1;
                                 theTerritory.setNumOfHouses(numberOfHouseToSet);
                                 BoundaryController.buyHouse(fieldNumber, numberOfHouseToSet);
@@ -149,7 +152,20 @@ public class Territory extends Ownable {
 
     }
 
-    private String[] getListOfByableFields(Territory[] houseBuyableFields, int minNumber, int numOptions) {
+    private boolean allHousesInGroupHasHotel(int groupID) {
+        boolean out = false;
+        Field[] fieldsInGroup = GameController.getGameBoard().getFieldsInGroup(groupID);
+        Territory[] territories = new Territory[fieldsInGroup.length];
+        for (int i = 0; i < fieldsInGroup.length; i++) {
+            territories[i] = (Territory) fieldsInGroup[i];
+        }
+
+
+        return countTerritoriesWithXHouses(territories, 5) == GameController.getGameBoard().getNumberOfPropertiesInGroup(groupID);
+
+    }
+
+    private String[] getListOfBuyableFields(Territory[] houseBuyableFields, int minNumber, int numOptions) {
         String[] stringArray = new String[numOptions];
         int i = 0;
         for (Territory theTerritory : houseBuyableFields) {
