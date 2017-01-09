@@ -15,7 +15,7 @@ public class Game {
     public static void main(String[] args) {
 
         // Selects the language
-        Language.setLanguage("english");
+        Language.setLanguage("danish");
 
         BoundaryController.setInterfaceMode(BoundaryController.Mode.GUI);
 

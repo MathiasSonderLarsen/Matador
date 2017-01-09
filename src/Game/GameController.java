@@ -132,7 +132,6 @@ public class GameController {
 
     public static void playTurn(Player player) {
 
-
         //rolls the dice
         shaker.shake();
 
@@ -176,7 +175,6 @@ public class GameController {
 
             // After 3 rounds in jail, the player must pay bail.
             if(player.getRoundsInJail() == 3){
-
                 player.addBalance(-1000);
             }
 

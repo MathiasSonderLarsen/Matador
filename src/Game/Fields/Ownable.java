@@ -31,8 +31,6 @@ public abstract class Ownable extends Field {
 
     }
 
-
-
     /**
      * Calculated the Prawn value
      *
@@ -90,8 +88,8 @@ public abstract class Ownable extends Field {
         if (owner == null && price <= player.getBalance()) {
 
 
-            final String question = player.getName() + " " + (Language.getString("turn1") + " " +
-                    Language.getString("buy1") + " " + getName() + " " + Language.getString("buy2") + " " + price + " ?");
+            final String question = player.getName() + (Language.getString("turn1") + " " +
+                    Language.getString("buy1") + " " + getName() + " " + Language.getString("buy2") + " " + price + " " + Language.getString("point") + " ?");
 
             final String answer1 = Language.getString("no");
             final String answer2 = Language.getString("yes");
@@ -102,6 +100,7 @@ public abstract class Ownable extends Field {
                 player.addBalance(-price);
                 player.addRealEstateValue(price);
                 this.setOwner(player);
+                BoundaryController.setBalance(player, player.getBalance());
                 BoundaryController.showMessage(player.getName() + " " + Language.getString("bought") + " " + getName());
 
             }
