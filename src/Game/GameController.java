@@ -140,7 +140,6 @@ public class GameController {
 
     public static void playTurn(Player player) {
 
-
         //rolls the dice
         shaker.shake();
 

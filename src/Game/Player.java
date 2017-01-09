@@ -67,8 +67,7 @@ public class Player {
         return this.account;
     }
 
-    public int getRoundsInJail(){ return roundsInJail;
-    }
+    public int getRoundsInJail(){ return roundsInJail; }
 
     public void addRoundsInJail(int rounds){ roundsInJail = roundsInJail + rounds; }
 
