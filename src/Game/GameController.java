@@ -156,12 +156,20 @@ public class GameController {
 
             // Your options in jail
             // SKAL IND I LANGUAGE
-            String answer = BoundaryController.getUserButtonPressed("Sådan kommer du ud af fængsel:",
-                    "Rul 2 ens", "Betal 4000 points", "Brug ud af fængsel kort");
+            String answer;
+            if (player.getOutOfJailCards() > 0) {
+                answer = BoundaryController.getUserButtonPressed("Sådan kommer du ud af fængsel:",
+                        "Rul 2 ens", "Betal 4000 points", "Brug ud af fængsel kort");
+            } else {
+                answer = BoundaryController.getUserButtonPressed("Sådan kommer du ud af fængsel:",
+                        "Rul 2 ens", "Betal 4000 points");
+            }
 
             switch (answer) {
                 case "Rul 2 ens":
                     shaker.shake();
+                    displayDice(shaker);
+
                     if (shaker.getDoublesInARow() > 0) {
                         Jail.removePlayer(player);
                     }
@@ -171,10 +179,8 @@ public class GameController {
                     Jail.removePlayer(player);
                     break;
                 case "Brug ud af fængsel kort":
-                    if (player.getOutOfJailCards() > 0) {
-                        player.setOutOfJailCards(-1);
-                        Jail.removePlayer(player);
-                    }
+                    player.setOutOfJailCards(-1);
+                    Jail.removePlayer(player);
                     break;
                 default:
                     System.out.println("Should never happen");
@@ -189,6 +195,9 @@ public class GameController {
             if (player.getRoundsInJail() == 3) {
 
                 player.addBalance(-1000);
+                player.addRoundsInJail(-3);
+                Jail.removePlayer(player);
+
             }
 
         }
@@ -200,8 +209,8 @@ public class GameController {
 
         //removes bankrupt players from the game
         if (player.getBalance() <= 0) {
-            players.remove(player);
             gameBoard.deleteOwnership(player);
+            players.remove(player);
         }
 
     }
@@ -221,7 +230,7 @@ public class GameController {
 
                 playTurn(currentPlayer);
 
-                if (shaker.getDoublesInARow() > 0) {
+                if (shaker.getDoublesInARow() > 0 && currentPlayer != null) {
 
                     playTurn(currentPlayer);
                 }
