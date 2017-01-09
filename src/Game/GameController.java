@@ -4,7 +4,6 @@ package Game;
 import Game.Fields.Field;
 import Game.Fields.Jail;
 import desktop_codebehind.Car;
-import desktop_resources.GUI;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -80,34 +79,50 @@ public class GameController {
         //if (shaker.DoublesInARow())
     }
 
-    public static void movePlayer(Player thisPlayer, int moveFields) {
 
+    public static void movePlayerRelative(Player thisPlayer, int stepsToMove) {
         int playerPos = thisPlayer.getOnField();
 
+
         //stores the players location on the gameBoard
-        if (thisPlayer.getOnField() + moveFields <= FIELD_COUNT) {
-            thisPlayer.setOnField(thisPlayer.getOnField() + moveFields);
+        if (thisPlayer.getOnField() + stepsToMove <= FIELD_COUNT) {
+            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove);
         } else {
-            thisPlayer.setOnField(thisPlayer.getOnField() + moveFields - FIELD_COUNT);
+            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove - FIELD_COUNT);
         }
 
-        //"Moves" the car on the board by removing it in the previous location
-        // and then set it to the new location.
-//        for (int i = moveFields; i >= 0 ; i--) {
         BoundaryController.removeAllCars(thisPlayer.getName());
-//           BoundaryController.setCar(thisPlayer.getOnField()-moveFields, thisPlayer.getName());
+        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+    }
 
+
+    public static void movePlayerAbsolute(Player thisPlayer, int newPos) {
+
+        thisPlayer.setOnField(newPos);
+        BoundaryController.removeAllCars(thisPlayer.getName());
         BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
 
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
+    }
+
+    public static void movePlayerAnim(Player thisPlayer, int moveToField, boolean AbsolutePos) {
+
+        if (AbsolutePos) {
+            movePlayerAbsolute(thisPlayer, moveToField);
+        } else {
+            for (int i = 0; i < moveToField; i++) {
+                movePlayerRelative(thisPlayer, 1);
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
 
     }
+
 
     public static Shaker getShaker() {
         return shaker;
@@ -149,56 +164,53 @@ public class GameController {
         if (Jail.isJailed(player) == false) {
 
             //moves the player's token on the gameBoard in the GUI
-            movePlayer(player, shaker.getSum());
+            movePlayerAnim(player, shaker.getSum(), false);
 
         } else {
 
             // Your options in jail
             // SKAL IND I LANGUAGE
             String answer;
-            if (player.getOutOfJailCards() > 0) {
-                answer = BoundaryController.getUserButtonPressed("Sådan kommer du ud af fængsel:",
-                        "Rul 2 ens", "Betal 4000 points", "Brug ud af fængsel kort");
-            } else {
-                answer = BoundaryController.getUserButtonPressed("Sådan kommer du ud af fængsel:",
-                        "Rul 2 ens", "Betal 4000 points");
-            }
+            final String question = Language.getString("methodOutOfJail");
+            final String answer1 = Language.getString("rollTwoOfTheSame");
+            final String answer2 = Language.getString("pay4000");
+            final String answer3 = Language.getString("useChanceCard");
 
-            switch (answer) {
-                case "Rul 2 ens":
+            if (player.getOutOfJailCards() > 0) {
+                answer = BoundaryController.getUserButtonPressed(question, answer1, answer2, answer3);
+            } else {
+                answer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
+
+                if (answer1 == answer) {
                     shaker.shake();
                     displayDice(shaker);
 
                     if (shaker.getDoublesInARow() > 0) {
                         Jail.removePlayer(player);
                     }
-                    break;
-                case "Betal 4000 points":
+                } else if (answer2 == answer) {
                     player.addBalance(-4000);
                     Jail.removePlayer(player);
-                    break;
-                case "Brug ud af fængsel kort":
+                } else if (answer3 == answer) {
                     player.setOutOfJailCards(-1);
                     Jail.removePlayer(player);
-                    break;
-                default:
-                    System.out.println("Should never happen");
+                }
+
+                // Adds jailRound to the player if he still is in jail (Because he rolls dice)
+                if (Jail.isJailed(player)) {
+                    player.addRoundsInJail(1);
+                }
+
+                // After 3 rounds in jail, the player must pay bail.
+                if (player.getRoundsInJail() == 3) {
+
+                    player.addBalance(-1000);
+                    player.addRoundsInJail(-3);
+                    Jail.removePlayer(player);
+
+                }
 
             }
-            // Adds jailRound to the player if he still is in jail (Because he rolls dice)
-            if (Jail.isJailed(player)) {
-                player.addRoundsInJail(1);
-            }
-
-            // After 3 rounds in jail, the player must pay bail.
-            if (player.getRoundsInJail() == 3) {
-
-                player.addBalance(-1000);
-                player.addRoundsInJail(-3);
-                Jail.removePlayer(player);
-
-            }
-
         }
 
         //controls what happens when the player lands on a specific field.
@@ -238,7 +250,7 @@ public class GameController {
         }
 
         // Gets displayed when a winner has been found. SKAL OGSÅ IND I LANGUAGE
-        BoundaryController.showMessage(players.get(0).getName() + " " + Language.getString("Vandt!"));
+        BoundaryController.showMessage(players.get(0).getName() + " " + Language.getString("won"));
 
         BoundaryController.close();
 

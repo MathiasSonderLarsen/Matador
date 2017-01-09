@@ -237,6 +237,10 @@ public class BoundaryController {
         GUI.setOwner(fieldNumber, name);
     }
 
+    public static void removeOwner(int fieldNumber) {
+        GUI.removeOwner(fieldNumber);
+    }
+
 
     /**
      * Creating new variable type "Mode".
