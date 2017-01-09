@@ -208,6 +208,16 @@ public class BoundaryController {
         }
     }
 
+    public static void buyHouse(int field, int numberOfHouses){
+
+        GUI.setHouses(field, numberOfHouses);
+
+    }
+
+    public static void buyHotel(int field, boolean hasHotel){
+        GUI.setHotel(field, hasHotel);
+    }
+
     /**
      * Creates the GUI based on field array.
      */
