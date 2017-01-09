@@ -164,11 +164,11 @@ public class GameBoard {
     public Territory[] getBuyableArray(int groupID) {
 
         Territory[] houseBuyableFields = new Territory[3];
+        int j = 0;
 
-        for(int i = 0; i < 40; i++){
-            int j = 0;
+        for(int i = 1; i <= 40; i++){
 
-            if(getField(i).getGroupID() == groupID){
+            if(getField(i) instanceof Territory && getField(i).getGroupID() == groupID){
                 houseBuyableFields[j] = (Territory) GameController.getGameBoard().getField(i);
                 j++;
             }

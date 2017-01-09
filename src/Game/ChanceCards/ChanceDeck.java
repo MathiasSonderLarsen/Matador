@@ -21,8 +21,8 @@ public class ChanceDeck {
 
     ChanceDeck() {
 
-        Game.FileReader fileReader = new FileReader("lol");
-        this.ChanceCards = fileReader.getCards(46);
+        //.FileReader fileReader = new FileReader("lol");
+        //this.ChanceCards = fileReader.getCards(46);
 
     }
 
