@@ -2,6 +2,7 @@ package Game;
 
 import Game.Fields.Field;
 import Game.Fields.Ownable;
+import Game.Fields.Territory;
 import com.google.gson.Gson;
 import desktop_resources.GUI;
 
@@ -158,5 +159,20 @@ public class GameBoard {
             }
         }
         return i+1;
+    }
+
+    public Territory[] getBuyableArray(int groupID) {
+
+        Territory[] houseBuyableFields = new Territory[3];
+
+        for(int i = 0; i < 40; i++){
+            int j = 0;
+
+            if(getField(i).getGroupID() == groupID){
+                houseBuyableFields[j] = (Territory) GameController.getGameBoard().getField(i);
+                j++;
+            }
+        }
+        return houseBuyableFields;
     }
 }

@@ -95,7 +95,7 @@ public abstract class Ownable extends Field {
 
 
             final String question = player.getName() + (Language.getString("turn1") + " " +
-                    Language.getString("buy1") + " " + getName() + " " + Language.getString("buy2") + " " + price + " " + Language.getString("point") + " ?");
+                    Language.getString("buyhouse") + " " + getName() + " " + Language.getString("buy2") + " " + price + " " + Language.getString("point") + " ?");
 
             final String answer1 = Language.getString("no");
             final String answer2 = Language.getString("yes");
