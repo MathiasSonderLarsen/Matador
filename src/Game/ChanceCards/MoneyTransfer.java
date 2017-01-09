@@ -1,5 +1,7 @@
 package Game.ChanceCards;
 
+import Game.Player;
+
 /**
  * MoneyTransfer does....blabla
  * <p>
@@ -23,5 +25,10 @@ public class MoneyTransfer extends ChanceCard {
 
     public int getAmount(){
         return amount;
+    }
+
+    @Override
+    public void action(Player user) {
+
     }
 }

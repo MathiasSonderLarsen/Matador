@@ -109,6 +109,7 @@ public class GameController {
         if (AbsolutePos) {
             movePlayerAbsolute(thisPlayer, moveToField);
         } else {
+            // TODO: 09-01-2017 move both forward and backwards
             for (int i = 0; i < moveToField; i++) {
                 movePlayerRelative(thisPlayer, 1);
 

@@ -1,5 +1,6 @@
 package Game.ChanceCards;
 
+import Game.GameController;
 import Game.Player;
 
 /**
@@ -26,6 +27,6 @@ public class MoveCard extends ChanceCard{
 
     @Override
     public void action(Player user) {
-
+        GameController.movePlayerAnim(user,moveAmount,false);
     }
 }
