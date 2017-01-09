@@ -1,9 +1,8 @@
-package Test;
+package Test.Fields;
 
-import Game.*;
-import org.junit.After;
+import Game.Player;
+import Game.Fields.Tax;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -28,8 +27,8 @@ public class TaxTest {
     public void setUp() throws Exception {
         this.player = new Player("Player");
 
-        this.tax1 = new Tax("Tax1",1000,1.0f);
-        this.tax2 = new Tax("Tax2",4000,0.1f);
+        this.tax1 = new Tax("Tax1",2, 1000, 1.0f);
+        this.tax2 = new Tax("Tax2",2, 4000, 0.1f);
 
     }
 
@@ -92,22 +91,20 @@ public class TaxTest {
 
     @Test
     public void testTaxRelativTax() {
-        player.addRealEstateValue(1000);
         int expected = 1000;
-        int actual = tax1.getRelativTax();
+        int actual = tax1.calcuateRelativeTax(1000);
         assertEquals(expected, actual);
 
         expected = 100;
-        actual = tax2.getRelativeTax();
+        actual = tax2.calcuateRelativeTax(1000);
         assertEquals(expected, actual);
 
-        player.addRealEstateValue(2001);
         expected = 300;
-        actual = tax2.getRelativeTax;
-        assertEquals(expected,actual);
+        actual = tax2.calcuateRelativeTax(2001);
+        assertEquals(expected, actual);
 
-        player.addRealEstateValue(8);
         expected = 300;
+        actual = tax2.calcuateRelativeTax(2009);
         assertEquals(expected, actual);
     }
 }

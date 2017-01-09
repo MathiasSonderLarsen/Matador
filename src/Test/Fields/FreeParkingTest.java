@@ -1,13 +1,11 @@
-package Test;
+package Test.Fields;
 
-import Game.Fleet;
-import Game.FreeParking;
-import Game.Player;
-import org.junit.After;
+import Game.Fields.FreeParking;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -25,16 +23,15 @@ public class FreeParkingTest {
 
     @Before
     public void setUp() {
-    this.freeParking  = new FreeParking("P-Plads");
+        this.freeParking = new FreeParking("P-Plads",0);
     }
 
     @Test
-    public void entityTest(){
+    public void entityTest() {
         assertNotNull(freeParking);
         assertTrue(freeParking instanceof FreeParking);
         assertTrue(freeParking.getName() == "P-Plads");
     }
-
 
 
 }

@@ -1,6 +1,9 @@
 package Game;
 
+import Game.Fields.Field;
+import Game.Fields.Ownable;
 import com.google.gson.Gson;
+import desktop_resources.GUI;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,6 +23,7 @@ public class GameBoard {
 
     private final Field[] board;
     private int numberOfFields;
+
     /**
      * The constructor of the class GameBoard
      *
@@ -31,7 +35,8 @@ public class GameBoard {
 
         //board = new Field[numberOfFields];
         board = loadBoardFromFile("board.cfg");
-        InterfaceController.showOnGui(board);
+        BoundaryController.showOnGui(board);
+
 
     }
 
@@ -50,7 +55,7 @@ public class GameBoard {
         try {
             Gson g = new Gson();
 
-            Field[] loadedFields = new Field[21];
+            Field[] loadedFields = new Field[40];
 
             Path relativePath = Paths.get(fileName);
             String absolutePath = relativePath.toAbsolutePath().toString();
@@ -62,8 +67,7 @@ public class GameBoard {
             while ((line = fileReader.readLine()) != null) {
 
                 String[] lineSplit = line.split("\\|");
-                loadedFields[i] = g.fromJson(lineSplit[1], (Type) Class.forName("Game." + lineSplit[0]));
-                loadedFields[i].setName(Language.getString(loadedFields[i].getName()));
+                loadedFields[i] = g.fromJson(lineSplit[1], (Type) Class.forName("Game.Fields." + lineSplit[0]));
                 i++;
 
             }
@@ -101,11 +105,13 @@ public class GameBoard {
         int num = 0;
 
         for (Field theField : board) {
-            if (theField.getGroupID == player.getOnField()) {
-                if (theField.getOwner() == player) {
+            if ((theField instanceof Ownable) && ((Ownable) theField).getGroupID() == player.getOnField()) {
+                if (((Ownable) theField).getOwner() == player) {
                     num++;
                 }
             }
+
+
         }
 
         return num;
@@ -115,7 +121,7 @@ public class GameBoard {
         int num = 0;
 
         for (Field theField : board) {
-            if (theField.getGroupID == groupID) {
+            if (theField.getGroupID() == groupID) {
                 num++;
             }
         }
@@ -127,18 +133,30 @@ public class GameBoard {
         for (Field theField : board) {
             if (theField instanceof Ownable) {
                 if (((Ownable) theField).getOwner() == player) {
-                    ((Ownable) theField).setOwner(null);
+                    ((Ownable) theField).removeOwner();
                 }
             }
         }
 
 
     }
+
     public boolean playerOwnsAllInGroup(Player player, int groupID) {
-        if(getNumberOfPropertiesInGroup(groupID) == getNumInGroupOwned(player, groupID))
+        if (getNumberOfPropertiesInGroup(groupID) == getNumInGroupOwned(player, groupID))
             return true;
-        else{
+        else {
             return false;
         }
+    }
+
+    public int getFieldPos(Field fieldToFind) {
+
+        int i = 0;
+        for (i = 0; i < board.length; i++) {
+            if (fieldToFind == board[i]) {
+                break;
+            }
+        }
+        return i+1;
     }
 }

@@ -1,5 +1,10 @@
-package Game;
+package Game.Fields;
 
+
+import Game.BoundaryController;
+import Game.GameController;
+import Game.Language;
+import Game.Player;
 
 /**
  * Ownable class
@@ -13,43 +18,36 @@ package Game;
 public abstract class Ownable extends Field {
 
     private final int price;
-    private final int groupID;
     private Player owner;
+
     /**
      * The constructor of the Ownable type
      *
-     * @param name   The name of the Field
-     * @param price  The price of the Field
+     * @param name  The name of the Field
+     * @param price The price of the Field
      */
     public Ownable(String name, int price, int groupID) {
-        super(name);
+        super(name, groupID);
         this.price = price;
-        this.groupID = groupID;
-    }
 
-    /**
-     * Getter for property 'groupID'.
-     *
-     * @return Value for property 'groupID'.
-     */
-    public int getGroupID() {
-        return this.groupID;
     }
 
     /**
      * Calculated the Prawn value
+     *
      * @return the money amount you get for prawning the ownable.
      */
-    private int calculatePawnValue(){
+    private int calculatePawnValue() {
         return price / 2;
     }
 
-    public int getPawnPrice(){
+    public int getPawnPrice() {
         return calculatePawnValue();
     }
 
     /**
      * Gets the price of the Field
+     *
      * @return the price
      */
     public int getPrice() {
@@ -66,7 +64,7 @@ public abstract class Ownable extends Field {
      *
      * @return returns the owner.
      */
-    public Player getOwner() {
+    public Game.Player getOwner() {
         return owner;
     }
 
@@ -75,23 +73,29 @@ public abstract class Ownable extends Field {
      *
      * @param owner The new owner
      */
-    public void setOwner(Player owner) {
+    public void setOwner(Game.Player owner) {
         this.owner = owner;
+        BoundaryController.setOwner(GameController.getGameBoard().getFieldPos(this),owner.getName());
+    }
+
+    public void removeOwner(){
+        BoundaryController.removeOwner(GameController.getGameBoard().getFieldPos(this));
     }
 
     /**
      * Runs when a player lands on the Field
+     *
      * @param player The player that lands on the Field
      */
-    public void landOnField(Player player) {
+    public void landOnField(Game.Player player) {
         // TODO: 05-01-2017 add code
-/*
+
         // No one owns the field and the player has the money to buy it
         if (owner == null && price <= player.getBalance()) {
 
 
-            final String question = player.getName() + " " + (Language.getString("turn1") + " " +
-                    Language.getString("buy1") + " " + getName() + " " + Language.getString("buy2") + " " + price + " ?");
+            final String question = player.getName() + (Language.getString("turn1") + " " +
+                    Language.getString("buy1") + " " + getName() + " " + Language.getString("buy2") + " " + price + " " + Language.getString("point") + " ?");
 
             final String answer1 = Language.getString("no");
             final String answer2 = Language.getString("yes");
@@ -107,10 +111,10 @@ public abstract class Ownable extends Field {
             }
         }
         //Someone else owns the field
-        if (owner != player && owner != null) {
+        if (owner != player && owner != null && !Jail.isJailed(owner)) {
             player.addBalance(-getRent());
             owner.addBalance(getRent());
         }
-*/
+
     }
 }

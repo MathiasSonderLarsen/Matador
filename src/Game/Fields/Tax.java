@@ -1,5 +1,7 @@
-package Game;
+package Game.Fields;
 
+
+import java.awt.*;
 
 /**
  * Keeps track of the balance, and adds/subtracts by the points on the board.
@@ -20,8 +22,8 @@ public class Tax extends Field {
      * @param name      The name of the Field
      * @param taxAmount The permanent tax on the Field
      */
-    public Tax(String name, int taxAmount, float taxRate) {
-        super(name);
+    public Tax(String name,int groupID, int taxAmount, float taxRate) {
+        super(name, groupID);
         this.taxAmount = taxAmount;
         this.taxRate = taxRate;
     }
@@ -39,10 +41,9 @@ public class Tax extends Field {
      * @param totalValue The total value of the player
      * @return The amount of money the player needs to pay
      */
-    private void calcuateRelativeTax(int totalValue) {
-        relativeTax = (int) (totalValue * -taxRate);
+    public int calcuateRelativeTax(int totalValue) {
+        return (int) (totalValue * -taxRate);
     }
-
 
 
     public float getTaxRate() {
@@ -54,11 +55,11 @@ public class Tax extends Field {
      *
      * @param player The player that lands on the field
      */
-    public void landOnField(Player player) {
+    public void landOnField(Game.Player player) {
 
-        calcuateRelativeTax(player.getRealEstateValue() + player.getBalance());
+        int tax = calcuateRelativeTax(player.getRealEstateValue() + player.getBalance());
 
-        final String question = (Language.getString("paytax1") + " " + taxAmount + " " + Language.getString("paytax2") + " " + "10% (" + calculatedTax + ")");
+        final String question = (Game.Language.getString("paytax1") + " " + taxAmount + " " + Game.Language.getString("paytax2") + " " + "10% (" + tax + ")");
         final String answer1 = taxAmount + "";
         final String answer2 = "10%";
 
@@ -69,4 +70,14 @@ public class Tax extends Field {
             player.addBalance(-taxAmount);
         }
     }
+
+
+    public desktop_fields.Tax convertToGUI() {
+        desktop_fields.Tax.Builder a = new desktop_fields.Tax.Builder()
+                .setTitle(this.getName())
+                .setBgColor(Color.yellow)
+                .setSubText(getTaxAmount()+"");
+        return a.build();
+    }
+
 }

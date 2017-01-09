@@ -1,8 +1,7 @@
-package Test;
+package Test.Fields;
 
-import Game.Brewery;
-import Game.Field;
-import Game.Player;
+import Game.*;
+import Game.Fields.Brewery;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -12,16 +11,15 @@ import static org.junit.Assert.*;
 
 /**
  * Created by razze on 05-01-2017.
- *
+ * <p>
  * Validate that the...
-    entity have been created and are of the correct type (x)
-    Field name can be set and returned (x)
-    Buying price can be returned (x)
-    Owner can be set and returned (x)
-    Base rent can be returned (x)
-    Rent can be calculated correctly (x)
-    Pawn price can be calculated correctly and is half of the buy price (x)
-
+ * entity have been created and are of the correct type (x)
+ * Field name can be set and returned (x)
+ * Buying price can be returned (x)
+ * Owner can be set and returned (x)
+ * Base rent can be returned (x)
+ * Rent can be calculated correctly (x)
+ * Pawn price can be calculated correctly and is half of the buy price (x)
  */
 public class BreweryTest {
 
@@ -33,18 +31,20 @@ public class BreweryTest {
     private int groupID;
 
     @BeforeClass
-    public void setUpBeforeClass(){
+    public void setUpBeforeClass() {
 
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
 
         this.player = new Player("Test1");
         this.player = new Player("Test2");
 
-        this.brewery1 = Brewery(13, "BrewTest1", 3000, baseRent, 6);
-        this.brewery2 = Brewery(29, "BrewTest2", 3000, baseRent, 6);
+        this.brewery1 = new Brewery("BrewTest1", 3000, baseRent, 6);
+        this.brewery2 = new Brewery("BrewTest2", 3000, baseRent, 6);
+
+        gameBoard = GameController.getGameBoard();
 
     }
 
@@ -54,7 +54,7 @@ public class BreweryTest {
     }
 
     @Test
-    public void entityTest(){
+    public void entityTest() {
 
         assertNotNull(brewery1);
         assertNotNull(brewery2);
@@ -64,14 +64,15 @@ public class BreweryTest {
     }
 
     @Test
-    public void nameTest(){
+    public void nameTest() {
 
-        String name = brewery.getName();
+        String name = brewery1.getName();
         assertEquals("BrewTest", name);
 
     }
+
     @Test
-    public void ownerTest(){
+    public void ownerTest() {
 
         brewery1.setOwner(player);
         Player owner = brewery1.getOwner();
@@ -81,19 +82,19 @@ public class BreweryTest {
     }
 
     @Test
-    public void getPawnPrice(){
+    public void getPawnPrice() {
 
-       int pawnPrice = brewery1.getPawnPrice();
-       assertEquals(1500, pawnPrice);
+        int pawnPrice = brewery1.getPawnPrice();
+        assertEquals(1500, pawnPrice);
 
     }
 
     @Test
-    public void rentTest(){
+    public void rentTest() {
 
 
         int rent = brewery1.getRent();
-        int expectedRent = gameBoard.getSum() * 100;
+        int expectedRent = GameController.getShaker().getSum() * 100;
 
         assertEquals(expectedRent, rent);
 
@@ -102,9 +103,9 @@ public class BreweryTest {
 
         rent = brewery1.getRent();
 
-        if(brewery1.getOwner().equals(player) && brewery2.getOwner().equals(player)){
+        if (brewery1.getOwner().equals(player) && brewery2.getOwner().equals(player)) {
 
-            expectedRent = gameBoard.getSum() * 200;
+            expectedRent = GameController.getShaker().getSum() * 200;
 
             assertEquals(expectedRent, rent);
         }
@@ -113,7 +114,7 @@ public class BreweryTest {
     }
 
     @Test
-    public void priceTest(){
+    public void priceTest() {
 
         int price = brewery1.getPrice();
 
@@ -124,5 +125,4 @@ public class BreweryTest {
         assertEquals(3000, price);
 
     }
-
 }

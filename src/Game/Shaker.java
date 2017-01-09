@@ -77,19 +77,17 @@ public class Shaker {
 
     public void incrementDoublesInARow() {
 
-            if (dice[0].getFaceValue() == dice[1].getFaceValue()) {
+        if (dice[0].getFaceValue() == dice[1].getFaceValue()) {
 
-                doublesInARow++;
-            }
-            else {
-                doublesInARow=0;
-            }
-
+            doublesInARow++;
+        } else {
+            doublesInARow = 0;
         }
 
-
-
     }
+
+
+}
 
 
 

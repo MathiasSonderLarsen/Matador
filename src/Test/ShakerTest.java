@@ -151,37 +151,35 @@ public class ShakerTest {
      * Tests if the Die objects can be returned
      */
     @Test
-    public void getDiceTest(){
-        for (Die thisDie:shaker.getDice()) {
+    public void getDiceTest() {
+        for (Die thisDie : shaker.getDice()) {
             assertNotNull(thisDie);
         }
     }
 
     @Test
-    public void doubleIncrement(){
+    public void doubleIncrement() {
         shaker.getDice()[0].setFaceValue(1);
         shaker.getDice()[1].setFaceValue(1);
         shaker.incrementDoublesInARow();
         int expected = 1;
         int actual = shaker.getDoublesInARow();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
 
         shaker.getDice()[0].setFaceValue(2);
         shaker.getDice()[1].setFaceValue(2);
         shaker.incrementDoublesInARow();
         expected = 2;
         actual = shaker.getDoublesInARow();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
 
         shaker.getDice()[0].setFaceValue(6);
         shaker.getDice()[1].setFaceValue(4);
         shaker.incrementDoublesInARow();
         expected = 0;
         actual = shaker.getDoublesInARow();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
-
-
 
 
 }

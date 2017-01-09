@@ -1,7 +1,6 @@
-package Test;
+package Test.Fields;
 
-import Game.FreeParking;
-import Game.Start;
+import Game.Fields.Start;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,7 +22,7 @@ public class StartTest {
 
     @Before
     public void setUp() {
-        this.startField = new Start("P-Plads");
+        this.startField = new Start("P-Plads",0);
     }
 
     @Test
@@ -34,7 +33,7 @@ public class StartTest {
     }
 
     @Test
-    public void testPassAction(){
+    public void testPassAction() {
         // TODO: 05-01-2017 implement testPassAction
     }
 }

@@ -43,7 +43,7 @@ public class Die {
         return faceValue;
     }
 
-    public void setFaceValue(int fValue){
+    public void setFaceValue(int fValue) {
 
         faceValue = fValue;
     }

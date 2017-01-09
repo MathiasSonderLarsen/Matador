@@ -17,11 +17,13 @@ public class Player {
     private int realEstateValue = 0;
     private int onField = 0;
     private int outOfJailCards = 0;
+    private int roundsInJail = 0;
 
     //
     public Player(String playerName) {
         name = playerName;
         account = new Account();
+
     }
 
     public int getRealEstateValue() {
@@ -53,16 +55,20 @@ public class Player {
         return account.getBalance();
     }
 
-    public int getOutOfJailCards(){
+    public int getOutOfJailCards() {
         return outOfJailCards;
     }
 
-    public void setOutOfJailCards(){
-        this.outOfJailCards++;
+    public void setOutOfJailCards(int cardAmount) {
+        this.outOfJailCards = outOfJailCards + cardAmount;
     }
 
-    public Account getAccount(){
+    public Account getAccount() {
         return this.account;
     }
+
+    public int getRoundsInJail(){ return roundsInJail; }
+
+    public void addRoundsInJail(int rounds){ roundsInJail = roundsInJail + rounds; }
 
 }

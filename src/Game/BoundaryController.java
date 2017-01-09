@@ -1,8 +1,7 @@
 package Game;
 
+import Game.Fields.Field;
 import desktop_codebehind.Car;
-import desktop_fields.Empty;
-import desktop_fields.Shipping;
 import desktop_resources.GUI;
 
 
@@ -17,24 +16,11 @@ import desktop_resources.GUI;
 public class BoundaryController {
 
     /**
-     * Creating new variable type "Mode".
-     */
-    public enum Mode {
-
-        //Two types of modes
-
-        GUI,
-        Test
-
-    }
-
-    /**
      * Setting variables for BoundaryController.
      */
 
     private static Mode mode;
     private static String preDefinedAnswer;
-
     private BoundaryController() {
     }
 
@@ -68,7 +54,7 @@ public class BoundaryController {
      * @param car           The players car object.
      */
 
-    public static void addPlayer(String name, int start_balance, Car car) {
+    public static void addPlayer(String name,int start_balance, Car car) {
         switch (mode) {
 
             case GUI:
@@ -207,7 +193,10 @@ public class BoundaryController {
 
     }
 
-    public static void setBalance(Player player, int balance) {
+    public static void updateBalance(Player player) {
+
+        int balance = player.getBalance();
+
         switch (mode) {
 
             case GUI:
@@ -230,7 +219,7 @@ public class BoundaryController {
                 desktop_fields.Field[] tempField = new desktop_fields.Field[40];
 
                 for (int i = 0; i < board.length; i++) {
-                    tempField[i] = convertToGUI(board[i]);
+                    tempField[i] = board[i].convertToGUI();
                 }
 
                 // Creates the GUI with the fieldarray
@@ -244,12 +233,25 @@ public class BoundaryController {
 
     }
 
-    public static desktop_fields.Field convertToGUI(Field theField) {
-        desktop_fields.Shipping.Builder a = new desktop_fields.Shipping.Builder()
-                .setTitle(theField.getName())
-                .setPicture(null)
-                .setSubText("");
-        return a.build();
+    public static void setOwner(int fieldNumber, String name) {
+        GUI.setOwner(fieldNumber, name);
+    }
+
+    public static void removeOwner(int fieldNumber) {
+        GUI.removeOwner(fieldNumber);
+    }
+
+
+    /**
+     * Creating new variable type "Mode".
+     */
+    public enum Mode {
+
+        //Two types of modes
+
+        GUI,
+        Test
+
     }
 
 }

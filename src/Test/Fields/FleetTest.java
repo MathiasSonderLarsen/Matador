@@ -1,6 +1,7 @@
-package Test;
+package Test.Fields;
 
 import Game.*;
+import Game.Fields.Fleet;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -12,6 +13,7 @@ import static org.junit.Assert.*;
  * Testes the Fleet class
  * <p>
  * Bugs: none known
+ *
  * @author Mathias S Larsen (2016)
  * @author Casper Bodskov
  * @author Lasse Dyrsted
@@ -38,8 +40,8 @@ public class FleetTest {
 
     @Before
     public void setUp() {
-        this.player1 = new Player("Player1", 30000);
-        this.player2 = new Player("Player2", 30000);
+        this.player1 = new Player("Player1");
+        this.player2 = new Player("Player2");
         //this.gameBoard = new GameBoard(21);
         this.gameBoard = GameController.getGameBoard();
 

@@ -1,4 +1,7 @@
-package Game;
+package Game.Fields;
+
+
+import Game.Player;
 
 /**
  * Field defines common attribues and methods for all the Field types
@@ -10,16 +13,18 @@ package Game;
  */
 public abstract class Field {
 
-    private String name;
+    protected final int groupID;
+    protected String name;
 
     /**
      * Constructs a Field
      *
-     * @param name   The name of the Field
+     * @param name The name of the Field
      */
-    public Field(String name) {
+    public Field(String name, int groupID) {
 
         this.name = name;
+        this.groupID = groupID;
     }
 
     public String getName() {
@@ -31,10 +36,21 @@ public abstract class Field {
     }
 
     /**
+     * Getter for property 'groupID'.
+     *
+     * @return Value for property 'groupID'.
+     */
+    public int getGroupID() {
+        return this.groupID;
+    }
+
+    /**
      * Handles the stuff that needs to happen when a player lands on a Field
      *
      * @param player The player that lands on the Field
      */
     public abstract void landOnField(Player player);
+
+    public abstract desktop_fields.Field convertToGUI();
 
 }

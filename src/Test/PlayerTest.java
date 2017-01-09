@@ -5,9 +5,7 @@ import Game.Player;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Tests the Player class
@@ -30,7 +28,7 @@ public class PlayerTest {
      * validates that the entities have been created and is of the correct type.
      */
     @Test
-    public void testEntities (){
+    public void testEntities() {
         assertNotNull(this.player);
         assertNotNull(this.player.getAccount());
 
@@ -48,29 +46,30 @@ public class PlayerTest {
 
         int expected = 0;
         int actual = player.getRealEstateValue();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
 
         player.addRealEstateValue(5000);
 
         expected = 5000;
         actual = player.getRealEstateValue();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
 
         player.addRealEstateValue(1000);
 
         expected = 6000;
         actual = player.getRealEstateValue();
-        assertEquals(expected ,actual);
+        assertEquals(expected, actual);
 
         player.addRealEstateValue(-2000);
         expected = 4000;
         actual = player.getRealEstateValue();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     /**
      * validates that the account balance can be changed and returned.
      * also validates that the start balance of the account is 30,000 points.
+     *
      * @throws Exception
      */
     @Test
@@ -78,25 +77,25 @@ public class PlayerTest {
 
         int expected = 30000;
         int actual = player.getBalance();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
 
         player.addBalance(5000);
 
         expected = 35000;
         actual = player.getBalance();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
 
         player.addBalance(-10000);
 
         expected = 25000;
         actual = player.getBalance();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
 
         player.addBalance(0);
 
         expected = 25000;
         actual = player.getBalance();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -104,7 +103,7 @@ public class PlayerTest {
 
         String expected = "Player1";
         String actual = player.getName();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -114,12 +113,12 @@ public class PlayerTest {
 
         int expected = 20;
         int actual = player.getOnField();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
 
 
         player.setOnField(5);
         expected = 5;
         actual = player.getOnField();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
 }
