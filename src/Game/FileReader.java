@@ -1,5 +1,7 @@
 package Game;
 
+import Game.ChanceCards.ChanceCard;
+import Game.Fields.Field;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;

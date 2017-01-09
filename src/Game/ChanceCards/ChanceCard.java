@@ -1,4 +1,6 @@
-package Game;
+package Game.ChanceCards;
+
+import Game.Game;
 
 /**
  *

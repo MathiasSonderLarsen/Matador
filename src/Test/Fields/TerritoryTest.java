@@ -1,6 +1,9 @@
-package Test;
+package Test.Fields;
 
-import Game.*;
+import Game.Fields.Territory;
+import Game.GameBoard;
+import Game.GameController;
+import Game.Player;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;

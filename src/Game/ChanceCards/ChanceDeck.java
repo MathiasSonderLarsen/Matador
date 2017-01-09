@@ -1,5 +1,8 @@
-package Game;
+package Game.ChanceCards;
 
+import Game.Game;
+
+import java.io.FileReader;
 import java.util.Random;
 
 /**
@@ -18,7 +21,7 @@ public class ChanceDeck {
 
     ChanceDeck() {
 
-        FileReader fileReader = new FileReader("lol");
+        Game.FileReader fileReader = new FileReader("lol");
         this.ChanceCards = fileReader.getCards(46);
 
     }

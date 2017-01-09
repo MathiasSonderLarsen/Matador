@@ -1,4 +1,4 @@
-package Game;
+package Game.ChanceCards;
 
 /**
  * MoneyTransfer does....blabla
