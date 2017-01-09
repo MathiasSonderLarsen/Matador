@@ -1,0 +1,13 @@
+﻿MoneyTransferCard|{"name":"Test","description":"eeeee","baseAmount":3000,"baseHouse":0,"baseHotel":0}   Betal 3.000 for reparation af deres vogn
+MoneyTransferCard|{"name":"Test","description":"eeeee","baseAmount":3000,"baseHouse":0,"baseHotel":0}   Betal 3.000 for reparation af deres vogn
+MoneyTransferCard|{"name":"Test","description":"eeeee","baseAmount":0,"baseHouse":500,"baseHotel":2000}   ***Oliepriserne er steget, og de skal betale: kr. 500 pr. hus    kr. 2.000 pr. hotel
+MoneyTransferCard|{"name":"Test","description":"eeeee","baseAmount":200,"baseHouse":0,"baseHotel":0}   De har måttet vedtage en parkeringsbøde. Betal kr. 200 i bøde
+MoneyTransferCard|{"name":"Test","description":"eeeee","baseAmount":1000,"baseHouse":0,"baseHotel":0}   Betal deres bilforsikring kr. 1.000
+MoneyTransferCard|{"name":"Test","description":"eeeee","baseAmount":1000,"baseHouse":0,"baseHotel":0}   De har kørt frem for ”fuld stop”, betal 1.000 i bøde
+MoneyTransferCard|{"name":"Test","description":"eeeee","baseAmount":2000,"baseHouse":0,"baseHotel":0}   De har modtaget deres tandlægeregning. Betal 2.000
+MoneyTransferCard|{"name":"Test","description":"eeeee","baseAmount":200,"baseHouse":0,"baseHotel":0}   De har været med en tur i udlandet og har haft for mange cigaretter med hjem. Betal told kr. 200
+MoneyTransferCard|{"name":"Test","description":"eeeee","baseAmount":0,"baseHouse":800,"baseHotel":2300}   ***ejendomsskattene er steget, og de skal betale: kr. 800 pr. hus    kr. 2.300 pr. hotel
+
+MoveCard|{"name":"Test","description":"eeeee","moveAmount":3} Ryk 3 felter frem
+MoveCard|{"name":"Test","description":"eeeee","baseAmount":-3} Ryk 3 felter tilbage
+

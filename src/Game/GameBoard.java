@@ -4,6 +4,7 @@ import Game.Fields.Field;
 import Game.Fields.Ownable;
 import Game.Fields.Territory;
 import com.google.gson.Gson;
+import desktop_fields.Tax;
 import desktop_resources.GUI;
 
 import java.io.BufferedReader;
@@ -34,7 +35,10 @@ public class GameBoard {
 
         numberOfFields = number;
 
-        //board = new Field[numberOfFields];
+        //board = new Field[numberOfFields]
+        // ;
+
+
         board = loadBoardFromFile("board.cfg");
         BoundaryController.showOnGui(board);
 
@@ -174,5 +178,23 @@ public class GameBoard {
             }
         }
         return houseBuyableFields;
+    }
+
+    public int[] getNumberOfOwnedHH(Player user) {
+        int houses=0;
+        int hotels=0;
+        for (Field theField : board) {
+            if (theField instanceof Territory) {
+               int count =  ((Territory) theField).getNumOfHouses();
+
+               if (count >=6){
+                   hotels++;
+               }else {
+                   houses += count;
+               }
+
+            }
+        }
+        return new int[]{houses, hotels};
     }
 }
