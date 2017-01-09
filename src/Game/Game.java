@@ -15,9 +15,9 @@ public class Game {
     public static void main(String[] args) {
 
         // Selects the language
-        Language.setLanguage("english");
+        Language.setLanguage("danish");
 
-        InterfaceController.setInterfaceMode(InterfaceController.Mode.GUI);
+        BoundaryController.setInterfaceMode(BoundaryController.Mode.GUI);
 
         // The startGame() method is called to startGame the game
         GameController.startGame();

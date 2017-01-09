@@ -1,13 +1,10 @@
 package Test;
 
 import Game.Die;
-import Game.InterfaceController;
-import Game.Language;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 
 /**
@@ -15,8 +12,13 @@ import static org.junit.Assert.assertEquals;
  * <p>
  * Bugs: none known
  *
- * @author Mathias Larsen, Timothy Rasmussen.
- * @version v.0.2
+ * @author Mathias S Larsen (2016)
+ * @author Casper Bodskov
+ * @author Lasse Dyrsted
+ * @author Michael Klan
+ * @author Rasmus Blichfeldt
+ * @author Timothy Rasmussen
+ * @version v.0.3
  */
 
 public class DieTest {
@@ -28,28 +30,14 @@ public class DieTest {
     private Die die;
 
     /**
-     * Setup for test.
-     */
-
-    @BeforeClass
-    public static void setUpBeforeClass() {
-
-        InterfaceController.setInterfaceMode(InterfaceController.Mode.Test);
-
-        Language.setLanguage("english");
-
-    }
-
-    /**
      * Creates the die object.
      */
 
     @Before
-    public void createDice() {
-
+    public void setUp() {
         die = new Die();
-
     }
+
 
     // Declares variables
     @Test
@@ -115,5 +103,21 @@ public class DieTest {
 
 
     }
+
+    @Test
+    public void testEntities() {
+        assertNotNull(die);
+        assertTrue(die instanceof Die);
+    }
+
+    /**
+     * Tests if setFaceValue and getFaceValue works.
+     */
+    @Test
+    public void testFaceValue() {
+        die.setFaceValue(5);
+        assertEquals(5, die.getFaceValue());
+    }
+
 
 }

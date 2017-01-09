@@ -1,0 +1,258 @@
+package Game;
+
+
+import Game.Fields.Field;
+import Game.Fields.Jail;
+import desktop_codebehind.Car;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Random;
+
+/**
+ * GameController controls the main flow of the game
+ * <p>
+ * Bugs: If a player gets bankrupt, the player before him get an extra turn.
+ *
+ * @author Mathias S Larsen (2016)
+ * @author Casper Bodskov
+ * @author Lasse Dyrsted
+ * @author Michael Klan
+ * @author Rasmus Blichfeldt
+ * @author Timothy Rasmussen
+ * @version v.0.2
+ */
+
+public class GameController {
+    private static int FIELD_COUNT = 40;
+
+    /**
+     * Getter for property 'gameBoard'.
+     *
+     * @return Value for property 'gameBoard'.
+     */
+    public static GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    private static GameBoard gameBoard = new GameBoard(FIELD_COUNT);
+    private static Shaker shaker = new Shaker(2);
+
+    /**
+     * Getter for property 'currentPlayer'.
+     *
+     * @return Value for property 'currentPlayer'.
+     */
+    public static Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    private static Player currentPlayer;
+    private static ArrayList<Player> players = new ArrayList<Player>();
+
+
+    private GameController() {
+    }
+
+    private static void initializePlayers() {
+
+
+        String numberSelected = BoundaryController.getUserSelection(Language.getString("greeting"), "2", "3", "4", "5", "6");
+        int numberOfPlayers = Integer.parseInt(numberSelected);
+        for (int i = 0; i < numberOfPlayers; i++) {
+            String name = "Kurt" + i;//BoundaryController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
+            players.add(new Player(name)); //creates a new player object.
+
+            Player thisPlayer = players.get(i);
+            // Adds player to the GUI
+            // Adds a car object which has a new color, specified by a random-method between the integers 0-255
+            BoundaryController.addPlayer(thisPlayer.getName(), thisPlayer.getBalance(), new Car.Builder()
+                    .primaryColor(randomColor())
+                    .build());
+
+            BoundaryController.setCar(1, thisPlayer.getName());
+
+        }
+    }
+
+    public static void checkIfCanMove() {
+        //if (shaker.DoublesInARow())
+    }
+
+
+    public static void movePlayerRelative(Player thisPlayer, int stepsToMove) {
+        int playerPos = thisPlayer.getOnField();
+
+
+        //stores the players location on the gameBoard
+        if (thisPlayer.getOnField() + stepsToMove <= FIELD_COUNT) {
+            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove);
+        } else {
+            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove - FIELD_COUNT);
+        }
+
+        BoundaryController.removeAllCars(thisPlayer.getName());
+        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+    }
+
+
+    public static void movePlayerAbsolute(Player thisPlayer, int newPos) {
+
+        thisPlayer.setOnField(newPos);
+        BoundaryController.removeAllCars(thisPlayer.getName());
+        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+
+    }
+
+    public static void movePlayerAnim(Player thisPlayer, int moveToField, boolean AbsolutePos) {
+
+        if (AbsolutePos) {
+            movePlayerAbsolute(thisPlayer, moveToField);
+        } else {
+            for (int i = 0; i < moveToField; i++) {
+                movePlayerRelative(thisPlayer, 1);
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+    }
+
+
+    public static Shaker getShaker() {
+        return shaker;
+    }
+
+    private static void displayDice(Shaker shaker) {
+
+        // Declares face values to show the die in the GUI
+        int faceValue1 = shaker.getDice()[0].getFaceValue();
+        int faceValue2 = shaker.getDice()[1].getFaceValue();
+
+
+        // Displays the dice on the board
+        BoundaryController.setDice(faceValue1, faceValue2);
+    }
+
+    private static Color randomColor() {
+        Random random = new Random();
+        return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+    }
+
+    public static void reset() {
+        FIELD_COUNT = 21;
+        gameBoard = new GameBoard(FIELD_COUNT);
+        shaker = new Shaker(2); //creates a shaker with 2 dice.
+        currentPlayer = null;
+        players = new ArrayList<Player>(); //creates an ArrayList that can contain Player objects
+
+    }
+
+    public static void playTurn(Player player) {
+
+        //rolls the dice
+        shaker.shake();
+
+        //displays the dice in the GUI
+        displayDice(shaker);
+
+        if (Jail.isJailed(player) == false) {
+
+            //moves the player's token on the gameBoard in the GUI
+            movePlayerAnim(player, shaker.getSum(), false);
+
+        } else {
+
+            // Your options in jail
+            // SKAL IND I LANGUAGE
+            String answer;
+            final String question = Language.getString("methodOutOfJail");
+            final String answer1 = Language.getString("rollTwoOfTheSame");
+            final String answer2 = Language.getString("pay4000");
+            final String answer3 = Language.getString("useChanceCard");
+
+            if (player.getOutOfJailCards() > 0) {
+                answer = BoundaryController.getUserButtonPressed(question, answer1, answer2, answer3);
+            } else {
+                answer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
+
+                if (answer1 == answer) {
+                    shaker.shake();
+                    displayDice(shaker);
+
+                    if (shaker.getDoublesInARow() > 0) {
+                        Jail.removePlayer(player);
+                    }
+                } else if (answer2 == answer) {
+                    player.addBalance(-4000);
+                    Jail.removePlayer(player);
+                } else if (answer3 == answer) {
+                    player.setOutOfJailCards(-1);
+                    Jail.removePlayer(player);
+                }
+
+                // Adds jailRound to the player if he still is in jail (Because he rolls dice)
+                if (Jail.isJailed(player)) {
+                    player.addRoundsInJail(1);
+                }
+
+                // After 3 rounds in jail, the player must pay bail.
+                if (player.getRoundsInJail() == 3) {
+
+                    player.addBalance(-1000);
+                    player.addRoundsInJail(-3);
+                    Jail.removePlayer(player);
+
+                }
+
+            }
+        }
+
+        //controls what happens when the player lands on a specific field.
+        Field currentField = gameBoard.getField(player.getOnField());
+        BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
+        currentField.landOnField(player);
+
+        //removes bankrupt players from the game
+        if (player.getBalance() <= 0) {
+            gameBoard.deleteOwnership(player);
+            players.remove(player);
+        }
+
+    }
+
+
+    public static void startGame() {
+
+        // Adds players to the game
+        initializePlayers();
+
+        // While there is more than one person standing
+        while (players.size() > 1) {
+
+            // For every player in the game
+            for (int i = 0; i < players.size(); i++) {
+                currentPlayer = players.get(i);
+
+                playTurn(currentPlayer);
+
+                if (shaker.getDoublesInARow() > 0 && currentPlayer != null) {
+
+                    playTurn(currentPlayer);
+                }
+            }
+
+        }
+
+        // Gets displayed when a winner has been found. SKAL OGSÅ IND I LANGUAGE
+        BoundaryController.showMessage(players.get(0).getName() + " " + Language.getString("won"));
+
+        BoundaryController.close();
+
+    }
+}
