@@ -106,7 +106,7 @@ public class GameBoard {
         int num = 0;
 
         for (Field theField : board) {
-            if ((theField instanceof Ownable) && ((Ownable) theField).getGroupID() == player.getOnField()) {
+            if ((theField instanceof Ownable) && ((Ownable) theField).getGroupID() == groupID) {
                 if (((Ownable) theField).getOwner() == player) {
                     num++;
                 }
@@ -161,9 +161,9 @@ public class GameBoard {
         return i+1;
     }
 
-    public Territory[] getBuyableArray(int groupID) {
+    public Territory[] getBuyableArray(int groupID, int numberOfFields) {
 
-        Territory[] houseBuyableFields = new Territory[3];
+        Territory[] houseBuyableFields = new Territory[numberOfFields];
         int j = 0;
 
         for(int i = 1; i <= 40; i++){

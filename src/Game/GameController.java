@@ -215,7 +215,7 @@ public class GameController {
 
         //controls what happens when the player lands on a specific field.
         Field currentField = gameBoard.getField(player.getOnField());
-        BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
+        //BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
         currentField.landOnField(player);
 
         //removes bankrupt players from the game

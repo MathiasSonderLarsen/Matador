@@ -8,7 +8,8 @@ import java.awt.*;
 /**
  * Keeps track of the rent, price, name, groupID and houseprice of the territories
  * <p>
- * Bugs: none known
+ * Bugs: Kan ikke købe 2 huse efter hindanden
+ *       Kan købe mere end 2 huse på en plads in en gruppe der har en minimum af 0
  *
  * @author Mathias S Larsen (2016)
  * @author Casper Bodskov
@@ -22,7 +23,7 @@ import java.awt.*;
 public class Territory extends Ownable {
 
     private int[] rentArray;
-    private int numOfHouses;
+    private int numOfHouses = 0;
     private int housePrice;
     private boolean buyMode;
 
@@ -60,11 +61,11 @@ public class Territory extends Ownable {
     }
 
     public void setNumOfHouses(int number){
-        numOfHouses = number;
+        this.numOfHouses = number;
     }
 
     public int getNumOfHouses(){
-        return numOfHouses;
+        return this.numOfHouses;
     }
 
     @Override
@@ -77,45 +78,60 @@ public class Territory extends Ownable {
         int fieldNumber;
         Territory[] houseBuyableFields;
 
-        int numberOfHousesOwnedInGroup = GameController.getGameBoard().getNumInGroupOwned(player, groupID);
-        int numberOfHousesInGroup = GameController.getGameBoard().getNumberOfPropertiesInGroup(groupID);
+        int numberOfPropertiesOwnedInGroup = GameController.getGameBoard().getNumInGroupOwned(player, groupID);
+        int numberOfPropertiesInGroup = GameController.getGameBoard().getNumberOfPropertiesInGroup(groupID);
 
-        houseBuyableFields = GameController.getGameBoard().getBuyableArray(groupID);
+
 
         // If you own every lot in the group
-        if(numberOfHousesOwnedInGroup == numberOfHousesInGroup){
+        if(numberOfPropertiesOwnedInGroup == numberOfPropertiesInGroup){
+
 
             final String question, answer1, answer2;
             buyMode = true;
 
-            {
+            question = player.getName() + (Language.getString("buyhouse")
+                    + " " + getName() + " " + Language.getString("buy2") + " "
+                    + housePrice + " " + Language.getString("point") + " ?");
 
-                question = player.getName() + (Language.getString("buyhouse")
-                        + " " + getName() + " " + Language.getString("buy2") + " "
-                        + housePrice + " " + Language.getString("point") + " ?");
+            answer1 = Language.getString("no");
+            answer2 = Language.getString("yes");
 
-                answer1 = Language.getString("no");
-                answer2 = Language.getString("yes");
 
+
+            do {
+
+
+                String inputAnswer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
 
                 // Happens if the player wants to buy house
-                if (BoundaryController.getUserButtonPressed(question, answer1, answer2) == answer2) {
+                if (inputAnswer == answer2) {
 
                     int minimum = 6;
                     int number = 0;
                     String[] stringArray;
+                    houseBuyableFields = GameController.getGameBoard().getBuyableArray(groupID, numberOfPropertiesInGroup);
 
-                    for(int i = 0; i < 4; i++){
+
+                    for(int i = 0; i < numberOfPropertiesInGroup; i++) {
+                        int numberOfHouseOnField = houseBuyableFields[i].getNumOfHouses();
 
                         // Find the minimum number of houses on the fields with same groupID
-                        if(houseBuyableFields[i].getNumOfHouses() < minimum){
-                            minimum = houseBuyableFields[i].getHousePrice();
+                        if (numberOfHouseOnField < minimum) {
+                            minimum = houseBuyableFields[i].getNumOfHouses();
+
                         }
+                    }
+                    
+                    for(int i = 0; i < numberOfPropertiesInGroup; i++){
+
+                        int numberOfHouseOnField = houseBuyableFields[i].getNumOfHouses();
 
                         // Finds the number of fields with same minimum of houses
-                        if(houseBuyableFields[i].getNumOfHouses() == minimum){
+                        if(numberOfHouseOnField == minimum){
 
                             number++;
+
                         }
 
                     }
@@ -128,22 +144,26 @@ public class Territory extends Ownable {
 
                     String answer = BoundaryController.getUserButtonPressed(question, stringArray);
 
-                    for(int i = 0; i < 4; i++){
+                    for(int i = 0; i < numberOfPropertiesInGroup; i++){
 
                         if(answer == houseBuyableFields[i].getName()){
 
                             fieldNumber = GameController.getGameBoard().getFieldPos(houseBuyableFields[i]);
 
                             BoundaryController.buyHouse(fieldNumber, 1);
+                            int numberOfHouseToSet = houseBuyableFields[i].getNumOfHouses() + 1;
+                            houseBuyableFields[i].setNumOfHouses(numberOfHouseToSet);
 
-                            BoundaryController.showMessage(player.getName() + " " + Language.getString("bough") + " "
+                            BoundaryController.showMessage(player.getName() + " " + Language.getString("bought") + " "
                                     + Language.getString("house1") + houseBuyableFields[i].getName());
                         }
+                        break;
 
                     }
 
                 }
-                if(BoundaryController.getUserButtonPressed(question, answer1, answer2) == answer1){
+
+                if(inputAnswer == answer1){
                     buyMode = false;
                 }
 
