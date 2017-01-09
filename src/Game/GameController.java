@@ -38,6 +38,16 @@ public class GameController {
 
     private static GameBoard gameBoard = new GameBoard(FIELD_COUNT);
     private static Shaker shaker = new Shaker(2);
+
+    /**
+     * Getter for property 'currentPlayer'.
+     *
+     * @return Value for property 'currentPlayer'.
+     */
+    public static Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
     private static Player currentPlayer;
     private static ArrayList<Player> players = new ArrayList<Player>();
 
@@ -48,17 +58,16 @@ public class GameController {
     private static void initializePlayers() {
 
 
-
         String numberSelected = BoundaryController.getUserSelection(Language.getString("greeting"), "2", "3", "4", "5", "6");
         int numberOfPlayers = Integer.parseInt(numberSelected);
         for (int i = 0; i < numberOfPlayers; i++) {
-            String name = "Kurt"+i;//BoundaryController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
+            String name = "Kurt" + i;//BoundaryController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
             players.add(new Player(name)); //creates a new player object.
 
-            Player thisPlayer=players.get(i);
+            Player thisPlayer = players.get(i);
             // Adds player to the GUI
             // Adds a car object which has a new color, specified by a random-method between the integers 0-255
-            BoundaryController.addPlayer(thisPlayer.getName(),thisPlayer.getBalance(), new Car.Builder()
+            BoundaryController.addPlayer(thisPlayer.getName(), thisPlayer.getBalance(), new Car.Builder()
                     .primaryColor(randomColor())
                     .build());
 
@@ -96,7 +105,6 @@ public class GameController {
 //                e.printStackTrace();
 //            }
 //        }
-
 
 
     }
@@ -151,10 +159,10 @@ public class GameController {
             String answer = BoundaryController.getUserButtonPressed("Sådan kommer du ud af fængsel:",
                     "Rul 2 ens", "Betal 4000 points", "Brug ud af fængsel kort");
 
-            switch (answer){
+            switch (answer) {
                 case "Rul 2 ens":
                     shaker.shake();
-                    if(shaker.getDoublesInARow() > 0){
+                    if (shaker.getDoublesInARow() > 0) {
                         Jail.removePlayer(player);
                     }
                     break;
@@ -163,19 +171,22 @@ public class GameController {
                     Jail.removePlayer(player);
                     break;
                 case "Brug ud af fængsel kort":
-                    player.setOutOfJailCards(-1);
-                    Jail.removePlayer(player);
+                    if (player.getOutOfJailCards() > 0) {
+                        player.setOutOfJailCards(-1);
+                        Jail.removePlayer(player);
+                    }
                     break;
-                default: System.out.println("Should never happen");
+                default:
+                    System.out.println("Should never happen");
 
             }
             // Adds jailRound to the player if he still is in jail (Because he rolls dice)
-            if(Jail.isJailed(player)){
+            if (Jail.isJailed(player)) {
                 player.addRoundsInJail(1);
             }
 
             // After 3 rounds in jail, the player must pay bail.
-            if(player.getRoundsInJail() == 3){
+            if (player.getRoundsInJail() == 3) {
 
                 player.addBalance(-1000);
             }
@@ -202,7 +213,7 @@ public class GameController {
         initializePlayers();
 
         // While there is more than one person standing
-        while(players.size() > 1){
+        while (players.size() > 1) {
 
             // For every player in the game
             for (int i = 0; i < players.size(); i++) {
@@ -214,7 +225,6 @@ public class GameController {
 
                     playTurn(currentPlayer);
                 }
-
             }
 
         }

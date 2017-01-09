@@ -193,7 +193,10 @@ public class BoundaryController {
 
     }
 
-    public static void setBalance(Player player, int balance) {
+    public static void updateBalance(Player player) {
+
+        int balance = player.getBalance();
+
         switch (mode) {
 
             case GUI:
@@ -230,6 +233,9 @@ public class BoundaryController {
 
     }
 
+    public static void setOwner(int fieldNumber, String name) {
+        GUI.setOwner(fieldNumber, name);
+    }
 
 
     /**

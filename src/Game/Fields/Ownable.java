@@ -2,8 +2,10 @@ package Game.Fields;
 
 
 import Game.BoundaryController;
+import Game.GameController;
 import Game.Language;
 import Game.Player;
+import desktop_resources.GUI;
 
 /**
  * Ownable class
@@ -76,6 +78,9 @@ public abstract class Ownable extends Field {
      */
     public void setOwner(Game.Player owner) {
         this.owner = owner;
+        BoundaryController.setOwner(GameController.getGameBoard().getFieldPos(this),owner.getName());
+
+
     }
 
     /**
@@ -107,7 +112,7 @@ public abstract class Ownable extends Field {
             }
         }
         //Someone else owns the field
-        if (owner != player && owner != null && Jail.isJailed(owner)) {
+        if (owner != player && owner != null && !Jail.isJailed(owner)) {
             player.addBalance(-getRent());
             owner.addBalance(getRent());
         }

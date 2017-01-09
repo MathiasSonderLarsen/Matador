@@ -69,10 +69,10 @@ public class GameBoard {
                 String[] lineSplit = line.split("\\|");
                 loadedFields[i] = g.fromJson(lineSplit[1], (Type) Class.forName("Game.Fields." + lineSplit[0]));
 
-                String name ;
-                if (loadedFields[i].getName().length() > 10){
-                    name = loadedFields[i].getName().replace(' ','\n');
-                }else {
+                String name;
+                if (loadedFields[i].getName().length() > 10) {
+                    name = loadedFields[i].getName().replace(' ', '\n');
+                } else {
                     name = loadedFields[i].getName();
                 }
 
@@ -156,5 +156,16 @@ public class GameBoard {
         else {
             return false;
         }
+    }
+
+    public int getFieldPos(Field fieldToFind) {
+
+        int i = 0;
+        for (i = 0; i < board.length; i++) {
+            if (fieldToFind == board[i]) {
+                break;
+            }
+        }
+        return i+1;
     }
 }

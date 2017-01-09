@@ -46,8 +46,8 @@ public class Jail extends Field {
     public void landOnField(Player player) {
     }
 
-    public desktop_fields.Street convertToGUI() {
-        desktop_fields.Street.Builder a = new desktop_fields.Street.Builder()
+    public desktop_fields.Jail convertToGUI() {
+        desktop_fields.Jail.Builder a = new desktop_fields.Jail.Builder()
                 .setTitle(this.getName())
                 .setBgColor(Color.red)
                 .setSubText("");

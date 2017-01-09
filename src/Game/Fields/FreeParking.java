@@ -27,8 +27,8 @@ public class FreeParking extends Field {
 
     }
 
-    public desktop_fields.Jail convertToGUI() {
-        desktop_fields.Jail.Builder a = new desktop_fields.Jail.Builder()
+    public desktop_fields.Street convertToGUI() {
+        desktop_fields.Street.Builder a = new desktop_fields.Street.Builder()
                 .setTitle(this.getName())
                 .setBgColor(Color.red)
                 .setSubText("");

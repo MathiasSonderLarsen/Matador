@@ -1,6 +1,8 @@
 package Game.Fields;
 
 
+import Game.GameController;
+
 import java.awt.*;
 
 /**
@@ -17,9 +19,14 @@ public class GoToJail extends Field {
     @Override
     public void landOnField(Game.Player player) {
 
-        ((Jail) Game.GameController.getGameBoard().getField(11)).isJailed(player);
+        Jail theJailField = ((Jail) GameController.getGameBoard().getField(11));
 
-        Game.GameController.movePlayer(player, 11 - player.getOnField());
+        theJailField.addPlayer(player);
+
+        GameController.movePlayer(player, 11 - player.getOnField());
+
+
+
     }
 
     public desktop_fields.Jail convertToGUI() {

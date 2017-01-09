@@ -70,7 +70,7 @@ public class Territory extends Ownable {
     public void landOnField(Player player){
         super.landOnField(player);
 
-
+//køb huse
     }
 
     public desktop_fields.Street convertToGUI() {
