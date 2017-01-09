@@ -4,7 +4,6 @@ package Game;
 import Game.Fields.Field;
 import Game.Fields.Jail;
 import desktop_codebehind.Car;
-import desktop_resources.GUI;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -80,34 +79,50 @@ public class GameController {
         //if (shaker.DoublesInARow())
     }
 
-    public static void movePlayer(Player thisPlayer, int moveFields) {
 
+    public static void movePlayerRelative(Player thisPlayer, int stepsToMove) {
         int playerPos = thisPlayer.getOnField();
 
+
         //stores the players location on the gameBoard
-        if (thisPlayer.getOnField() + moveFields <= FIELD_COUNT) {
-            thisPlayer.setOnField(thisPlayer.getOnField() + moveFields);
+        if (thisPlayer.getOnField() + stepsToMove <= FIELD_COUNT) {
+            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove);
         } else {
-            thisPlayer.setOnField(thisPlayer.getOnField() + moveFields - FIELD_COUNT);
+            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove - FIELD_COUNT);
         }
 
-        //"Moves" the car on the board by removing it in the previous location
-        // and then set it to the new location.
-//        for (int i = moveFields; i >= 0 ; i--) {
         BoundaryController.removeAllCars(thisPlayer.getName());
-//           BoundaryController.setCar(thisPlayer.getOnField()-moveFields, thisPlayer.getName());
+        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+    }
 
+
+    public static void movePlayerAbsolute(Player thisPlayer, int newPos) {
+
+        thisPlayer.setOnField(newPos);
+        BoundaryController.removeAllCars(thisPlayer.getName());
         BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
 
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        }
+    }
+
+    public static void movePlayerAnim(Player thisPlayer, int moveToField, boolean AbsolutePos) {
+
+        if (AbsolutePos) {
+            movePlayerAbsolute(thisPlayer, moveToField);
+        } else {
+            for (int i = 0; i < moveToField; i++) {
+                movePlayerRelative(thisPlayer, 1);
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
 
     }
+
 
     public static Shaker getShaker() {
         return shaker;
@@ -149,7 +164,7 @@ public class GameController {
         if (Jail.isJailed(player) == false) {
 
             //moves the player's token on the gameBoard in the GUI
-            movePlayer(player, shaker.getSum());
+            movePlayerAnim(player, shaker.getSum(), false);
 
         } else {
 
@@ -198,19 +213,18 @@ public class GameController {
             }
         }
 
-            //controls what happens when the player lands on a specific field.
-            Field currentField = gameBoard.getField(player.getOnField());
-            BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
-            currentField.landOnField(player);
+        //controls what happens when the player lands on a specific field.
+        Field currentField = gameBoard.getField(player.getOnField());
+        BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
+        currentField.landOnField(player);
 
-            //removes bankrupt players from the game
-            if (player.getBalance() <= 0) {
-                gameBoard.deleteOwnership(player);
-                players.remove(player);
-            }
-
+        //removes bankrupt players from the game
+        if (player.getBalance() <= 0) {
+            gameBoard.deleteOwnership(player);
+            players.remove(player);
         }
 
+    }
 
 
     public static void startGame() {
