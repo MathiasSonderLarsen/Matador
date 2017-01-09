@@ -68,15 +68,6 @@ public class GameBoard {
 
                 String[] lineSplit = line.split("\\|");
                 loadedFields[i] = g.fromJson(lineSplit[1], (Type) Class.forName("Game.Fields." + lineSplit[0]));
-
-                String name;
-                if (loadedFields[i].getName().length() > 10) {
-                    name = loadedFields[i].getName().replace(' ', '\n');
-                } else {
-                    name = loadedFields[i].getName();
-                }
-
-                loadedFields[i].setName(name);//Language.getString(loadedFields[i].getName()));
                 i++;
 
             }
@@ -142,7 +133,7 @@ public class GameBoard {
         for (Field theField : board) {
             if (theField instanceof Ownable) {
                 if (((Ownable) theField).getOwner() == player) {
-                    ((Ownable) theField).setOwner(null);
+                    ((Ownable) theField).removeOwner();
                 }
             }
         }

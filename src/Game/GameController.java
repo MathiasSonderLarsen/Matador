@@ -156,63 +156,61 @@ public class GameController {
             // Your options in jail
             // SKAL IND I LANGUAGE
             String answer;
-            if (player.getOutOfJailCards() > 0) {
-                answer = BoundaryController.getUserButtonPressed("Sådan kommer du ud af fængsel:",
-                        "Rul 2 ens", "Betal 4000 points", "Brug ud af fængsel kort");
-            } else {
-                answer = BoundaryController.getUserButtonPressed("Sådan kommer du ud af fængsel:",
-                        "Rul 2 ens", "Betal 4000 points");
-            }
+            final String question = Language.getString("methodOutOfJail");
+            final String answer1 = Language.getString("rollTwoOfTheSame");
+            final String answer2 = Language.getString("pay4000");
+            final String answer3 = Language.getString("useChanceCard");
 
-            switch (answer) {
-                case "Rul 2 ens":
+            if (player.getOutOfJailCards() > 0) {
+                answer = BoundaryController.getUserButtonPressed(question, answer1, answer2, answer3);
+            } else {
+                answer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
+
+                if (answer1 == answer) {
                     shaker.shake();
                     displayDice(shaker);
 
                     if (shaker.getDoublesInARow() > 0) {
                         Jail.removePlayer(player);
                     }
-                    break;
-                case "Betal 4000 points":
+                } else if (answer2 == answer) {
                     player.addBalance(-4000);
                     Jail.removePlayer(player);
-                    break;
-                case "Brug ud af fængsel kort":
+                } else if (answer3 == answer) {
                     player.setOutOfJailCards(-1);
                     Jail.removePlayer(player);
-                    break;
-                default:
-                    System.out.println("Should never happen");
+                }
+
+                // Adds jailRound to the player if he still is in jail (Because he rolls dice)
+                if (Jail.isJailed(player)) {
+                    player.addRoundsInJail(1);
+                }
+
+                // After 3 rounds in jail, the player must pay bail.
+                if (player.getRoundsInJail() == 3) {
+
+                    player.addBalance(-1000);
+                    player.addRoundsInJail(-3);
+                    Jail.removePlayer(player);
+
+                }
 
             }
-            // Adds jailRound to the player if he still is in jail (Because he rolls dice)
-            if (Jail.isJailed(player)) {
-                player.addRoundsInJail(1);
-            }
+        }
 
-            // After 3 rounds in jail, the player must pay bail.
-            if (player.getRoundsInJail() == 3) {
+            //controls what happens when the player lands on a specific field.
+            Field currentField = gameBoard.getField(player.getOnField());
+            BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
+            currentField.landOnField(player);
 
-                player.addBalance(-1000);
-                player.addRoundsInJail(-3);
-                Jail.removePlayer(player);
-
+            //removes bankrupt players from the game
+            if (player.getBalance() <= 0) {
+                gameBoard.deleteOwnership(player);
+                players.remove(player);
             }
 
         }
 
-        //controls what happens when the player lands on a specific field.
-        Field currentField = gameBoard.getField(player.getOnField());
-        BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
-        currentField.landOnField(player);
-
-        //removes bankrupt players from the game
-        if (player.getBalance() <= 0) {
-            gameBoard.deleteOwnership(player);
-            players.remove(player);
-        }
-
-    }
 
 
     public static void startGame() {
@@ -238,7 +236,7 @@ public class GameController {
         }
 
         // Gets displayed when a winner has been found. SKAL OGSÅ IND I LANGUAGE
-        BoundaryController.showMessage(players.get(0).getName() + " " + Language.getString("Vandt!"));
+        BoundaryController.showMessage(players.get(0).getName() + " " + Language.getString("won"));
 
         BoundaryController.close();
 
