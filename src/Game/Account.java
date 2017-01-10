@@ -44,4 +44,10 @@ public class Account {
         return balance;
     }
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "balance=" + balance +
+                '}';
+    }
 }

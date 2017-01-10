@@ -91,4 +91,17 @@ public class Player {
     public boolean getExtraTurn() {
         return this.extraTurn;
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", account=" + account +
+                ", realEstateValue=" + realEstateValue +
+                ", onField=" + onField +
+                ", outOfJailCards=" + outOfJailCards +
+                ", roundsInJail=" + roundsInJail +
+                ", extraTurn=" + extraTurn +
+                '}';
+    }
 }
