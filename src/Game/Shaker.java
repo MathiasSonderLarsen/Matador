@@ -86,6 +86,11 @@ public class Shaker {
 
     }
 
+    public void setDice(int die1, int die2){
+        getDice()[0].setFaceValue(die1);
+        getDice()[1].setFaceValue(die2);
+    }
+
 
 }
 
