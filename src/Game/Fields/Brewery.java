@@ -1,6 +1,9 @@
 package Game.Fields;
 
 
+import Game.GameBoard;
+import Game.GameController;
+
 import java.awt.*;
 
 /**
@@ -18,7 +21,7 @@ import java.awt.*;
  */
 public class Brewery extends Ownable {
 
-    Game.GameBoard gameBoard;
+
     int baseRent;
 
 
@@ -33,7 +36,7 @@ public class Brewery extends Ownable {
     public int getRent(Game.Player player) {
 
         // receive gameboard object from GameController
-        gameBoard = Game.GameController.getGameBoard();
+        GameBoard gameBoard = GameController.getGameBoard();
 
         Ownable otherField;
 
@@ -48,11 +51,11 @@ public class Brewery extends Ownable {
 
         if (this.getOwner().equals(otherField.getOwner())) {
 
-            baseRent = Game.GameController.getShaker().getSum() * 200;
+            baseRent = gameBoard.getShaker().getSum() * 200;
 
         } else {
 
-            baseRent = Game.GameController.getShaker().getSum() * 100;
+            baseRent = gameBoard.getShaker().getSum() * 100;
         }
 
         return baseRent;

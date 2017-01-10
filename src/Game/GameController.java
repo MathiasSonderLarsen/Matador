@@ -35,26 +35,27 @@ public class GameController {
         return gameBoard;
     }
 
-    private static GameBoard gameBoard = new GameBoard(FIELD_COUNT);
-    private static Shaker shaker = new Shaker(2);
+    private static GameBoard gameBoard;
+
 
     /**
      * Getter for property 'currentPlayer'.
      *
      * @return Value for property 'currentPlayer'.
      */
-    public static Player getCurrentPlayer() {
+    public  Player getCurrentPlayer() {
         return currentPlayer;
     }
 
-    private static Player currentPlayer;
-    private static ArrayList<Player> players = new ArrayList<Player>();
+    private  Player currentPlayer;
+    private  ArrayList<Player> players = new ArrayList<Player>();
 
 
-    private GameController() {
+    public GameController(Shaker shaker) {
+        gameBoard = new GameBoard(FIELD_COUNT, shaker);
     }
 
-    private static void initializePlayers() {
+    private  void initializePlayers() {
 
 
         String numberSelected = BoundaryController.getUserSelection(Language.getString("greeting"), "2", "3", "4", "5", "6");
@@ -75,12 +76,12 @@ public class GameController {
         }
     }
 
-    public static void checkIfCanMove() {
+    public  void checkIfCanMove() {
         //if (shaker.DoublesInARow())
     }
 
 
-    public static void movePlayerRelative(Player thisPlayer, int stepsToMove) {
+    public  void movePlayerRelative(Player thisPlayer, int stepsToMove) {
         int playerPos = thisPlayer.getOnField();
 
 
@@ -96,7 +97,7 @@ public class GameController {
     }
 
 
-    public static void movePlayerAbsolute(Player thisPlayer, int newPos) {
+    public  void movePlayerAbsolute(Player thisPlayer, int newPos) {
 
         thisPlayer.setOnField(newPos);
         BoundaryController.removeAllCars(thisPlayer.getName());
@@ -104,7 +105,7 @@ public class GameController {
 
     }
 
-    public static void movePlayerAnim(Player thisPlayer, int moveToField, boolean AbsolutePos) {
+    public  void movePlayerAnim(Player thisPlayer, int moveToField, boolean AbsolutePos) {
 
         if (AbsolutePos) {
             movePlayerAbsolute(thisPlayer, moveToField);
@@ -124,11 +125,9 @@ public class GameController {
     }
 
 
-    public static Shaker getShaker() {
-        return shaker;
-    }
 
-    private static void displayDice(Shaker shaker) {
+
+    private  void displayDice(Shaker shaker) {
 
         // Declares face values to show the die in the GUI
         int faceValue1 = shaker.getDice()[0].getFaceValue();
@@ -139,32 +138,32 @@ public class GameController {
         BoundaryController.setDice(faceValue1, faceValue2);
     }
 
-    private static Color randomColor() {
+    private  Color randomColor() {
         Random random = new Random();
         return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
 
-    public static void reset() {
+    public  void reset() {
         FIELD_COUNT = 21;
-        gameBoard = new GameBoard(FIELD_COUNT);
-        shaker = new Shaker(2); //creates a shaker with 2 dice.
+        //gameBoard = new GameBoard(FIELD_COUNT);
+        //TODO fix shaker
         currentPlayer = null;
         players = new ArrayList<Player>(); //creates an ArrayList that can contain Player objects
 
     }
 
-    public static void playTurn(Player player) {
+    public  void playTurn(Player player) {
 
         //rolls the dice
-        shaker.shake();
+        gameBoard.getShaker().shake();
 
         //displays the dice in the GUI
-        displayDice(shaker);
+        displayDice(gameBoard.getShaker());
 
         if (Jail.isJailed(player) == false) {
 
             //moves the player's token on the gameBoard in the GUI
-            movePlayerAnim(player, shaker.getSum(), false);
+            movePlayerAnim(player, gameBoard.getShaker().getSum(), false);
 
         } else {
 
@@ -182,10 +181,10 @@ public class GameController {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
 
                 if (answer1 == answer) {
-                    shaker.shake();
-                    displayDice(shaker);
+                    gameBoard.getShaker().shake();
+                    displayDice(gameBoard.getShaker());
 
-                    if (shaker.getDoublesInARow() > 0) {
+                    if (gameBoard.getShaker().getDoublesInARow() > 0) {
                         Jail.removePlayer(player);
                     }
                 } else if (answer2 == answer) {
@@ -227,7 +226,7 @@ public class GameController {
     }
 
 
-    public static void startGame() {
+    public  void startGame() {
 
         // Adds players to the game
         initializePlayers();
@@ -241,7 +240,7 @@ public class GameController {
 
                 playTurn(currentPlayer);
 
-                if (shaker.getDoublesInARow() > 0 && currentPlayer != null) {
+                if (gameBoard.getShaker().getDoublesInARow() > 0 && currentPlayer != null) {
 
                     playTurn(currentPlayer);
                 }

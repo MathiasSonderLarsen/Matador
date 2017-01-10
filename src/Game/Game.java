@@ -20,7 +20,7 @@ public class Game {
         BoundaryController.setInterfaceMode(BoundaryController.Mode.GUI);
 
         // The startGame() method is called to startGame the game
-        GameController.startGame();
+        new GameController(new FakeShaker(2)).startGame();
 
     }
 }

@@ -24,15 +24,17 @@ public class GameBoard {
 
     private final Field[] board;
     private int numberOfFields;
+    private  Shaker shaker;
 
     /**
      * The constructor of the class GameBoard
      *
      * @param number The number of fields we want on the board
      */
-    public GameBoard(int number) {
+    public GameBoard(int number, Shaker shaker) {
 
         numberOfFields = number;
+        this.shaker = shaker;
 
         //board = new Field[numberOfFields];
         board = loadBoardFromFile("board.cfg");
@@ -43,6 +45,10 @@ public class GameBoard {
 
     public Field[] getBoard() {
         return board;
+    }
+
+    public  Shaker getShaker() {
+        return shaker;
     }
 
     /**
@@ -169,7 +175,7 @@ public class GameBoard {
         for(int i = 1; i <= 40; i++){
 
             if(getField(i) instanceof Territory && getField(i).getGroupID() == groupID){
-                houseBuyableFields[j] = (Territory) GameController.getGameBoard().getField(i);
+                houseBuyableFields[j] = (Territory) getField(i);
                 j++;
             }
         }

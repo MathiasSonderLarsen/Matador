@@ -33,7 +33,6 @@ public class Account {
      */
     public void addBalance(int amount) {
         balance = balance + amount;
-        BoundaryController.updateBalance(GameController.getCurrentPlayer());
     }
 
     /**
