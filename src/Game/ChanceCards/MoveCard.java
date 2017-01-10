@@ -16,17 +16,17 @@ import Game.Player;
  * @author Timothy Rasmussen
  * @version v.0.1
  */
-public class MoveCard extends ChanceCard{
+public class MoveCard extends ChanceCard {
 
     private int moveAmount;
 
-    public MoveCard(String name, String description, int moveAmount){
+    public MoveCard(String name, String description, int moveAmount) {
         super(name, description);
         this.moveAmount = moveAmount;
     }
 
     @Override
     public void action(Player user) {
-        GameController.movePlayerAnim(user,moveAmount,false);
+        GameController.movePlayerAnim(user, moveAmount, false);
     }
 }

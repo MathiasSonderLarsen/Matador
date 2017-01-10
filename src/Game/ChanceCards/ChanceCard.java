@@ -16,7 +16,6 @@ import Game.Player;
  */
 public abstract class ChanceCard {
 
-    protected String name;
     protected String description;
 
     public ChanceCard(String name, String description) {
@@ -30,9 +29,6 @@ public abstract class ChanceCard {
     }
 
     public String getName() {
-
-        return name;
-    }
 
     public abstract void action(Player user);
 }
