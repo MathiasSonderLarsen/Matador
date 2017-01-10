@@ -11,7 +11,7 @@ import desktop_resources.GUI;
  * Bugs: none known
  *
  * @author Lasse Dyrsted, Timothy Rasmussen
- * @version v.0.3
+ * @version v.0.4
  */
 public class BoundaryController {
 
@@ -20,7 +20,9 @@ public class BoundaryController {
      */
 
     private static Mode mode;
-    private static String preDefinedAnswer;
+    private static String[] preDefinedAnswer;
+    private static int answerNum = 0;
+
     private BoundaryController() {
     }
 
@@ -30,8 +32,9 @@ public class BoundaryController {
      * @param newPreDefinedAnswer The predefined answer.
      */
 
-    public static void setPreDefinedAnswer(String newPreDefinedAnswer) {
+    public static void setPreDefinedAnswer(String[] newPreDefinedAnswer) {
         preDefinedAnswer = newPreDefinedAnswer;
+        answerNum=0;
     }
 
     /**
@@ -54,7 +57,7 @@ public class BoundaryController {
      * @param car           The players car object.
      */
 
-    public static void addPlayer(String name,int start_balance, Car car) {
+    public static void addPlayer(String name, int start_balance, Car car) {
         switch (mode) {
 
             case GUI:
@@ -84,9 +87,7 @@ public class BoundaryController {
             case GUI:
                 return GUI.getUserString(question);
             case Test:
-                System.out.println(question);
-                System.out.println(preDefinedAnswer);
-                return preDefinedAnswer;
+                return getAnswer();
         }
         return ""; //Should not happen
 
@@ -157,16 +158,7 @@ public class BoundaryController {
             case GUI:
                 return GUI.getUserSelection(questionToUser, possibleAnswers);
             case Test:
-                System.out.print(questionToUser);
-                System.out.print(" [");
-
-                for (String item : possibleAnswers) {
-                    System.out.print(item + " ");
-                }
-                System.out.print("] ");
-
-                System.out.println(preDefinedAnswer);
-                return preDefinedAnswer;
+                return getAnswer();
         }
         return ""; //Should not happen
 
@@ -178,16 +170,7 @@ public class BoundaryController {
             case GUI:
                 return GUI.getUserButtonPressed(questionToUser, possibleAnswers);
             case Test:
-                System.out.print(questionToUser);
-                System.out.print(" [");
-
-                for (String item : possibleAnswers) {
-                    System.out.print(item + " ");
-                }
-                System.out.print("] ");
-
-                System.out.println(preDefinedAnswer);
-                return preDefinedAnswer;
+                return getAnswer();
         }
         return ""; //Should not happen
 
@@ -204,6 +187,47 @@ public class BoundaryController {
                 break;
             case Test:
                 System.out.println("The players balance was set to " + balance);
+                break;
+        }
+    }
+
+    public static void buyHouse(int field, int numberOfHouses) {
+        switch (mode) {
+
+            case GUI:
+                GUI.setHouses(field, numberOfHouses);
+
+
+                break;
+            case Test:
+
+                break;
+        }
+    }
+
+    public static void setHotel(int field, boolean setHotel) {
+
+
+        switch (mode) {
+
+            case GUI:
+                GUI.setHotel(field, setHotel);
+                break;
+            case Test:
+
+                break;
+        }
+    }
+
+    public static void buyHotel(int field, boolean hasHotel) {
+        switch (mode) {
+
+            case GUI:
+                GUI.setHotel(field, hasHotel);
+
+                break;
+            case Test:
+
                 break;
         }
     }
@@ -234,11 +258,37 @@ public class BoundaryController {
     }
 
     public static void setOwner(int fieldNumber, String name) {
-        GUI.setOwner(fieldNumber, name);
+        switch (mode) {
+
+            case GUI:
+                GUI.setOwner(fieldNumber-1, name);
+
+
+                break;
+            case Test:
+
+                break;
+        }
     }
 
     public static void removeOwner(int fieldNumber) {
-        GUI.removeOwner(fieldNumber);
+        switch (mode) {
+
+            case GUI:
+                GUI.removeOwner(fieldNumber);
+
+
+
+                break;
+            case Test:
+
+                break;
+        }
+    }
+
+    private static String getAnswer(){
+        answerNum++;
+        return preDefinedAnswer[answerNum-1];
     }
 
 

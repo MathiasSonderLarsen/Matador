@@ -1,7 +1,9 @@
 package Test.Fields;
 
-import Game.*;
 import Game.Fields.Brewery;
+import Game.GameBoard;
+import Game.GameController;
+import Game.Player;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -31,7 +33,7 @@ public class BreweryTest {
     private int groupID;
 
     @BeforeClass
-    public void setUpBeforeClass() {
+    public static void setUpBeforeClass() {
 
     }
 
@@ -50,7 +52,7 @@ public class BreweryTest {
 
     @After
     public void tearDown() throws Exception {
-        GameController.reset();
+        //GameController.reset();
     }
 
     @Test
@@ -94,7 +96,7 @@ public class BreweryTest {
 
 
         int rent = brewery1.getRent();
-        int expectedRent = GameController.getShaker().getSum() * 100;
+        int expectedRent = gameBoard.getShaker().getSum() * 100;
 
         assertEquals(expectedRent, rent);
 
@@ -105,7 +107,7 @@ public class BreweryTest {
 
         if (brewery1.getOwner().equals(player) && brewery2.getOwner().equals(player)) {
 
-            expectedRent = GameController.getShaker().getSum() * 200;
+            expectedRent = gameBoard.getShaker().getSum() * 200;
 
             assertEquals(expectedRent, rent);
         }

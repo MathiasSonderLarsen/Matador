@@ -7,6 +7,7 @@ import desktop_codebehind.Car;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -20,11 +21,12 @@ import java.util.Random;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.2
+ * @version v.0.4
  */
 
 public class GameController {
-    private static int FIELD_COUNT = 40;
+
+    private final int FIELD_COUNT = 40;
 
     /**
      * Getter for property 'gameBoard'.
@@ -35,32 +37,33 @@ public class GameController {
         return gameBoard;
     }
 
-    private static GameBoard gameBoard = new GameBoard(FIELD_COUNT);
-    private static Shaker shaker = new Shaker(2);
+    private static GameBoard gameBoard;
+
 
     /**
      * Getter for property 'currentPlayer'.
      *
      * @return Value for property 'currentPlayer'.
      */
-    public static Player getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
-    private static Player currentPlayer;
-    private static ArrayList<Player> players = new ArrayList<Player>();
+    private Player currentPlayer;
+    private ArrayList<Player> players = new ArrayList<Player>();
 
 
-    private GameController() {
+    public GameController(Shaker shaker) {
+        gameBoard = new GameBoard(FIELD_COUNT, shaker);
     }
 
-    private static void initializePlayers() {
+    private void initializePlayers() {
 
 
         String numberSelected = BoundaryController.getUserSelection(Language.getString("greeting"), "2", "3", "4", "5", "6");
         int numberOfPlayers = Integer.parseInt(numberSelected);
         for (int i = 0; i < numberOfPlayers; i++) {
-            String name = "Kurt" + i;//BoundaryController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
+            String name = BoundaryController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
             players.add(new Player(name)); //creates a new player object.
 
             Player thisPlayer = players.get(i);
@@ -75,60 +78,12 @@ public class GameController {
         }
     }
 
-    public static void checkIfCanMove() {
+    public void checkIfCanMove() {
         //if (shaker.DoublesInARow())
     }
 
 
-    public static void movePlayerRelative(Player thisPlayer, int stepsToMove) {
-        int playerPos = thisPlayer.getOnField();
-
-
-        //stores the players location on the gameBoard
-        if (thisPlayer.getOnField() + stepsToMove <= FIELD_COUNT) {
-            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove);
-        } else {
-            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove - FIELD_COUNT);
-        }
-
-        BoundaryController.removeAllCars(thisPlayer.getName());
-        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
-    }
-
-
-    public static void movePlayerAbsolute(Player thisPlayer, int newPos) {
-
-        thisPlayer.setOnField(newPos);
-        BoundaryController.removeAllCars(thisPlayer.getName());
-        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
-
-    }
-
-    public static void movePlayerAnim(Player thisPlayer, int moveToField, boolean AbsolutePos) {
-
-        if (AbsolutePos) {
-            movePlayerAbsolute(thisPlayer, moveToField);
-        } else {
-            for (int i = 0; i < moveToField; i++) {
-                movePlayerRelative(thisPlayer, 1);
-
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-
-    }
-
-
-    public static Shaker getShaker() {
-        return shaker;
-    }
-
-    private static void displayDice(Shaker shaker) {
+    private void displayDice(Shaker shaker) {
 
         // Declares face values to show the die in the GUI
         int faceValue1 = shaker.getDice()[0].getFaceValue();
@@ -139,32 +94,34 @@ public class GameController {
         BoundaryController.setDice(faceValue1, faceValue2);
     }
 
-    private static Color randomColor() {
+    private Color randomColor() {
         Random random = new Random();
         return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
 
-    public static void reset() {
-        FIELD_COUNT = 21;
-        gameBoard = new GameBoard(FIELD_COUNT);
-        shaker = new Shaker(2); //creates a shaker with 2 dice.
-        currentPlayer = null;
-        players = new ArrayList<Player>(); //creates an ArrayList that can contain Player objects
+    /*
+        public  void reset() {
+            FIELD_COUNT = 21;
+            //gameBoard = new GameBoard(FIELD_COUNT);
+            //TODO fix shaker
+            currentPlayer = null;
+            players = new ArrayList<Player>(); //creates an ArrayList that can contain Player objects
 
-    }
+        }
+    */
+    public void playTurn(Player player) {
 
-    public static void playTurn(Player player) {
-
+        System.out.println("Before move" + player.toString());
         //rolls the dice
-        shaker.shake();
+        gameBoard.getShaker().shake();
 
         //displays the dice in the GUI
-        displayDice(shaker);
+        displayDice(gameBoard.getShaker());
 
         if (Jail.isJailed(player) == false) {
 
             //moves the player's token on the gameBoard in the GUI
-            movePlayerAnim(player, shaker.getSum(), false);
+            gameBoard.movePlayerAnim(player, gameBoard.getShaker().getSum(), false);
 
         } else {
 
@@ -181,17 +138,17 @@ public class GameController {
             } else {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
 
-                if (answer1 == answer) {
-                    shaker.shake();
-                    displayDice(shaker);
+                if (Objects.equals(answer1, answer)) {
+                    gameBoard.getShaker().shake();
+                    displayDice(gameBoard.getShaker());
 
-                    if (shaker.getDoublesInARow() > 0) {
+                    if (gameBoard.getShaker().getDoublesInARow() > 0) {
                         Jail.removePlayer(player);
                     }
-                } else if (answer2 == answer) {
+                } else if (Objects.equals(answer2, answer)) {
                     player.addBalance(-4000);
                     Jail.removePlayer(player);
-                } else if (answer3 == answer) {
+                } else if (Objects.equals(answer3, answer)) {
                     player.setOutOfJailCards(-1);
                     Jail.removePlayer(player);
                 }
@@ -224,10 +181,11 @@ public class GameController {
             players.remove(player);
         }
 
+        System.out.println("After move" + player.toString());
     }
 
 
-    public static void startGame() {
+    public void startGame() {
 
         // Adds players to the game
         initializePlayers();
@@ -241,9 +199,22 @@ public class GameController {
 
                 playTurn(currentPlayer);
 
-                if (shaker.getDoublesInARow() > 0 && currentPlayer != null) {
+                if (gameBoard.getShaker().getDoublesInARow() > 0 && gameBoard.getShaker().getDoublesInARow() != 3 && currentPlayer != null) {
 
                     playTurn(currentPlayer);
+                }
+
+                if (gameBoard.getShaker().getDoublesInARow() == 3 && currentPlayer != null) {
+
+                    Jail theJailField = ((Jail) GameController.getGameBoard().getField(11));
+
+                    theJailField.addPlayer(currentPlayer);
+
+                    gameBoard.movePlayerAnim(currentPlayer, 11, true);
+                }
+
+                if (currentPlayer.getExtraTurn()) {
+                    i--;
                 }
             }
 

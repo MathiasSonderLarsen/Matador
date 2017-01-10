@@ -49,6 +49,7 @@ public class Shaker {
      * Gets the sum of the rolled Dice
      */
     public int getSum() {
+        setSum(getDice()[0].getFaceValue()+getDice()[1].getFaceValue());
         return sum;
     }
 
@@ -84,6 +85,11 @@ public class Shaker {
             doublesInARow = 0;
         }
 
+    }
+
+    public void setDice(int die1, int die2){
+        getDice()[0].setFaceValue(die1);
+        getDice()[1].setFaceValue(die2);
     }
 
 

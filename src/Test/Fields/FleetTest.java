@@ -40,23 +40,26 @@ public class FleetTest {
 
     @Before
     public void setUp() {
+
+        new GameController(new Shaker(2));
+
         this.player1 = new Player("Player1");
         this.player2 = new Player("Player2");
         //this.gameBoard = new GameBoard(21);
         this.gameBoard = GameController.getGameBoard();
 
 
-        this.fleet1 = (Fleet) gameBoard.getField(3);
-        this.fleet2 = (Fleet) gameBoard.getField(9);
-        this.fleet3 = (Fleet) gameBoard.getField(15);
-        this.fleet4 = (Fleet) gameBoard.getField(20);
+        this.fleet1 = (Fleet) gameBoard.getField(6);
+        this.fleet2 = (Fleet) gameBoard.getField(16);
+        this.fleet3 = (Fleet) gameBoard.getField(26);
+        this.fleet4 = (Fleet) gameBoard.getField(36);
 
 
     }
 
     @After
     public void tearDown() throws Exception {
-        GameController.reset();
+        //GameController.reset();
     }
 
     @Test
@@ -83,19 +86,19 @@ public class FleetTest {
     @Test
     public void getName() throws Exception {
 
-        String expected = "Second Sail";
+        String expected = "Scandlines";
         String actual = fleet1.getName();
         assertEquals(expected, actual);
 
-        expected = "Sea Grover";
+        expected = "Mols-Linien";
         actual = fleet2.getName();
         assertEquals(expected, actual);
 
-        expected = "Private armade";
+        expected = "Scandlines";
         actual = fleet3.getName();
         assertEquals(expected, actual);
 
-        expected = "The Buccaneers";
+        expected = "Scandlines";
         actual = fleet4.getName();
         assertEquals(expected, actual);
 
@@ -149,7 +152,7 @@ public class FleetTest {
         assertEquals(expected, actual);
 
         //player1 buys fleet 1
-        BoundaryController.setPreDefinedAnswer(Language.getString("yes"));
+        BoundaryController.setPreDefinedAnswer(new String[] {Language.getString("yes")});
         this.fleet1.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
@@ -176,7 +179,7 @@ public class FleetTest {
          * owner ship of 2 fleets
          */
         //player1 buys fleet 1
-        BoundaryController.setPreDefinedAnswer(Language.getString("yes"));
+        BoundaryController.setPreDefinedAnswer(new String[] {Language.getString("yes")});
         this.fleet2.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
@@ -202,7 +205,7 @@ public class FleetTest {
          * owner ship of 3 fleets
          */
         //player1 buys fleet 1
-        BoundaryController.setPreDefinedAnswer(Language.getString("yes"));
+        BoundaryController.setPreDefinedAnswer(new String[] {Language.getString("yes")});
         this.fleet3.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
@@ -228,7 +231,7 @@ public class FleetTest {
          * owner ship of 4 fleets
          */
         //player1 buys fleet 1
-        BoundaryController.setPreDefinedAnswer(Language.getString("yes"));
+        BoundaryController.setPreDefinedAnswer(new String[] {Language.getString("yes")});
         this.fleet4.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.

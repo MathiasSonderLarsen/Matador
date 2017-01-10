@@ -15,9 +15,20 @@ public class Player {
     private final String name;
     private final Account account;
     private int realEstateValue = 0;
-    private int onField = 0;
+    private int onField = 1;
     private int outOfJailCards = 0;
     private int roundsInJail = 0;
+
+    /**
+     * Setter for property 'extraTurn'.
+     *
+     * @param extraTurn Value to set for property 'extraTurn'.
+     */
+    public void setExtraTurn(boolean extraTurn) {
+        this.extraTurn = extraTurn;
+    }
+
+    private boolean extraTurn = false;
 
     //
     public Player(String playerName) {
@@ -48,7 +59,9 @@ public class Player {
     }
 
     public void addBalance(int balance) {
+
         account.addBalance(balance);
+        BoundaryController.updateBalance(this);
     }
 
     public int getBalance() {
@@ -67,8 +80,28 @@ public class Player {
         return this.account;
     }
 
-    public int getRoundsInJail(){ return roundsInJail; }
+    public int getRoundsInJail() {
+        return roundsInJail;
+    }
 
-    public void addRoundsInJail(int rounds){ roundsInJail = roundsInJail + rounds; }
+    public void addRoundsInJail(int rounds) {
+        roundsInJail = roundsInJail + rounds;
+    }
 
+    public boolean getExtraTurn() {
+        return this.extraTurn;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", account=" + account +
+                ", realEstateValue=" + realEstateValue +
+                ", onField=" + onField +
+                ", outOfJailCards=" + outOfJailCards +
+                ", roundsInJail=" + roundsInJail +
+                ", extraTurn=" + extraTurn +
+                '}';
+    }
 }

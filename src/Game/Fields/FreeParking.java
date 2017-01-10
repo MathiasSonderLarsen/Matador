@@ -23,7 +23,7 @@ public class FreeParking extends Field {
     @Override
     public void landOnField(Player player) {
 
-        GameController.playTurn(player);
+        player.setExtraTurn(true);
 
     }
 

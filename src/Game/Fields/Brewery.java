@@ -1,7 +1,8 @@
 package Game.Fields;
 
 
-import java.awt.*;
+import Game.GameBoard;
+import Game.GameController;
 
 /**
  * Brewery field: Keeps track on the rent of the field.
@@ -14,11 +15,11 @@ import java.awt.*;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.1
+ * @version v.0.2
  */
 public class Brewery extends Ownable {
 
-    Game.GameBoard gameBoard;
+
     int baseRent;
 
 
@@ -30,10 +31,10 @@ public class Brewery extends Ownable {
     }
 
 
-    public int getRent(Game.Player player) {
+    public int getRent() {
 
         // receive gameboard object from GameController
-        gameBoard = Game.GameController.getGameBoard();
+        GameBoard gameBoard = GameController.getGameBoard();
 
         Ownable otherField;
 
@@ -48,21 +49,16 @@ public class Brewery extends Ownable {
 
         if (this.getOwner().equals(otherField.getOwner())) {
 
-            baseRent = Game.GameController.getShaker().getSum() * 200;
+            baseRent = gameBoard.getShaker().getSum() * 200;
 
         } else {
 
-            baseRent = Game.GameController.getShaker().getSum() * 100;
+            baseRent = gameBoard.getShaker().getSum() * 100;
         }
 
         return baseRent;
     }
 
-
-    @Override
-    public int getRent() {
-        return 0;
-    }
 
     public desktop_fields.Brewery convertToGUI() {
         desktop_fields.Brewery.Builder a = new desktop_fields.Brewery.Builder()

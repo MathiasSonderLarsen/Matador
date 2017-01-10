@@ -1,6 +1,8 @@
 package Game;
 
 
+import Test.FakeShaker;
+
 /**
  * Keeps track of the balance, and adds/subtracts by the points on the board.
  * <p>
@@ -20,7 +22,7 @@ public class Game {
         BoundaryController.setInterfaceMode(BoundaryController.Mode.GUI);
 
         // The startGame() method is called to startGame the game
-        GameController.startGame();
+        new GameController(new Shaker(2)).startGame();
 
     }
 }

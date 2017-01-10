@@ -19,7 +19,7 @@ public class GoToJailTest {
 
     @Before
     public void setUp() {
-        goTo = new GoToJail("GoToJail",0);
+        goTo = new GoToJail("GoToJail", 0);
     }
 
     @Test

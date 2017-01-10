@@ -2,8 +2,8 @@ package Game;
 
 import Game.Fields.Field;
 import Game.Fields.Ownable;
+import Game.Fields.Territory;
 import com.google.gson.Gson;
-import desktop_resources.GUI;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,15 +23,17 @@ public class GameBoard {
 
     private final Field[] board;
     private int numberOfFields;
+    private Shaker shaker;
 
     /**
      * The constructor of the class GameBoard
      *
      * @param number The number of fields we want on the board
      */
-    public GameBoard(int number) {
+    public GameBoard(int number, Shaker shaker) {
 
         numberOfFields = number;
+        this.shaker = shaker;
 
         //board = new Field[numberOfFields];
         board = loadBoardFromFile("board.cfg");
@@ -42,6 +44,10 @@ public class GameBoard {
 
     public Field[] getBoard() {
         return board;
+    }
+
+    public  Shaker getShaker() {
+        return shaker;
     }
 
     /**
@@ -105,7 +111,7 @@ public class GameBoard {
         int num = 0;
 
         for (Field theField : board) {
-            if ((theField instanceof Ownable) && ((Ownable) theField).getGroupID() == player.getOnField()) {
+            if ((theField instanceof Ownable) && ((Ownable) theField).getGroupID() == groupID) {
                 if (((Ownable) theField).getOwner() == player) {
                     num++;
                 }
@@ -157,6 +163,80 @@ public class GameBoard {
                 break;
             }
         }
-        return i+1;
+        return i + 1;
     }
+
+    public Territory[] getBuyableArray(int groupID, int numberOfFields) {
+
+        Territory[] houseBuyableFields = new Territory[numberOfFields];
+        int j = 0;
+
+        for (int i = 1; i <= 40; i++) {
+
+            if(getField(i) instanceof Territory && getField(i).getGroupID() == groupID){
+                houseBuyableFields[j] = (Territory) getField(i);
+                j++;
+            }
+        }
+        return houseBuyableFields;
+    }
+
+    public Field[] getFieldsInGroup(int groupID) {
+
+        Field[] fields = new Field[getNumberOfPropertiesInGroup(groupID)];
+        int i = 0;
+        for (Field theField : board) {
+            if (theField.getGroupID() == groupID) {
+                fields[i] = theField;
+                i++;
+            }
+        }
+        return fields;
+    }
+
+
+    public  void movePlayerRelative(Player thisPlayer, int stepsToMove) {
+        int playerPos = thisPlayer.getOnField();
+
+
+        //stores the players location on the gameBoard
+        if (thisPlayer.getOnField() + stepsToMove <= numberOfFields) {
+            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove);
+        } else {
+            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove - numberOfFields);
+        }
+
+        BoundaryController.removeAllCars(thisPlayer.getName());
+        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+    }
+
+
+    public  void movePlayerAbsolute(Player thisPlayer, int newPos) {
+
+        thisPlayer.setOnField(newPos);
+        BoundaryController.removeAllCars(thisPlayer.getName());
+        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+
+    }
+
+    public  void movePlayerAnim(Player thisPlayer, int moveToField, boolean AbsolutePos) {
+
+        if (AbsolutePos) {
+            movePlayerAbsolute(thisPlayer, moveToField);
+        } else {
+            for (int i = 0; i < moveToField; i++) {
+                movePlayerRelative(thisPlayer, 1);
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+    }
+
+
 }

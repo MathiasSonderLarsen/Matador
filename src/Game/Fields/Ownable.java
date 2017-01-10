@@ -6,6 +6,8 @@ import Game.GameController;
 import Game.Language;
 import Game.Player;
 
+import java.util.Objects;
+
 /**
  * Ownable class
  * <p>
@@ -75,10 +77,10 @@ public abstract class Ownable extends Field {
      */
     public void setOwner(Game.Player owner) {
         this.owner = owner;
-        BoundaryController.setOwner(GameController.getGameBoard().getFieldPos(this),owner.getName());
+        BoundaryController.setOwner(GameController.getGameBoard().getFieldPos(this), owner.getName());
     }
 
-    public void removeOwner(){
+    public void removeOwner() {
         BoundaryController.removeOwner(GameController.getGameBoard().getFieldPos(this));
     }
 
@@ -100,8 +102,9 @@ public abstract class Ownable extends Field {
             final String answer1 = Language.getString("no");
             final String answer2 = Language.getString("yes");
 
+            String stringA = BoundaryController.getUserButtonPressed(question, answer1, answer2);
             // Checks whether the player wants to buy
-            if (BoundaryController.getUserButtonPressed(question, answer1, answer2) == answer2) {
+            if (Objects.equals(stringA, answer2)) {
 
                 player.addBalance(-price);
                 player.addRealEstateValue(price);

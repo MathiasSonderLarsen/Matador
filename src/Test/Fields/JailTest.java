@@ -34,7 +34,7 @@ public class JailTest {
         this.player1 = new Player("Player1");
         this.player2 = new Player("Player2");
         this.player3 = new Player("Player3");
-        this.jail = new Jail("Jail",0);
+        this.jail = new Jail("Jail", 0);
     }
 
     @Test
