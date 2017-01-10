@@ -62,7 +62,7 @@ public class GameController {
         String numberSelected = BoundaryController.getUserSelection(Language.getString("greeting"), "2", "3", "4", "5", "6");
         int numberOfPlayers = Integer.parseInt(numberSelected);
         for (int i = 0; i < numberOfPlayers; i++) {
-            String name = "Kurt" + i;//BoundaryController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
+            String name = BoundaryController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
             players.add(new Player(name)); //creates a new player object.
 
             Player thisPlayer = players.get(i);
@@ -110,6 +110,7 @@ public class GameController {
     */
     public void playTurn(Player player) {
 
+        System.out.println("Before move" + player.toString());
         //rolls the dice
         gameBoard.getShaker().shake();
 
@@ -179,6 +180,7 @@ public class GameController {
             players.remove(player);
         }
 
+        System.out.println("After move" + player.toString());
     }
 
 
