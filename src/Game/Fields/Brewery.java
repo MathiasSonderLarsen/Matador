@@ -15,7 +15,7 @@ import Game.GameController;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.1
+ * @version v.0.2
  */
 public class Brewery extends Ownable {
 
@@ -31,7 +31,7 @@ public class Brewery extends Ownable {
     }
 
 
-    public int getRent(Game.Player player) {
+    public int getRent() {
 
         // receive gameboard object from GameController
         GameBoard gameBoard = GameController.getGameBoard();
@@ -59,11 +59,6 @@ public class Brewery extends Ownable {
         return baseRent;
     }
 
-
-    @Override
-    public int getRent() {
-        return 0;
-    }
 
     public desktop_fields.Brewery convertToGUI() {
         desktop_fields.Brewery.Builder a = new desktop_fields.Brewery.Builder()
