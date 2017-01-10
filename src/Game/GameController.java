@@ -20,7 +20,7 @@ import java.util.Random;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.2
+ * @version v.0.4
  */
 
 public class GameController {
@@ -44,19 +44,19 @@ public class GameController {
      *
      * @return Value for property 'currentPlayer'.
      */
-    public  Player getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
-    private  Player currentPlayer;
-    private  ArrayList<Player> players = new ArrayList<Player>();
+    private Player currentPlayer;
+    private ArrayList<Player> players = new ArrayList<Player>();
 
 
     public GameController(Shaker shaker) {
         gameBoard = new GameBoard(FIELD_COUNT, shaker);
     }
 
-    private  void initializePlayers() {
+    private void initializePlayers() {
 
 
         String numberSelected = BoundaryController.getUserSelection(Language.getString("greeting"), "2", "3", "4", "5", "6");
@@ -77,14 +77,12 @@ public class GameController {
         }
     }
 
-    public  void checkIfCanMove() {
+    public void checkIfCanMove() {
         //if (shaker.DoublesInARow())
     }
 
 
-
-
-    private  void displayDice(Shaker shaker) {
+    private void displayDice(Shaker shaker) {
 
         // Declares face values to show the die in the GUI
         int faceValue1 = shaker.getDice()[0].getFaceValue();
@@ -95,20 +93,21 @@ public class GameController {
         BoundaryController.setDice(faceValue1, faceValue2);
     }
 
-    private  Color randomColor() {
+    private Color randomColor() {
         Random random = new Random();
         return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
-/*
-    public  void reset() {
-        FIELD_COUNT = 21;
-        //gameBoard = new GameBoard(FIELD_COUNT);
-        //TODO fix shaker
-        currentPlayer = null;
-        players = new ArrayList<Player>(); //creates an ArrayList that can contain Player objects
 
-    }
-*/
+    /*
+        public  void reset() {
+            FIELD_COUNT = 21;
+            //gameBoard = new GameBoard(FIELD_COUNT);
+            //TODO fix shaker
+            currentPlayer = null;
+            players = new ArrayList<Player>(); //creates an ArrayList that can contain Player objects
+
+        }
+    */
     public void playTurn(Player player) {
 
         //rolls the dice
@@ -183,7 +182,7 @@ public class GameController {
     }
 
 
-    public  void startGame() {
+    public void startGame() {
 
         // Adds players to the game
         initializePlayers();
@@ -197,9 +196,18 @@ public class GameController {
 
                 playTurn(currentPlayer);
 
-                if (gameBoard.getShaker().getDoublesInARow() > 0 && currentPlayer != null) {
+                if (gameBoard.getShaker().getDoublesInARow() > 0 && gameBoard.getShaker().getDoublesInARow() != 3 && currentPlayer != null) {
 
                     playTurn(currentPlayer);
+                }
+
+                if (gameBoard.getShaker().getDoublesInARow() == 3 && currentPlayer != null) {
+
+                    Jail theJailField = ((Jail) GameController.getGameBoard().getField(11));
+
+                    theJailField.addPlayer(currentPlayer);
+
+                    gameBoard.movePlayerAnim(currentPlayer, 11, true);
                 }
 
                 if (currentPlayer.getExtraTurn()) {
