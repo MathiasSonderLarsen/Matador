@@ -19,6 +19,17 @@ public class Player {
     private int outOfJailCards = 0;
     private int roundsInJail = 0;
 
+    /**
+     * Setter for property 'extraTurn'.
+     *
+     * @param extraTurn Value to set for property 'extraTurn'.
+     */
+    public void setExtraTurn(boolean extraTurn) {
+        this.extraTurn = extraTurn;
+    }
+
+    private boolean extraTurn = false;
+
     //
     public Player(String playerName) {
         name = playerName;
@@ -77,4 +88,7 @@ public class Player {
         roundsInJail = roundsInJail + rounds;
     }
 
+    public boolean getExtraTurn() {
+        return this.extraTurn;
+    }
 }

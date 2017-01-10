@@ -23,7 +23,7 @@ public class GameBoard {
 
     private final Field[] board;
     private int numberOfFields;
-    private  Shaker shaker;
+    private Shaker shaker;
 
     /**
      * The constructor of the class GameBoard
@@ -193,4 +193,50 @@ public class GameBoard {
         }
         return fields;
     }
+
+
+    public  void movePlayerRelative(Player thisPlayer, int stepsToMove) {
+        int playerPos = thisPlayer.getOnField();
+
+
+        //stores the players location on the gameBoard
+        if (thisPlayer.getOnField() + stepsToMove <= numberOfFields) {
+            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove);
+        } else {
+            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove - numberOfFields);
+        }
+
+        BoundaryController.removeAllCars(thisPlayer.getName());
+        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+    }
+
+
+    public  void movePlayerAbsolute(Player thisPlayer, int newPos) {
+
+        thisPlayer.setOnField(newPos);
+        BoundaryController.removeAllCars(thisPlayer.getName());
+        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+
+    }
+
+    public  void movePlayerAnim(Player thisPlayer, int moveToField, boolean AbsolutePos) {
+
+        if (AbsolutePos) {
+            movePlayerAbsolute(thisPlayer, moveToField);
+        } else {
+            for (int i = 0; i < moveToField; i++) {
+                movePlayerRelative(thisPlayer, 1);
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+    }
+
+
 }

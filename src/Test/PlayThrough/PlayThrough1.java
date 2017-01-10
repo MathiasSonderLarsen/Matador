@@ -47,7 +47,7 @@ public class PlayThrough1 {
 
         //moves player and validates that the player is on the right field
         //player moves to 7
-        GameController.movePlayerRelative(player1, shaker.getSum());
+        board.movePlayerRelative(player1, shaker.getSum());
         expected = 7;
         actual = player1.getOnField();
         assertEquals(expected,actual);
@@ -71,13 +71,13 @@ public class PlayThrough1 {
         shaker.setDice(2,4);
 
         //validate that the player is on the right field before moving
-        int expected = 1;
-        int actual = player1.getOnField();
+        expected = 1;
+        actual = player1.getOnField();
         assertEquals(expected,actual);
 
         //moves player and validates that the player is on the right field
         //player moves to 7
-        GameController.movePlayerRelative(player1, shaker.getSum());
+        board.movePlayerRelative(player1, shaker.getSum());
         expected = 7;
         actual = player1.getOnField();
         assertEquals(expected,actual);
@@ -91,8 +91,8 @@ public class PlayThrough1 {
         actual = player1.getBalance();
         assertEquals(expected,actual);
 
-        Player ownerActual = ((Fleet) board.getField(5)).getOwner();
-        Player ownerExpected = player1;
+        ownerActual = ((Fleet) board.getField(5)).getOwner();
+        ownerExpected = player1;
         assertEquals(ownerExpected,ownerActual);
     }
 

@@ -53,7 +53,7 @@ public class TerritoryTest {
     @After
     public void tearDown() throws Exception {
 
-        GameController.reset();
+        //GameController.reset();
 
     }
 

@@ -56,7 +56,7 @@ public class FleetTest {
 
     @After
     public void tearDown() throws Exception {
-        GameController.reset();
+        //GameController.reset();
     }
 
     @Test

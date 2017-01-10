@@ -102,7 +102,7 @@ public class GameBoardTest {
 
             if(board.getField(i) instanceof Fleet){
                 expectedint = 4000;
-                actualint = ((Fleet) board.getField(i)).getPrice()
+                actualint = ((Fleet) board.getField(i)).getPrice();
                 assertEquals(expectedint,actualint);
             }
 

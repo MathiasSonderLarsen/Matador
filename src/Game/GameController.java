@@ -24,14 +24,8 @@ import java.util.Random;
  */
 
 public class GameController {
-    private static int FIELD_COUNT = 40;
-    private static GameBoard gameBoard = new GameBoard(FIELD_COUNT);
-    private static Shaker shaker = new Shaker(2);
-    private static Player currentPlayer;
-    private static ArrayList<Player> players = new ArrayList<Player>();
 
-    private GameController() {
-    }
+    private final int FIELD_COUNT = 40;
 
     /**
      * Getter for property 'gameBoard'.
@@ -88,50 +82,6 @@ public class GameController {
     }
 
 
-    public  void movePlayerRelative(Player thisPlayer, int stepsToMove) {
-        int playerPos = thisPlayer.getOnField();
-
-
-        //stores the players location on the gameBoard
-        if (thisPlayer.getOnField() + stepsToMove <= FIELD_COUNT) {
-            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove);
-        } else {
-            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove - FIELD_COUNT);
-        }
-
-        BoundaryController.removeAllCars(thisPlayer.getName());
-        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
-    }
-
-
-    public  void movePlayerAbsolute(Player thisPlayer, int newPos) {
-
-        thisPlayer.setOnField(newPos);
-        BoundaryController.removeAllCars(thisPlayer.getName());
-        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
-
-    }
-
-    public  void movePlayerAnim(Player thisPlayer, int moveToField, boolean AbsolutePos) {
-
-        if (AbsolutePos) {
-            movePlayerAbsolute(thisPlayer, moveToField);
-        } else {
-            for (int i = 0; i < moveToField; i++) {
-                movePlayerRelative(thisPlayer, 1);
-
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-
-    }
-
-
 
 
     private  void displayDice(Shaker shaker) {
@@ -149,7 +99,7 @@ public class GameController {
         Random random = new Random();
         return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
-
+/*
     public  void reset() {
         FIELD_COUNT = 21;
         //gameBoard = new GameBoard(FIELD_COUNT);
@@ -158,8 +108,8 @@ public class GameController {
         players = new ArrayList<Player>(); //creates an ArrayList that can contain Player objects
 
     }
-
-    public  void playTurn(Player player) {
+*/
+    public void playTurn(Player player) {
 
         //rolls the dice
         gameBoard.getShaker().shake();
@@ -170,7 +120,7 @@ public class GameController {
         if (Jail.isJailed(player) == false) {
 
             //moves the player's token on the gameBoard in the GUI
-            movePlayerAnim(player, gameBoard.getShaker().getSum(), false);
+            gameBoard.movePlayerAnim(player, gameBoard.getShaker().getSum(), false);
 
         } else {
 
@@ -250,6 +200,10 @@ public class GameController {
                 if (gameBoard.getShaker().getDoublesInARow() > 0 && currentPlayer != null) {
 
                     playTurn(currentPlayer);
+                }
+
+                if (currentPlayer.getExtraTurn()) {
+                    i--;
                 }
             }
 

@@ -1,6 +1,9 @@
 package Game.Fields;
 
 
+import Game.GameBoard;
+import Game.GameController;
+
 /**
  * Brewery field: Keeps track on the rent of the field.
  * <p>
