@@ -1,5 +1,7 @@
 package Game.ChanceCards;
 
+import Game.Player;
+
 /**
  * MoveField does....blabla
  * <p>
@@ -18,10 +20,15 @@ public class MoveField extends ChanceCard {
     private int moveAmount;
 
     public MoveField(String name, String description, int moveAmount) {
-        super(name, description);
+        super(description);
     }
 
     public int getMoveAmount() {
         return moveAmount;
+    }
+
+    @Override
+    public void action(Player user) {
+
     }
 }

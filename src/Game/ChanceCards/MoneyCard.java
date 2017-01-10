@@ -23,7 +23,7 @@ public class MoneyCard extends ChanceCard {
     private int baseHotel;
 
     public MoneyCard(String name, String description, int amount, int baseAmount, int baseHouse, int baseHotel) {
-        super(name, description);
+        super(description);
         this.baseAmount = baseAmount;
         this.baseHouse = baseHouse;
         this.baseHotel = baseHotel;

@@ -19,8 +19,8 @@ public class MoneyTransfer extends ChanceCard {
 
     private int amount;
 
-    public MoneyTransfer(String name, String description, int amount) {
-        super(name, description);
+    public MoneyTransfer(String description, int amount) {
+        super(description);
     }
 
     public int getAmount() {

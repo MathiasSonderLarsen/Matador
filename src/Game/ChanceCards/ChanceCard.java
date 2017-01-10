@@ -18,8 +18,7 @@ public abstract class ChanceCard {
 
     protected String description;
 
-    public ChanceCard(String name, String description) {
-        this.name = name;
+    public ChanceCard(String description) {
         this.description = description;
     }
 
@@ -27,8 +26,6 @@ public abstract class ChanceCard {
 
         return description;
     }
-
-    public String getName() {
 
     public abstract void action(Player user);
 }

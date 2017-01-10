@@ -245,5 +245,23 @@ public class GameBoard {
 
     }
 
+    public int[] getNumberOfOwnedHH(Player user) {
+        int houses=0;
+        int hotels=0;
+        for (Field theField : board) {
+            if (theField instanceof Territory) {
+                int count =  ((Territory) theField).getNumOfHouses();
+
+                if (count >=6){
+                    hotels++;
+                }else {
+                    houses += count;
+                }
+
+            }
+        }
+        return new int[]{houses, hotels};
+    }
+
 
 }

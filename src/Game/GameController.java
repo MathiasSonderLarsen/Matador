@@ -39,17 +39,6 @@ public class GameController {
 
     private static GameBoard gameBoard;
 
-
-    /**
-     * Getter for property 'currentPlayer'.
-     *
-     * @return Value for property 'currentPlayer'.
-     */
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    private Player currentPlayer;
     private ArrayList<Player> players = new ArrayList<Player>();
 
 
@@ -114,8 +103,20 @@ public class GameController {
         //rolls the dice
         gameBoard.getShaker().shake();
 
+
         //displays the dice in the GUI
         displayDice(gameBoard.getShaker());
+
+        if (gameBoard.getShaker().getDoublesInARow() == 3 && player != null) {
+
+            Jail theJailField = ((Jail) GameController.getGameBoard().getField(11));
+
+            theJailField.addPlayer(player);
+
+            gameBoard.movePlayerAnim(player, 11, true);
+            return;
+        }
+
 
         if (Jail.isJailed(player) == false) {
 
@@ -196,7 +197,7 @@ public class GameController {
 
             // For every player in the game
             for (int i = 0; i < players.size(); i++) {
-                currentPlayer = players.get(i);
+               Player currentPlayer = players.get(i);
 
                 Field currentField = gameBoard.getField(currentPlayer.getOnField());
 
@@ -207,14 +208,7 @@ public class GameController {
                     playTurn(currentPlayer);
                 }
 
-                if (gameBoard.getShaker().getDoublesInARow() == 3 && currentPlayer != null) {
 
-                    Jail theJailField = ((Jail) GameController.getGameBoard().getField(11));
-
-                    theJailField.addPlayer(currentPlayer);
-
-                    gameBoard.movePlayerAnim(currentPlayer, 11, true);
-                }
 
                 if (currentPlayer.getExtraTurn()) {
                     i--;

@@ -20,13 +20,13 @@ public class MoveCard extends ChanceCard {
 
     private int moveAmount;
 
-    public MoveCard(String name, String description, int moveAmount) {
-        super(name, description);
+    public MoveCard(String description, int moveAmount) {
+        super(description);
         this.moveAmount = moveAmount;
     }
 
     @Override
     public void action(Player user) {
-        GameController.movePlayerAnim(user, moveAmount, false);
+        GameController.getGameBoard().movePlayerAnim(user, moveAmount, false);
     }
 }
