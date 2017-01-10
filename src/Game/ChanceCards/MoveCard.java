@@ -1,9 +1,10 @@
 package Game.ChanceCards;
 
+import Game.GameController;
 import Game.Player;
 
 /**
- * MoneyTransfer does....blabla
+ * MoveCard does....blabla
  * <p>
  * Bugs: none known
  *
@@ -15,20 +16,17 @@ import Game.Player;
  * @author Timothy Rasmussen
  * @version v.0.1
  */
-public class MoneyTransfer extends ChanceCard {
+public class MoveCard extends ChanceCard{
 
-    private int amount;
+    private int moveAmount;
 
-    public MoneyTransfer(String name, String description, int amount) {
+    public MoveCard(String name, String description, int moveAmount){
         super(name, description);
-    }
-
-    public int getAmount() {
-        return amount;
+        this.moveAmount = moveAmount;
     }
 
     @Override
     public void action(Player user) {
-
+        GameController.movePlayerAnim(user,moveAmount,false);
     }
 }

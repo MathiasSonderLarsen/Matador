@@ -1,5 +1,7 @@
 package Game.ChanceCards;
 
+import Game.Player;
+
 /**
  * <p>
  * Bugs: none known
@@ -12,7 +14,7 @@ package Game.ChanceCards;
  * @author Timothy Rasmussen
  * @version v.0.2
  */
-public class ChanceCard {
+public abstract class ChanceCard {
 
     protected String name;
     protected String description;
@@ -31,4 +33,6 @@ public class ChanceCard {
 
         return name;
     }
+
+    public abstract void action(Player user);
 }

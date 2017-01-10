@@ -35,7 +35,10 @@ public class GameBoard {
         numberOfFields = number;
         this.shaker = shaker;
 
-        //board = new Field[numberOfFields];
+        //board = new Field[numberOfFields]
+        // ;
+
+
         board = loadBoardFromFile("board.cfg");
         BoundaryController.showOnGui(board);
 

@@ -1,0 +1,25 @@
+﻿MoneyCard|{"name":"Test","description":"eeeee","baseAmount":-3000,"baseHouse":0,"baseHotel":0}   Betal 3.000 for reparation af deres vogn
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":-3000,"baseHouse":0,"baseHotel":0}   Betal 3.000 for reparation af deres vogn
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":0,"baseHouse":500,"baseHotel":2000}   ***Oliepriserne er steget, og de skal betale: kr. 500 pr. hus    kr. 2.000 pr. hotel
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":-200,"baseHouse":0,"baseHotel":0}   De har måttet vedtage en parkeringsbøde. Betal kr. 200 i bøde
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":-1000,"baseHouse":0,"baseHotel":0}   Betal deres bilforsikring kr. 1.000
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":-1000,"baseHouse":0,"baseHotel":0}   De har kørt frem for ”fuld stop”, betal 1.000 i bøde
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":-2000,"baseHouse":0,"baseHotel":0}   De har modtaget deres tandlægeregning. Betal 2.000
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":-200,"baseHouse":0,"baseHotel":0}   De har været med en tur i udlandet og har haft for mange cigaretter med hjem. Betal told kr. 200
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":0,"baseHouse":800,"baseHotel":2300}   ***ejendomsskattene er steget, og de skal betale: kr. 800 pr. hus    kr. 2.300 pr. hotel
+
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":1000,"baseHouse":0,"baseHotel":0}    De modtager deres aktieudbytte. Modtag kr. 1.000 af banken
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":1000,"baseHouse":0,"baseHotel":0}   Grundet dyrtiden har de fået gageforhøjelse. Modtag kr. 1.000
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":1000,"baseHouse":0,"baseHotel":0}    Modtag udbytte af deres aktier. Kr. 1.000
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":1000,"baseHouse":0,"baseHotel":0}    Modtag udbytte af deres aktier. Kr. 1.000
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":200,"baseHouse":0,"baseHotel":0}    Værdien af eget avl fra nyttehaven udgør kr. 200 som de modtager af banken
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":1000,"baseHouse":0,"baseHotel":0}    Deres præmieobligation er kommet ud. De modtager kr. 1.00 af banken.
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":3000,"baseHouse":0,"baseHotel":0}    Kommunen har eftergivet et kvartals skat, hæv i banken kr. 3.000
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":3000,"baseHouse":0,"baseHotel":0}    De havde en række med elleve rigtige i tipning. Modtag kr. 1.000.
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":500,"baseHouse":0,"baseHotel":0}    De har vundet i klasselotteriet. Modtag kr. 500
+MoneyCard|{"name":"Test","description":"eeeee","baseAmount":1000,"baseHouse":0,"baseHotel":0}    Deres præmieobligation er kommet ud. De modtager kr. 1.000 af banken.
+
+MoveCard|{"name":"Test","description":"eeeee","moveAmount":3} Ryk 3 felter frem
+MoveCard|{"name":"Test","description":"eeeee","baseAmount":-3} Ryk 3 felter tilbage
+
+***De modtager ”Matador-legatet for værdigt trængende”, stort kr. 40.000. ved værdig trængende forstås, at deres formue, d.v.s. deres kontante penge+skøder+bygninger ikke overstiger 15.000

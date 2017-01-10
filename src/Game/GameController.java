@@ -194,6 +194,8 @@ public class GameController {
             for (int i = 0; i < players.size(); i++) {
                 currentPlayer = players.get(i);
 
+                Field currentField = gameBoard.getField(currentPlayer.getOnField());
+
                 playTurn(currentPlayer);
 
                 if (gameBoard.getShaker().getDoublesInARow() > 0 && gameBoard.getShaker().getDoublesInARow() != 3 && currentPlayer != null) {
