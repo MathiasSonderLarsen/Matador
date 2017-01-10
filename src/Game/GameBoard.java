@@ -1,5 +1,7 @@
 package Game;
 
+import Game.ChanceCards.ChanceCard;
+import Game.ChanceCards.ChanceDeck;
 import Game.Fields.Field;
 import Game.Fields.Ownable;
 import Game.Fields.Territory;
@@ -24,6 +26,7 @@ public class GameBoard {
     private final Field[] board;
     private int numberOfFields;
     private Shaker shaker;
+    private ChanceDeck chanceDeck;
 
     /**
      * The constructor of the class GameBoard
@@ -37,7 +40,7 @@ public class GameBoard {
 
         //board = new Field[numberOfFields]
         // ;
-
+        ChanceDeck chanceDeck = new ChanceDeck();
 
         board = loadBoardFromFile("board.cfg");
         BoundaryController.showOnGui(board);
@@ -48,6 +51,7 @@ public class GameBoard {
     public Field[] getBoard() {
         return board;
     }
+    public ChanceDeck getChanceDeck(){ return chanceDeck; }
 
     public  Shaker getShaker() {
         return shaker;

@@ -1,5 +1,9 @@
 package Game.ChanceCards;
 
+import Game.Game;
+
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -14,9 +18,10 @@ import java.util.Random;
 public class ChanceDeck {
 
     private final Random rand = new Random();
-    ChanceCard[] ChanceCards;
+    ArrayList<ChanceCard> ChanceCards = new ArrayList<>();
 
-    ChanceDeck() {
+
+    public ChanceDeck() {
 
         //.FileReader fileReader = new FileReader("lol");
         //this.ChanceCards = fileReader.getCards(46);
@@ -28,10 +33,19 @@ public class ChanceDeck {
     public ChanceCard getCard() {
 
         int randomNumber = rand.nextInt(46);
+        ChanceCard chosen = ChanceCards.get(randomNumber);
 
-        return ChanceCards[randomNumber];
+        if(chosen instanceof JailCard){
+            removeJailCard(chosen);
+        }
+
+        return chosen;
 
     }
+
+    private void removeJailCard(ChanceCard jailCard){ ChanceCards.remove(jailCard); }
+
+    public void addJailCard(ChanceCard jailCard){ ChanceCards.add(jailCard); }
 
 }
 

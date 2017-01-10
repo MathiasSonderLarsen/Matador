@@ -1,6 +1,7 @@
 package Game;
 
 
+import Game.ChanceCards.ChanceCard;
 import Game.Fields.Field;
 import Game.Fields.Jail;
 import desktop_codebehind.Car;
@@ -130,6 +131,7 @@ public class GameController {
             final String answer1 = Language.getString("rollTwoOfTheSame");
             final String answer2 = Language.getString("pay4000");
             final String answer3 = Language.getString("useChanceCard");
+            ChanceCard jailCard = player.getJailCardList().get(0);
 
             if (player.getOutOfJailCards() > 0) {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2, answer3);
@@ -146,9 +148,11 @@ public class GameController {
                 } else if (answer2 == answer) {
                     player.addBalance(-4000);
                     Jail.removePlayer(player);
+
                 } else if (answer3 == answer) {
-                    player.setOutOfJailCards(-1);
                     Jail.removePlayer(player);
+                    player.removeOutOfJailCard();
+                    getGameBoard().getChanceDeck().addJailCard(jailCard);
                 }
 
                 // Adds jailRound to the player if he still is in jail (Because he rolls dice)
