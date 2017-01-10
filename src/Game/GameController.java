@@ -240,6 +240,8 @@ public class GameController {
             for (int i = 0; i < players.size(); i++) {
                 currentPlayer = players.get(i);
 
+                Field currentField = gameBoard.getField(currentPlayer.getOnField());
+
                 playTurn(currentPlayer);
 
                 if (shaker.getDoublesInARow() > 0 && currentPlayer != null) {

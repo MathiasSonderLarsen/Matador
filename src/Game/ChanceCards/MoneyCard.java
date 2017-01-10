@@ -4,7 +4,7 @@ import Game.GameController;
 import Game.Player;
 
 /**
- * PayCard does....blabla
+ * MoneyCard does....blabla
  * <p>
  * Bugs: none known
  *
@@ -16,13 +16,13 @@ import Game.Player;
  * @author Timothy Rasmussen
  * @version v.0.1
  */
-public class PayCard extends ChanceCard {
+public class MoneyCard extends ChanceCard {
 
     private int baseAmount;
     private int baseHouse;
     private int baseHotel;
 
-    public PayCard(String name, String description, int amount, int baseAmount, int baseHouse, int baseHotel) {
+    public MoneyCard(String name, String description, int amount, int baseAmount, int baseHouse, int baseHotel) {
         super(name, description);
         this.baseAmount = baseAmount;
         this.baseHouse = baseHouse;
@@ -38,7 +38,7 @@ public class PayCard extends ChanceCard {
 
         int[] HH = GameController.getGameBoard().getNumberOfOwnedHH(user);
 
-        user.addBalance(-baseAmount*(baseHotel*HH[0])*(baseHouse*HH[1]));
+        user.addBalance(baseAmount*(baseHotel*HH[0])*(baseHouse*HH[1]));
 
     }
 }
