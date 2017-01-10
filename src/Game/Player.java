@@ -15,7 +15,7 @@ public class Player {
     private final String name;
     private final Account account;
     private int realEstateValue = 0;
-    private int onField = 0;
+    private int onField = 1;
     private int outOfJailCards = 0;
     private int roundsInJail = 0;
 
@@ -48,7 +48,9 @@ public class Player {
     }
 
     public void addBalance(int balance) {
+
         account.addBalance(balance);
+        BoundaryController.updateBalance(this);
     }
 
     public int getBalance() {
