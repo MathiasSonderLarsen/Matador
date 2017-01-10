@@ -30,6 +30,7 @@ public class GameBoardTest {
     }
     @Before
     public void setUp() throws Exception {
+        new GameController(new Shaker(2));
 
         player1 = new Player("player1");
         player2 = new Player("player2");
@@ -55,12 +56,12 @@ public class GameBoardTest {
         String[] name = {"Start", "Rødovervej","Prøv lykken","Hvidovervej","Indkomstskat","Scandlines","Roskildevej","Prøv lykken",
                 "Valby Langgade","Allégade","Fængsel","Frederiksberg Allé","Tuborg","Büowsvej","Gl. Kongevej","Mols-Linien",
                 "Bernstorffsvej","Prøv lykken","Hellerupvej","Strandvejen","Parkering","Trianglen","Prøv lykken","Østerbrogade",
-                "Grønningen","Scandlines","Bredgade","Kgs. Nytorv","CocaCola","Østergade","De fængsles","Amagertorv2","Vimmelskarftet",
+                "Grønningen","Scandlines","Bredgade","Kgs. Nytorv","CocaCola","Østergade","De fængsles","Amagertorv","Vimmelskarftet",
                 "Prøv lykken","Nygade","Scandlines","Prøv lykken","Frederiksberg gade","Indkomstskat","Rådhuspladsen"};
 
         int[] group = {1,2,3,2,4,5,6,3,6,6,7,8,9,8,8,5,10,3,10,10,11,12,3,12,12,5,13,13,9,13,10,14,14,3,14,5,3,15,4,15};
 
-        int[] price = {1200,1200,2000,2000,2400,2800,2800,3200,3600,3600,4000,4400,4400,4800,5200,5200,5600,6000,6000,6400,7000,8000};
+        int[] price = {0,1200,0,1200,0,4000,2000,0,2000,2400,0,2800,3000,2800,3200,4000,3600,0,3600,4000,0,4400,0,4400,4800,4000,5200,5200,3000,5600,0,6000,6000,0,6400,4000,0,7000,0,8000};
         /**
          * the tests
          */

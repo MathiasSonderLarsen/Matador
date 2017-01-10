@@ -32,7 +32,7 @@ public class TerritoryTest {
     private int[] rentArrayT1, rentArrayT2, rentArrayT3;
 
     @BeforeClass
-    public void setUpBeforeClass() {
+    public static void setUpBeforeClass() {
     }
 
     @Before
@@ -391,11 +391,11 @@ public class TerritoryTest {
         expected = 1;
         assertEquals(actual, expected);
 
-        actual = territory1.getGroupID();
+        actual = territory2.getGroupID();
         expected = 1;
         assertEquals(actual, expected);
 
-        actual = territory1.getGroupID();
+        actual = territory3.getGroupID();
         expected = 2;
         assertEquals(actual, expected);
 

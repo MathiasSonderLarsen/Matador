@@ -62,7 +62,7 @@ public class TaxTest {
 
         tax2.setName("BigTax");
         expected = "BigTax";
-        actual = tax1.getName();
+        actual = tax2.getName();
         assertEquals(expected, actual);
 
     }
@@ -91,20 +91,14 @@ public class TaxTest {
 
     @Test
     public void testTaxRelativTax() {
-        int expected = 1000;
+        int expected = -1000;
         int actual = tax1.calcuateRelativeTax(1000);
         assertEquals(expected, actual);
 
-        expected = 100;
+        expected = -100;
         actual = tax2.calcuateRelativeTax(1000);
         assertEquals(expected, actual);
 
-        expected = 300;
-        actual = tax2.calcuateRelativeTax(2001);
-        assertEquals(expected, actual);
 
-        expected = 300;
-        actual = tax2.calcuateRelativeTax(2009);
-        assertEquals(expected, actual);
     }
 }

@@ -33,7 +33,7 @@ public class BreweryTest {
     private int groupID;
 
     @BeforeClass
-    public void setUpBeforeClass() {
+    public static void setUpBeforeClass() {
 
     }
 

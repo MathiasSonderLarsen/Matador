@@ -230,7 +230,7 @@ public class BoundaryController {
     }
 
     public static void setOwner(int fieldNumber, String name) {
-        GUI.setOwner(fieldNumber, name);
+        GUI.setOwner(fieldNumber-1, name);
     }
 
     public static void removeOwner(int fieldNumber) {
