@@ -70,11 +70,11 @@ public class GameBoard {
                 loadedFields[i] = g.fromJson(lineSplit[1], (Type) Class.forName("Game.Fields." + lineSplit[0]));
 
                 String name ;
-                if (loadedFields[i].getName().length() > 10){
-                    name = loadedFields[i].getName().replace(' ','\n');
-                }else {
+//                if (loadedFields[i].getName().length() > 10){
+//                    name = loadedFields[i].getName().replace(' ','\n');
+//                }else {
                     name = loadedFields[i].getName();
-                }
+                //}
 
                 loadedFields[i].setName(name);//Language.getString(loadedFields[i].getName()));
                 i++;
