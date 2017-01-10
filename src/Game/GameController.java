@@ -7,6 +7,7 @@ import desktop_codebehind.Car;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -137,17 +138,17 @@ public class GameController {
             } else {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
 
-                if (answer1 == answer) {
+                if (Objects.equals(answer1, answer)) {
                     gameBoard.getShaker().shake();
                     displayDice(gameBoard.getShaker());
 
                     if (gameBoard.getShaker().getDoublesInARow() > 0) {
                         Jail.removePlayer(player);
                     }
-                } else if (answer2 == answer) {
+                } else if (Objects.equals(answer2, answer)) {
                     player.addBalance(-4000);
                     Jail.removePlayer(player);
-                } else if (answer3 == answer) {
+                } else if (Objects.equals(answer3, answer)) {
                     player.setOutOfJailCards(-1);
                     Jail.removePlayer(player);
                 }
@@ -171,7 +172,7 @@ public class GameController {
 
         //controls what happens when the player lands on a specific field.
         Field currentField = gameBoard.getField(player.getOnField());
-        //BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
+        BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
         currentField.landOnField(player);
 
         //removes bankrupt players from the game
