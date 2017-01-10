@@ -23,7 +23,7 @@ public class FreeParkingTest {
 
     @Before
     public void setUp() {
-        this.freeParking = new FreeParking("P-Plads",0);
+        this.freeParking = new FreeParking("P-Plads", 0);
     }
 
     @Test

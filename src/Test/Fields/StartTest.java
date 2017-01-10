@@ -22,7 +22,7 @@ public class StartTest {
 
     @Before
     public void setUp() {
-        this.startField = new Start("P-Plads",0);
+        this.startField = new Start("P-Plads", 0);
     }
 
     @Test

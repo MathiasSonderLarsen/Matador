@@ -75,10 +75,10 @@ public abstract class Ownable extends Field {
      */
     public void setOwner(Game.Player owner) {
         this.owner = owner;
-        BoundaryController.setOwner(GameController.getGameBoard().getFieldPos(this),owner.getName());
+        BoundaryController.setOwner(GameController.getGameBoard().getFieldPos(this), owner.getName());
     }
 
-    public void removeOwner(){
+    public void removeOwner() {
         BoundaryController.removeOwner(GameController.getGameBoard().getFieldPos(this));
     }
 
@@ -95,7 +95,7 @@ public abstract class Ownable extends Field {
 
 
             final String question = player.getName() + (Language.getString("turn1") + " " +
-                    Language.getString("buyhouse") + " " + getName() + " " + Language.getString("buy2") + " " + price + " " + Language.getString("point") + " ?");
+                    Language.getString("plot") + " " + getName() + " " + Language.getString("buy2") + " " + price + " " + Language.getString("point") + " ?");
 
             final String answer1 = Language.getString("no");
             final String answer2 = Language.getString("yes");

@@ -25,6 +25,13 @@ import java.util.Random;
 
 public class GameController {
     private static int FIELD_COUNT = 40;
+    private static GameBoard gameBoard = new GameBoard(FIELD_COUNT);
+    private static Shaker shaker = new Shaker(2);
+    private static Player currentPlayer;
+    private static ArrayList<Player> players = new ArrayList<Player>();
+
+    private GameController() {
+    }
 
     /**
      * Getter for property 'gameBoard'.
@@ -35,9 +42,6 @@ public class GameController {
         return gameBoard;
     }
 
-    private static GameBoard gameBoard = new GameBoard(FIELD_COUNT);
-    private static Shaker shaker = new Shaker(2);
-
     /**
      * Getter for property 'currentPlayer'.
      *
@@ -45,13 +49,6 @@ public class GameController {
      */
     public static Player getCurrentPlayer() {
         return currentPlayer;
-    }
-
-    private static Player currentPlayer;
-    private static ArrayList<Player> players = new ArrayList<Player>();
-
-
-    private GameController() {
     }
 
     private static void initializePlayers() {
@@ -215,7 +212,7 @@ public class GameController {
 
         //controls what happens when the player lands on a specific field.
         Field currentField = gameBoard.getField(player.getOnField());
-        BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
+        //BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
         currentField.landOnField(player);
 
         //removes bankrupt players from the game

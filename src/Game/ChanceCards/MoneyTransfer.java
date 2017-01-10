@@ -21,7 +21,7 @@ public class MoneyTransfer extends ChanceCard {
         super(name, description);
     }
 
-    public int getAmount(){
+    public int getAmount() {
         return amount;
     }
 }

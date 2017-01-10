@@ -46,11 +46,12 @@ public class Fleet extends Ownable {
                 return 0; //Should never happen
         }
     }
+
     public desktop_fields.Shipping convertToGUI() {
         desktop_fields.Shipping.Builder a = new desktop_fields.Shipping.Builder()
                 .setTitle(this.getName())
                 .setBgColor(Color.red)
-                .setSubText(getPrice()+"");
+                .setSubText(getPrice() + "");
         return a.build();
     }
 

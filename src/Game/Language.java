@@ -26,16 +26,16 @@ public class Language {
         // Selects the language through the String variable "inputString"
         switch (selectLanguage) {
             case "english":
-                language = ResourceBundle.getBundle("Language", new Locale("en","US"));
+                language = ResourceBundle.getBundle("Language", new Locale("en", "US"));
                 break;
             case "English":
-                language = ResourceBundle.getBundle("Language", new Locale("en","US"));
+                language = ResourceBundle.getBundle("Language", new Locale("en", "US"));
                 break;
             case "danish":
-                language = ResourceBundle.getBundle("Language", new Locale("da","DK"));
+                language = ResourceBundle.getBundle("Language", new Locale("da", "DK"));
                 break;
             case "Danish":
-                language = ResourceBundle.getBundle("Language", new Locale("da","DK"));
+                language = ResourceBundle.getBundle("Language", new Locale("da", "DK"));
                 break;
             default:
                 language = null;

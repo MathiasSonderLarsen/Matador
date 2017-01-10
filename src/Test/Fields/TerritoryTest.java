@@ -15,6 +15,7 @@ import static org.junit.Assert.*;
  * Testes the Territory class
  * <p>
  * Bugs: none known
+ *
  * @author Mathias S Larsen (2016)
  * @author Casper Bodskov
  * @author Lasse Dyrsted
@@ -31,10 +32,11 @@ public class TerritoryTest {
     private int[] rentArrayT1, rentArrayT2, rentArrayT3;
 
     @BeforeClass
-    public void setUpBeforeClass(){}
+    public void setUpBeforeClass() {
+    }
 
     @Before
-    public void setUp(){
+    public void setUp() {
 
         rentArrayT1 = new int[]{100, 200, 300, 400, 500, 1000};
         rentArrayT2 = new int[]{100, 200, 300, 400, 500, 1000};
@@ -74,7 +76,7 @@ public class TerritoryTest {
      * Validates that: Field name can be set and returned
      */
     @Test
-    public void getName(){
+    public void getName() {
         String actual, expected;
 
         actual = territory1.getName();
@@ -96,7 +98,7 @@ public class TerritoryTest {
      * increments dependent on how many houses/hotels is on it and can be returned
      */
     @Test
-    public void getRent(){
+    public void getRent() {
         int actual, expected;
 
         // Case: return rent with 0 houses on territory
@@ -199,7 +201,7 @@ public class TerritoryTest {
      * to the description in appendix XXX
      */
     @Test
-    public void getHousePrice(){
+    public void getHousePrice() {
         int actual, expected;
 
         actual = territory1.getHousePrice();
@@ -220,7 +222,7 @@ public class TerritoryTest {
      * Validates that: Owner can be set and returned
      */
     @Test
-    public void setGetOwner(){
+    public void setGetOwner() {
         Player actual, expected;
 
         // Case: No player owns the territory
@@ -258,7 +260,7 @@ public class TerritoryTest {
      * Validates that: Number of houses can be set and returned
      */
     @Test
-    public void setGetNumOfHouses(){
+    public void setGetNumOfHouses() {
         int actual, expected;
 
         // Case: 0 number of houses
@@ -361,7 +363,7 @@ public class TerritoryTest {
      * and is half of the buy price
      */
     @Test
-    public void getPawnPrice(){
+    public void getPawnPrice() {
         int actual, expected;
 
         actual = territory1.getPawnPrice();
@@ -382,7 +384,7 @@ public class TerritoryTest {
      * Validates that: FieldID can be returned
      */
     @Test
-    public void getGroupID(){
+    public void getGroupID() {
         int actual, expected;
 
         actual = territory1.getGroupID();

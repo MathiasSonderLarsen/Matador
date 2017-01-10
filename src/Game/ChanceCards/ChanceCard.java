@@ -1,9 +1,6 @@
 package Game.ChanceCards;
 
-import Game.Game;
-
 /**
- *
  * <p>
  * Bugs: none known
  *
@@ -20,16 +17,17 @@ public class ChanceCard {
     protected String name;
     protected String description;
 
-    public ChanceCard(String name, String description){
-        this.name=name;
-        this.description=description;
+    public ChanceCard(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
-    public String getDescription(){
+
+    public String getDescription() {
 
         return description;
     }
 
-    public String getName(){
+    public String getName() {
 
         return name;
     }
