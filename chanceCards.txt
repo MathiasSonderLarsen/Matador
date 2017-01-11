@@ -19,7 +19,21 @@ MoneyCard|"description":"eeeee","baseAmount":3000,"baseHouse":0,"baseHotel":0}  
 MoneyCard|"description":"eeeee","baseAmount":500,"baseHouse":0,"baseHotel":0}    De har vundet i klasselotteriet. Modtag kr. 500
 MoneyCard|"description":"eeeee","baseAmount":1000,"baseHouse":0,"baseHotel":0}    Deres præmieobligation er kommet ud. De modtager kr. 1.000 af banken.
 
-MoveCard|{"description":"eeeee","moveAmount":3} Ryk 3 felter frem
-MoveCard|{"description":"eeeee","baseAmount":-3} Ryk 3 felter tilbage
+MoveCard|{"description":"eeeee","moveAmount":3,"absolutePos":false} Ryk 3 felter frem
+MoveCard|{"description":"eeeee","moveAmount":-3,"absolutePos":false} Ryk 3 felter tilbage
+
+MoveCard|{"description":"eeeee","moveAmount":1,"absolutePos":true}  Ryk frem til start
+MoveCard|{"description":"eeeee","moveAmount":25,"absolutePos":true} Ryk frem til grønningen. Hvis De passerer ”start”, indkassér da kr. 4.000
+MoveCard|{"description":"eeeee","moveAmount":12,"absolutePos":true}  Ryk frem til frederiksberg allé. Hvis de passere ”start” indkassér da kr. 4.000
+MoveCard|{"description":"eeeee","moveAmount":40,"absolutePos":true} Tag ind på rådhuspladsen
+
+
+
+
+MoveCard|{"description":"eeeee","moveAmount":3,"absolutePos":false}
+MoveCard|{"description":"eeeee","baseAmount":-3,"absolutePos":false}
 
 ***De modtager ”Matador-legatet for værdigt trængende”, stort kr. 40.000. ved værdig trængende forstås, at deres formue, d.v.s. deres kontante penge+skøder+bygninger ikke overstiger 15.000
+***Ryk brikken frem til det nærmeste rederi og betal ejeren to gange den normale leje, hvis selskabet ikke er ejet af nogen kan de købe det af banken
+***Ryk brikken frem til det nærmeste rederi og betal ejeren to gange den normale leje, hvis selskabet ikke er ejet af nogen kan de købe det af banken
+Tag med den nærmeste færge – flyt brikken frem og hvis de passere ”start” indkasser da kr. 4.000

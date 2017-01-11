@@ -19,14 +19,16 @@ import Game.Player;
 public class MoveCard extends ChanceCard {
 
     private int moveAmount;
+    private boolean absolutePos;
 
-    public MoveCard(String description, int moveAmount) {
+    public MoveCard(String description, int moveAmount, boolean absolutePos) {
         super(description);
         this.moveAmount = moveAmount;
+        this.absolutePos = absolutePos;
     }
 
     @Override
     public void action(Player user) {
-        GameController.getGameBoard().movePlayerAnim(user, moveAmount, false);
+        GameController.getGameBoard().movePlayerAnim(user, moveAmount, absolutePos);
     }
 }
