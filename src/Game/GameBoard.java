@@ -263,5 +263,15 @@ public class GameBoard {
         return new int[]{houses, hotels};
     }
 
-
+    public int getNumOfOwnedFields(Player player) {
+        int num = 0;
+        for (Field theField : board) {
+            if (theField instanceof Ownable) {
+                if (((Ownable) theField).getOwner() == player) {
+                    num++;
+                }
+            }
+        }
+        return num;
+    }
 }

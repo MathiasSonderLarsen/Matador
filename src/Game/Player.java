@@ -44,12 +44,14 @@ public class Player {
     }
 
     public int getRealEstateValue() {
-        return realEstateValue;
+
+        int[] ownedHH = GameController.getGameBoard().getNumberOfOwnedHH(this);
+
+        return ownedHH[0] + ownedHH[1] +
+                GameController.getGameBoard().getNumOfOwnedFields(this) +
+                getBalance();
     }
 
-    public void addRealEstateValue(int newRealEstateValue) {
-        this.realEstateValue = realEstateValue + newRealEstateValue;
-    }
 
     public String getName() {
         return name;
@@ -73,19 +75,29 @@ public class Player {
         return account.getBalance();
     }
 
-    public int getOutOfJailCards() { return jailCards.size();}
+    public int getOutOfJailCards() {
+        return jailCards.size();
+    }
 
-    public ArrayList<ChanceCard> getJailCardList(){ return jailCards; }
+    public ArrayList<ChanceCard> getJailCardList() {
+        return jailCards;
+    }
 
-    public void addOutOfJailCards(ChanceCard jailCard) { jailCards.add(jailCard); }
+    public void addOutOfJailCards(ChanceCard jailCard) {
+        jailCards.add(jailCard);
+    }
 
-    public void removeOutOfJailCard(){ jailCards.remove(0);}
+    public void removeOutOfJailCard() {
+        jailCards.remove(0);
+    }
 
     public int getRoundsInJail() {
         return roundsInJail;
     }
 
-    public Account getAccount() { return this.account; }
+    public Account getAccount() {
+        return this.account;
+    }
 
     public void addRoundsInJail(int rounds) {
         roundsInJail = roundsInJail + rounds;
