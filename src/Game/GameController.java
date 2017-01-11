@@ -121,7 +121,7 @@ public class GameController {
         if (Jail.isJailed(player) == false) {
 
             //moves the player's token on the gameBoard in the GUI
-            gameBoard.movePlayerAnim(player, gameBoard.getShaker().getSum(), false);
+            gameBoard.movePlayer(player, gameBoard.getShaker().getSum(), false);
 
         } else {
 
@@ -210,7 +210,7 @@ public class GameController {
 
                     theJailField.addPlayer(currentPlayer);
 
-                    gameBoard.movePlayerAnim(currentPlayer, 11, true);
+                    gameBoard.movePlayer(currentPlayer, 11, true);
                 }
 
                 if (currentPlayer.getExtraTurn()) {
