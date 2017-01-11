@@ -19,7 +19,7 @@ import java.nio.file.Paths;
  * Bugs: none known
  *
  * @author Lasse Dyrsted
- * @version v.0.1
+ * @version v.0.2
  */
 public class GameBoard {
 
@@ -40,7 +40,7 @@ public class GameBoard {
 
         //board = new Field[numberOfFields]
         // ;
-        ChanceDeck chanceDeck = new ChanceDeck();
+        chanceDeck = new ChanceDeck();
 
         board = loadBoardFromFile("board.cfg");
         BoundaryController.showOnGui(board);
