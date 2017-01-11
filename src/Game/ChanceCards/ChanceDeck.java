@@ -12,7 +12,7 @@ import java.util.Random;
  * Bugs: none known
  *
  * @author Timothy Stoltzner Rasmussen
- * @version v.0.1
+ * @version v.0.2
  */
 
 public class ChanceDeck {
@@ -23,12 +23,11 @@ public class ChanceDeck {
 
     public ChanceDeck() {
 
+        // TODO: 11-01-2017 Implement FileReader
         //.FileReader fileReader = new FileReader("lol");
         //this.ChanceCards = fileReader.getCards(46);
 
     }
-
-    //Adding The function to add the card
 
     public ChanceCard getCard() {
 
@@ -36,12 +35,14 @@ public class ChanceDeck {
         ChanceCard chosen = ChanceCards.get(randomNumber);
 
         if(chosen instanceof JailCard){
+
             removeJailCard(chosen);
         }
 
         return chosen;
 
     }
+
 
     private void removeJailCard(ChanceCard jailCard){ ChanceCards.remove(jailCard); }
 

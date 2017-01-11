@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Bugs: none known
  *
  * @author Lasse Dyrsted
- * @version v.0.1
+ * @version v.0.2
  */
 
 public class Player {
@@ -79,14 +79,13 @@ public class Player {
 
     public void addOutOfJailCards(ChanceCard jailCard) { jailCards.add(jailCard); }
 
+    public void removeOutOfJailCard(){ jailCards.remove(0);}
+
     public int getRoundsInJail() {
         return roundsInJail;
     }
-    public void removeOutOfJailCard(){ jailCards.remove(0);}
 
     public Account getAccount() { return this.account; }
-
-    public int getRoundsInJail(){ return roundsInJail; }
 
     public void addRoundsInJail(int rounds) {
         roundsInJail = roundsInJail + rounds;

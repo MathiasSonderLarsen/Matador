@@ -21,12 +21,13 @@ import java.util.Random;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.4
+ * @version v.0.5
  */
 
 public class GameController {
 
     private final int FIELD_COUNT = 40;
+    private ChanceCard jailCard;
 
     /**
      * Getter for property 'gameBoard'.
@@ -132,10 +133,18 @@ public class GameController {
             final String answer1 = Language.getString("rollTwoOfTheSame");
             final String answer2 = Language.getString("pay4000");
             final String answer3 = Language.getString("useChanceCard");
-            ChanceCard jailCard = player.getJailCardList().get(0);
+
 
             if (player.getOutOfJailCards() > 0) {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2, answer3);
+                jailCard = player.getJailCardList().get(0);
+
+                if (answer3 == answer) {
+                    Jail.removePlayer(player);
+                    player.removeOutOfJailCard();
+                    getGameBoard().getChanceDeck().addJailCard(jailCard);
+                }
+
             } else {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
 
@@ -150,25 +159,22 @@ public class GameController {
                     player.addBalance(-4000);
                     Jail.removePlayer(player);
 
-                } else if (answer3 == answer) {
-                    Jail.removePlayer(player);
-                    player.removeOutOfJailCard();
-                    getGameBoard().getChanceDeck().addJailCard(jailCard);
                 }
 
-                // Adds jailRound to the player if he still is in jail (Because he rolls dice)
-                if (Jail.isJailed(player)) {
-                    player.addRoundsInJail(1);
-                }
+            }
 
-                // After 3 rounds in jail, the player must pay bail.
-                if (player.getRoundsInJail() == 3) {
 
-                    player.addBalance(-1000);
-                    player.addRoundsInJail(-3);
-                    Jail.removePlayer(player);
+            // Adds jailRound to the player if he still is in jail (Because he rolls dice)
+            if (Jail.isJailed(player)) {
+                player.addRoundsInJail(1);
+            }
 
-                }
+            // After 3 rounds in jail, the player must pay bail.
+            if (player.getRoundsInJail() == 3) {
+
+                player.addBalance(-1000);
+                player.addRoundsInJail(-3);
+                Jail.removePlayer(player);
 
             }
         }
@@ -176,6 +182,7 @@ public class GameController {
         //controls what happens when the player lands on a specific field.
         Field currentField = gameBoard.getField(player.getOnField());
         //BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
+        System.out.println(player.getName());
         currentField.landOnField(player);
 
         //removes bankrupt players from the game
@@ -197,7 +204,7 @@ public class GameController {
 
             // For every player in the game
             for (int i = 0; i < players.size(); i++) {
-               Player currentPlayer = players.get(i);
+                Player currentPlayer = players.get(i);
 
                 Field currentField = gameBoard.getField(currentPlayer.getOnField());
 
@@ -209,9 +216,9 @@ public class GameController {
                 }
 
 
-
                 if (currentPlayer.getExtraTurn()) {
                     i--;
+                    currentPlayer.setExtraTurn(false);
                 }
             }
 
