@@ -37,36 +37,6 @@ public class PlayerTest {
     }
 
     /**
-     * validates that the realEstateValue can be changed and returned. this value is the value of the fields owned by the player.
-     *
-     * @throws Exception
-     */
-    @Test
-    public void testRealEstateValue() throws Exception {
-
-        int expected = 0;
-        int actual = player.getRealEstateValue();
-        assertEquals(expected, actual);
-
-        player.addRealEstateValue(5000);
-
-        expected = 5000;
-        actual = player.getRealEstateValue();
-        assertEquals(expected, actual);
-
-        player.addRealEstateValue(1000);
-
-        expected = 6000;
-        actual = player.getRealEstateValue();
-        assertEquals(expected, actual);
-
-        player.addRealEstateValue(-2000);
-        expected = 4000;
-        actual = player.getRealEstateValue();
-        assertEquals(expected, actual);
-    }
-
-    /**
      * validates that the account balance can be changed and returned.
      * also validates that the start balance of the account is 30,000 points.
      *
