@@ -1,8 +1,6 @@
 package Game;
 
-import Game.Fields.Field;
-import Game.Fields.Ownable;
-import Game.Fields.Territory;
+import Game.Fields.*;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -194,49 +192,45 @@ public class GameBoard {
         return fields;
     }
 
+    public int calStepsToMove(Player thisPlayer, int fieldNum){
+        int stepsToMove = fieldNum - thisPlayer.getOnField();
 
-    public  void movePlayerRelative(Player thisPlayer, int stepsToMove) {
-        int playerPos = thisPlayer.getOnField();
-
-
-        //stores the players location on the gameBoard
-        if (thisPlayer.getOnField() + stepsToMove <= numberOfFields) {
-            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove);
-        } else {
-            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove - numberOfFields);
+        if(stepsToMove <= 0) {
+            stepsToMove = stepsToMove + 40;
         }
 
-        BoundaryController.removeAllCars(thisPlayer.getName());
-        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+        return stepsToMove;
     }
 
 
-    public  void movePlayerAbsolute(Player thisPlayer, int newPos) {
+    public  void movePlayer(Player thisPlayer, int stepsToMove, boolean absolute) {
 
-        thisPlayer.setOnField(newPos);
-        BoundaryController.removeAllCars(thisPlayer.getName());
-        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+        if(absolute == true){
+            stepsToMove = calStepsToMove(thisPlayer, stepsToMove);
+        }
 
-    }
-
-    public  void movePlayerAnim(Player thisPlayer, int moveToField, boolean AbsolutePos) {
-
-        if (AbsolutePos) {
-            movePlayerAbsolute(thisPlayer, moveToField);
-        } else {
-            for (int i = 0; i < moveToField; i++) {
-                movePlayerRelative(thisPlayer, 1);
-
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        if(stepsToMove > 0) {
+            for (int i = 0; i < stepsToMove; i++) {
+                //stores the players location on the gameBoard
+                if (thisPlayer.getOnField() + 1 > numberOfFields) {
+                    thisPlayer.setOnField(1);
+                    if (Jail.isJailed(thisPlayer) == false) {
+                        thisPlayer.addBalance(Start.getStartBonus());
+                    }
+                } else {
+                    thisPlayer.setOnField(thisPlayer.getOnField() + 1);
                 }
+                BoundaryController.removeAllCars(thisPlayer.getName());
+                BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
             }
         }
+        else {
+            for (int i = 0; i > stepsToMove; i--) {
+                thisPlayer.setOnField(thisPlayer.getOnField() - 1);
 
-
+                BoundaryController.removeAllCars(thisPlayer.getName());
+                BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+            }
+        }
     }
-
-
 }

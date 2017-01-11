@@ -24,7 +24,7 @@ public class Start extends Field {
 
     }
 
-    public int getStartBonus() {
+    public static int getStartBonus() {
         return START_BONUS;
     }
 
