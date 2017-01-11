@@ -261,7 +261,7 @@ public class BoundaryController {
         switch (mode) {
 
             case GUI:
-                GUI.setOwner(fieldNumber-1, name);
+                GUI.setOwner(fieldNumber, name);
 
 
                 break;

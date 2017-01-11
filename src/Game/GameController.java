@@ -214,6 +214,7 @@ public class GameController {
                 }
 
                 if (currentPlayer.getExtraTurn()) {
+                    currentPlayer.setExtraTurn(false);
                     i--;
                 }
             }
