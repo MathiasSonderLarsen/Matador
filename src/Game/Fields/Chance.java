@@ -1,6 +1,11 @@
 package Game.Fields;
 
 
+import Game.BoundaryController;
+import Game.ChanceCards.ChanceCard;
+import Game.ChanceCards.ChanceDeck;
+import Game.GameController;
+
 import java.awt.*;
 
 /**
@@ -14,14 +19,12 @@ import java.awt.*;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.1
+ * @version v.0.2
  */
 public class Chance extends Field {
 
     public Chance(String name, int groupID) {
-
         super(name, groupID);
-
     }
 
     public String getName() {
@@ -30,7 +33,14 @@ public class Chance extends Field {
 
     @Override
     public void landOnField(Game.Player player) {
-        // TODO: 05-01-2017 implement
+
+      ChanceCard a=  GameController.getGameBoard().getChanceDeck().getCard();
+
+
+
+        BoundaryController.showMessage("You drew:"+ a.getClass().toGenericString());
+        a.action(player);
+
     }
 
     public desktop_fields.Chance convertToGUI() {

@@ -1,5 +1,7 @@
 package Game;
 
+import Game.ChanceCards.ChanceCard;
+import Game.ChanceCards.ChanceDeck;
 import Game.Fields.Field;
 import Game.Fields.Ownable;
 import Game.Fields.Territory;
@@ -17,13 +19,14 @@ import java.nio.file.Paths;
  * Bugs: none known
  *
  * @author Lasse Dyrsted
- * @version v.0.1
+ * @version v.0.2
  */
 public class GameBoard {
 
     private final Field[] board;
     private int numberOfFields;
     private Shaker shaker;
+    private ChanceDeck chanceDeck;
 
     /**
      * The constructor of the class GameBoard
@@ -35,7 +38,10 @@ public class GameBoard {
         numberOfFields = number;
         this.shaker = shaker;
 
-        //board = new Field[numberOfFields];
+        //board = new Field[numberOfFields]
+        // ;
+        chanceDeck = new ChanceDeck();
+
         board = loadBoardFromFile("board.cfg");
         BoundaryController.showOnGui(board);
 
@@ -45,6 +51,7 @@ public class GameBoard {
     public Field[] getBoard() {
         return board;
     }
+    public ChanceDeck getChanceDeck(){ return chanceDeck; }
 
     public  Shaker getShaker() {
         return shaker;
@@ -238,5 +245,33 @@ public class GameBoard {
 
     }
 
+    public int[] getNumberOfOwnedHH(Player user) {
+        int houses=0;
+        int hotels=0;
+        for (Field theField : board) {
+            if (theField instanceof Territory) {
+                int count =  ((Territory) theField).getNumOfHouses();
 
+                if (count >=6){
+                    hotels++;
+                }else {
+                    houses += count;
+                }
+
+            }
+        }
+        return new int[]{houses, hotels};
+    }
+
+    public int getNumOfOwnedFields(Player player) {
+        int num = 0;
+        for (Field theField : board) {
+            if (theField instanceof Ownable) {
+                if (((Ownable) theField).getOwner() == player) {
+                    num++;
+                }
+            }
+        }
+        return num;
+    }
 }

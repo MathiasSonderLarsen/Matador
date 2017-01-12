@@ -1,6 +1,7 @@
 package Game;
 
 
+import Game.ChanceCards.ChanceCard;
 import Game.Fields.Field;
 import Game.Fields.Jail;
 import desktop_codebehind.Car;
@@ -21,12 +22,13 @@ import java.util.Random;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.4
+ * @version v.0.5
  */
 
 public class GameController {
 
     private final int FIELD_COUNT = 40;
+    private ChanceCard jailCard;
 
     /**
      * Getter for property 'gameBoard'.
@@ -39,17 +41,6 @@ public class GameController {
 
     private static GameBoard gameBoard;
 
-
-    /**
-     * Getter for property 'currentPlayer'.
-     *
-     * @return Value for property 'currentPlayer'.
-     */
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    private Player currentPlayer;
     private ArrayList<Player> players = new ArrayList<Player>();
 
 
@@ -115,8 +106,20 @@ public class GameController {
         //rolls the dice
         gameBoard.getShaker().shake();
 
+
         //displays the dice in the GUI
         displayDice(gameBoard.getShaker());
+
+        if (gameBoard.getShaker().getDoublesInARow() == 3 && player != null) {
+
+            Jail theJailField = ((Jail) GameController.getGameBoard().getField(11));
+
+            theJailField.addPlayer(player);
+
+            gameBoard.movePlayerAnim(player, 11, true);
+            return;
+        }
+
 
         if (Jail.isJailed(player) == false) {
 
@@ -133,8 +136,17 @@ public class GameController {
             final String answer2 = Language.getString("pay4000");
             final String answer3 = Language.getString("useChanceCard");
 
+
             if (player.getOutOfJailCards() > 0) {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2, answer3);
+                jailCard = player.getJailCardList().get(0);
+
+                if (answer3 == answer) {
+                    Jail.removePlayer(player);
+                    player.removeOutOfJailCard();
+                    getGameBoard().getChanceDeck().addJailCard(jailCard);
+                }
+
             } else {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
 
@@ -153,19 +165,20 @@ public class GameController {
                     Jail.removePlayer(player);
                 }
 
-                // Adds jailRound to the player if he still is in jail (Because he rolls dice)
-                if (Jail.isJailed(player)) {
-                    player.addRoundsInJail(1);
-                }
+            }
 
-                // After 3 rounds in jail, the player must pay bail.
-                if (player.getRoundsInJail() == 3) {
 
-                    player.addBalance(-1000);
-                    player.addRoundsInJail(-3);
-                    Jail.removePlayer(player);
+            // Adds jailRound to the player if he still is in jail (Because he rolls dice)
+            if (Jail.isJailed(player)) {
+                player.addRoundsInJail(1);
+            }
 
-                }
+            // After 3 rounds in jail, the player must pay bail.
+            if (player.getRoundsInJail() == 3) {
+
+                player.addBalance(-1000);
+                player.addRoundsInJail(-3);
+                Jail.removePlayer(player);
 
             }
         }
@@ -195,7 +208,9 @@ public class GameController {
 
             // For every player in the game
             for (int i = 0; i < players.size(); i++) {
-                currentPlayer = players.get(i);
+                Player currentPlayer = players.get(i);
+
+                Field currentField = gameBoard.getField(currentPlayer.getOnField());
 
                 playTurn(currentPlayer);
 
@@ -204,18 +219,11 @@ public class GameController {
                     playTurn(currentPlayer);
                 }
 
-                if (gameBoard.getShaker().getDoublesInARow() == 3 && currentPlayer != null) {
-
-                    Jail theJailField = ((Jail) GameController.getGameBoard().getField(11));
-
-                    theJailField.addPlayer(currentPlayer);
-
-                    gameBoard.movePlayerAnim(currentPlayer, 11, true);
-                }
 
                 if (currentPlayer.getExtraTurn()) {
                     currentPlayer.setExtraTurn(false);
                     i--;
+                    currentPlayer.setExtraTurn(false);
                 }
             }
 

@@ -107,7 +107,6 @@ public abstract class Ownable extends Field {
             if (Objects.equals(stringA, answer2)) {
 
                 player.addBalance(-price);
-                player.addRealEstateValue(price);
                 this.setOwner(player);
                 BoundaryController.showMessage(player.getName() + " " + Language.getString("bought") + " " + getName());
 

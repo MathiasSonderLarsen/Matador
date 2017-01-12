@@ -1,13 +1,17 @@
 package Game;
 
 
+import Game.ChanceCards.ChanceCard;
+
+import java.util.ArrayList;
+
 /**
  * Keeps track of the balance, and adds/subtracts by the points on the board.
  * <p>
  * Bugs: none known
  *
  * @author Lasse Dyrsted
- * @version v.0.1
+ * @version v.0.2
  */
 
 public class Player {
@@ -18,6 +22,7 @@ public class Player {
     private int onField = 1;
     private int outOfJailCards = 0;
     private int roundsInJail = 0;
+    private ArrayList<ChanceCard> jailCards;
 
     /**
      * Setter for property 'extraTurn'.
@@ -34,18 +39,20 @@ public class Player {
     public Player(String playerName) {
         name = playerName;
         account = new Account();
+        jailCards = new ArrayList<>();
 
     }
 
     public int getRealEstateValue() {
-        return realEstateValue;
+
+        int[] ownedHH = GameController.getGameBoard().getNumberOfOwnedHH(this);
+
+        return ownedHH[0] + ownedHH[1] +
+                GameController.getGameBoard().getNumOfOwnedFields(this) +
+                getBalance();
     }
 
-    public void addRealEstateValue(int newRealEstateValue) {
-        this.realEstateValue = realEstateValue + newRealEstateValue;
-    }
 
-    // Returns the name
     public String getName() {
         return name;
     }
@@ -69,19 +76,27 @@ public class Player {
     }
 
     public int getOutOfJailCards() {
-        return outOfJailCards;
+        return jailCards.size();
     }
 
-    public void setOutOfJailCards(int cardAmount) {
-        this.outOfJailCards = outOfJailCards + cardAmount;
+    public ArrayList<ChanceCard> getJailCardList() {
+        return jailCards;
     }
 
-    public Account getAccount() {
-        return this.account;
+    public void addOutOfJailCards(ChanceCard jailCard) {
+        jailCards.add(jailCard);
+    }
+
+    public void removeOutOfJailCard() {
+        jailCards.remove(0);
     }
 
     public int getRoundsInJail() {
         return roundsInJail;
+    }
+
+    public Account getAccount() {
+        return this.account;
     }
 
     public void addRoundsInJail(int rounds) {
@@ -103,5 +118,9 @@ public class Player {
                 ", roundsInJail=" + roundsInJail +
                 ", extraTurn=" + extraTurn +
                 '}';
+    }
+
+    public void setOutOfJailCards(int outOfJailCards) {
+        this.outOfJailCards = outOfJailCards;
     }
 }

@@ -1,7 +1,9 @@
 package Game.ChanceCards;
 
+import Game.Player;
+
 /**
- * MoveField does....blabla
+ * Get-out-of-jail-free card
  * <p>
  * Bugs: none known
  *
@@ -13,15 +15,15 @@ package Game.ChanceCards;
  * @author Timothy Rasmussen
  * @version v.0.1
  */
-public class MoveField extends ChanceCard {
+public class JailCard extends ChanceCard {
 
-    private int moveAmount;
+    public JailCard(String description) {
+        super(description);
 
-    public MoveField(String name, String description, int moveAmount) {
-        super(name, description);
     }
 
-    public int getMoveAmount() {
-        return moveAmount;
+    @Override
+    public void action(Player user) {
+        user.addOutOfJailCards(this);
     }
 }

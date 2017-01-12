@@ -1,7 +1,10 @@
 package Game.ChanceCards;
 
+import Game.Fields.Jail;
+import Game.Player;
+
 /**
- * MoneyTransfer does....blabla
+ * goToJail does....blabla
  * <p>
  * Bugs: none known
  *
@@ -13,15 +16,14 @@ package Game.ChanceCards;
  * @author Timothy Rasmussen
  * @version v.0.1
  */
-public class MoneyTransfer extends ChanceCard {
+public class goToJail extends ChanceCard {
 
-    private int amount;
-
-    public MoneyTransfer(String name, String description, int amount) {
-        super(name, description);
+    public goToJail(String description) {
+        super(description);
     }
 
-    public int getAmount() {
-        return amount;
+    @Override
+    public void action(Player user) {
+        Jail.addPlayer(user);
     }
 }
