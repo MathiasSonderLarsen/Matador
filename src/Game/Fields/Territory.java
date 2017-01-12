@@ -1,12 +1,10 @@
 package Game.Fields;
 
 
-import Game.BoundaryController;
-import Game.GameController;
-import Game.Language;
-import Game.Player;
+import Game.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Keeps track of the rent, price, name, groupID and houseprice of the territories
@@ -83,7 +81,7 @@ public class Territory extends Ownable {
         int numberOfPropertiesInGroup = GameController.getGameBoard().getNumberOfPropertiesInGroup(groupID);
 
         // If you own every lot in the group
-        if (GameController.getGameBoard().playerOwnsAllInGroup(player, groupID) && !allLotsInGroupHasHotel(groupID)) {
+        if (GameController.getGameBoard().playerOwnsAllInGroup(player, groupID) && !GameController.getGameBoard().playerOwensAllInGroup(this)) {
 
             // Defines the question and answers for whether of not you wants to buy a house
             final String question = player.getName() + (Language.getString("buyhouse")
@@ -97,7 +95,7 @@ public class Territory extends Ownable {
             // and don't have a hotel on all lots in the group
             boolean buyMode = true;
             do {
-                if (allLotsInGroupHasHotel(groupID)){
+                if (GameController.getGameBoard().houseAvailable(groupID)){
                     break;
                 }
                 // Prompts the user with the question of whether o not he wants to buy a house
@@ -106,20 +104,15 @@ public class Territory extends Ownable {
                 // If the user answers "Yes"
                 if (inputAnswer == answer2) {
 
-                    // Defines an array of Territories in the group that you stand in
-                    Territory[] houseBuyableFields = GameController.getGameBoard().getBuyableArray(groupID, numberOfPropertiesInGroup);
 
-                    // Defined as the minimum number of houses with all lots in the grup compared
-                    int minNumber = getMinHouses(houseBuyableFields);
-                    // Defined as the number of houses that has minimum number in the group
-                    int numOptions = countTerritoriesWithXHouses(houseBuyableFields, minNumber);
-                    // Defines a String array of all the available options you can buy
-                    String[] listOfBuyableFieldOptions = getListOfBuyableFields(houseBuyableFields, minNumber, numOptions);
+
+
+                    ArrayList<Territory> listOfBuyableHouseOptions = GameController.getGameBoard().getListOfBuyableHouseOptions(GameController.getGameBoard().getFieldsInGroup(getGroupID()));
                     // Defined as the house the user picks
-                    String answer = BoundaryController.getUserButtonPressed(question, listOfBuyableFieldOptions);
+                    String answer = BoundaryController.getUserButtonPressed(question, GameController.getGameBoard().getStringOfBuyableFieldOptions(listOfBuyableHouseOptions));
 
                     // Finds the house the user picked and adds a house/hotel
-                    for (Territory theTerritory : houseBuyableFields) {
+                    for (Territory theTerritory : listOfBuyableHouseOptions) {
                         if (answer == theTerritory.getName()) {
 
                             int fieldNumber = GameController.getGameBoard().getFieldPos(theTerritory);
@@ -151,18 +144,18 @@ public class Territory extends Ownable {
 
     }
     // Returns the number of lots that has hotels
-    private boolean allLotsInGroupHasHotel(int groupID) {
-        boolean out = false;
-        Field[] fieldsInGroup = GameController.getGameBoard().getFieldsInGroup(groupID);
-        Territory[] territories = new Territory[fieldsInGroup.length];
-        for (int i = 0; i < fieldsInGroup.length; i++) {
-            territories[i] = (Territory) fieldsInGroup[i];
-        }
-
-
-        return countTerritoriesWithXHouses(territories, 5) == GameController.getGameBoard().getNumberOfPropertiesInGroup(groupID);
-
-    }
+//    private boolean allLotsInGroupHasHotel(int groupID) {
+//        boolean out = false;
+//        Field[] fieldsInGroup = GameController.getGameBoard().getFieldsInGroup(groupID);
+//        Territory[] territories = new Territory[fieldsInGroup.length];
+//        for (int i = 0; i < fieldsInGroup.length; i++) {
+//            territories[i] = (Territory) fieldsInGroup[i];
+//        }
+//
+//
+//        return countTerritoriesWithXHouses(territories, 5) == GameController.getGameBoard().getNumberOfPropertiesInGroup(groupID);
+//
+//    }
     // Returns string array of available options of lots you can build a house/hotel on
     private String[] getListOfBuyableFields(Territory[] houseBuyableFields, int minNumber, int numOptions) {
         String[] stringArray = new String[numOptions];
@@ -176,27 +169,7 @@ public class Territory extends Ownable {
         }
         return stringArray;
     }
-    // Returns the number of houses that has the minimum number of houses
-    private int countTerritoriesWithXHouses(Territory[] houseBuyableFields, int minNumber) {
-        int number = 0;
-        for (Territory theTerritory : houseBuyableFields) {
-            if (theTerritory.getNumOfHouses() == minNumber) {
 
-                number++;
-            }
-        }
-        return number;
-    }
-    // Returns the minimum number of houses with the lots in the group compared
-    private int getMinHouses(Territory[] houseBuyableFields) {
-        int minNumber = Integer.MAX_VALUE;
-        for (Territory theTerritory : houseBuyableFields) {
-            if (theTerritory.getNumOfHouses() < minNumber) {
-                minNumber = theTerritory.getNumOfHouses();
-            }
-        }
-        return minNumber;
-    }
 
     public desktop_fields.Street convertToGUI() {
         desktop_fields.Street.Builder a = new desktop_fields.Street.Builder()
