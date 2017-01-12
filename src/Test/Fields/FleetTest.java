@@ -152,7 +152,7 @@ public class FleetTest {
         assertEquals(expected, actual);
 
         //player1 buys fleet 1
-        BoundaryController.setPreDefinedAnswer(new String[] {Language.getString("yes")});
+        BoundaryController.setPreDefinedAnswer(new String[]{Language.getString("yes")});
         this.fleet1.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
@@ -179,7 +179,7 @@ public class FleetTest {
          * owner ship of 2 fleets
          */
         //player1 buys fleet 1
-        BoundaryController.setPreDefinedAnswer(new String[] {Language.getString("yes")});
+        BoundaryController.setPreDefinedAnswer(new String[]{Language.getString("yes")});
         this.fleet2.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
@@ -205,7 +205,7 @@ public class FleetTest {
          * owner ship of 3 fleets
          */
         //player1 buys fleet 1
-        BoundaryController.setPreDefinedAnswer(new String[] {Language.getString("yes")});
+        BoundaryController.setPreDefinedAnswer(new String[]{Language.getString("yes")});
         this.fleet3.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
@@ -231,7 +231,7 @@ public class FleetTest {
          * owner ship of 4 fleets
          */
         //player1 buys fleet 1
-        BoundaryController.setPreDefinedAnswer(new String[] {Language.getString("yes")});
+        BoundaryController.setPreDefinedAnswer(new String[]{Language.getString("yes")});
         this.fleet4.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
@@ -252,5 +252,18 @@ public class FleetTest {
         expected = 21500;
         actual = player1.getBalance();
         assertEquals(expected, actual);
+    }
+
+    @Override
+    public String toString() {
+        return "FleetTest{" +
+                "player1=" + player1 +
+                ", player2=" + player2 +
+                ", gameBoard=" + gameBoard +
+                ", fleet1=" + fleet1 +
+                ", fleet2=" + fleet2 +
+                ", fleet3=" + fleet3 +
+                ", fleet4=" + fleet4 +
+                '}';
     }
 }

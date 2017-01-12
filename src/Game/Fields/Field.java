@@ -3,6 +3,8 @@ package Game.Fields;
 
 import Game.Player;
 
+import java.awt.*;
+
 /**
  * Field defines common attribues and methods for all the Field types
  * <p>
@@ -14,17 +16,20 @@ import Game.Player;
 public abstract class Field {
 
     protected final int groupID;
+    protected final Color color;
     protected String name;
 
     /**
      * Constructs a Field
      *
      * @param name The name of the Field
+     * @param color
      */
-    public Field(String name, int groupID) {
+    public Field(String name, int groupID, Color color) {
 
         this.name = name;
         this.groupID = groupID;
+        this.color = color;
     }
 
     public String getName() {
@@ -53,4 +58,11 @@ public abstract class Field {
 
     public abstract desktop_fields.Field convertToGUI();
 
+    @Override
+    public String toString() {
+        return "Field{" +
+                "groupID=" + groupID +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

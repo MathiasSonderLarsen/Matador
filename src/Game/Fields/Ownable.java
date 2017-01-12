@@ -6,6 +6,7 @@ import Game.GameController;
 import Game.Language;
 import Game.Player;
 
+import java.awt.*;
 import java.util.Objects;
 
 /**
@@ -19,16 +20,17 @@ import java.util.Objects;
  */
 public abstract class Ownable extends Field {
 
-    private final int price;
-    private Player owner;
+    protected final int price;
+    protected Player owner;
 
     /**
      * The constructor of the Ownable type
      *  @param name  The name of the Field
+     * @param color
      * @param price The price of the Field
      */
-    public Ownable(String name, int groupID, int price) {
-        super(name, groupID);
+    public Ownable(String name, int groupID, Color color, int price) {
+        super(name, groupID, color);
         this.price = price;
 
     }
@@ -92,7 +94,7 @@ public abstract class Ownable extends Field {
         // TODO: 05-01-2017 add code
 
         // No one owns the field and the player has the money to buy it
-        if (owner == null && price <= player.getBalance()) {
+        if ((owner == null) && (price <= player.getBalance())) {
 
 
             final String question = player.getName() + (Language.getString("turn1") + " " +
@@ -112,10 +114,18 @@ public abstract class Ownable extends Field {
             }
         }
         //Someone else owns the field
-        if (owner != player && owner != null && !Jail.isJailed(owner)) {
+        if ((!Objects.equals(owner, player)) && (owner != null) && !Jail.isJailed(owner)) {
             player.addBalance(-getRent());
             owner.addBalance(getRent());
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return "Ownable{" +
+                "price=" + price +
+                ", owner=" + owner +
+                '}';
     }
 }

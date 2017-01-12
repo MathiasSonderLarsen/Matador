@@ -4,6 +4,9 @@ import Game.Fields.FreeParking;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+import java.util.Objects;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -23,15 +26,21 @@ public class FreeParkingTest {
 
     @Before
     public void setUp() {
-        this.freeParking = new FreeParking("P-Plads", 0);
+        this.freeParking = new FreeParking("P-Plads", 0, Color.black);
     }
 
     @Test
     public void entityTest() {
         assertNotNull(freeParking);
         assertTrue(freeParking instanceof FreeParking);
-        assertTrue(freeParking.getName() == "P-Plads");
+        assertTrue(Objects.equals(freeParking.getName(), "P-Plads"));
     }
 
 
+    @Override
+    public String toString() {
+        return "FreeParkingTest{" +
+                "freeParking=" + freeParking +
+                '}';
+    }
 }

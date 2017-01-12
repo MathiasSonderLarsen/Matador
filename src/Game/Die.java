@@ -22,10 +22,6 @@ public class Die {
 
     private int faceValue;
 
-    public Die() {
-
-    }
-
     /**
      * Rolls the die
      */
@@ -48,4 +44,10 @@ public class Die {
         faceValue = fValue;
     }
 
+    @Override
+    public String toString() {
+        return "Die{" +
+                ", faceValue=" + faceValue +
+                '}';
+    }
 }

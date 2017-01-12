@@ -91,4 +91,11 @@ public class PlayerTest {
         actual = player.getOnField();
         assertEquals(expected, actual);
     }
+
+    @Override
+    public String toString() {
+        return "PlayerTest{" +
+                "player=" + player +
+                '}';
+    }
 }

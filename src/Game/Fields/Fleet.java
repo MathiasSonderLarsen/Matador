@@ -2,6 +2,7 @@ package Game.Fields;
 
 
 import java.awt.*;
+import java.util.Arrays;
 
 /**
  * Keeps track of the balance, and adds/subtracts by the points on the board.
@@ -22,9 +23,9 @@ public class Fleet extends Ownable {
     //Declares an array of integers
     private final int[] rentArray;
 
-    public Fleet(String name, int groupID, int price, int[] rentArray) {
+    public Fleet(String name, int groupID , Color color, int price, int[] rentArray) {
 
-        super(name, groupID, price);
+        super(name, groupID, color, price);
         this.rentArray = rentArray;
 
 
@@ -49,10 +50,17 @@ public class Fleet extends Ownable {
 
     public desktop_fields.Shipping convertToGUI() {
         desktop_fields.Shipping.Builder a = new desktop_fields.Shipping.Builder()
-                .setTitle(this.getName())
-                .setBgColor(Color.red)
-                .setSubText(getPrice() + "");
+                .setTitle(name)
+                .setFgColor(Color.black)
+                .setBgColor(color)
+                .setSubText(price + "");
         return a.build();
     }
 
+    @Override
+    public String toString() {
+        return "Fleet{" +
+                "rentArray=" + Arrays.toString(rentArray) +
+                '}';
+    }
 }

@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.awt.*;
+
 import static org.junit.Assert.*;
 
 /**
@@ -28,9 +30,7 @@ public class BreweryTest {
     private Brewery brewery1, brewery2;
     private Player player;
     private GameBoard gameBoard;
-    private int price;
-    private int baseRent;
-    private int groupID;
+
 
     @BeforeClass
     public static void setUpBeforeClass() {
@@ -43,8 +43,8 @@ public class BreweryTest {
         this.player = new Player("Test1");
         this.player = new Player("Test2");
 
-        this.brewery1 = new Brewery("BrewTest1", 6, 3000, baseRent);
-        this.brewery2 = new Brewery("BrewTest2", 6, 3000, baseRent);
+        this.brewery1 = new Brewery("BrewTest1", 6, Color.black, 3000, 100);
+        this.brewery2 = new Brewery("BrewTest2", 6,Color.black, 3000, 1000);
 
         gameBoard = GameController.getGameBoard();
 

@@ -120,4 +120,10 @@ public class DieTest {
     }
 
 
+    @Override
+    public String toString() {
+        return "DieTest{" +
+                "die=" + die +
+                '}';
+    }
 }

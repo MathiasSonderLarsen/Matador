@@ -23,16 +23,6 @@ public class Player {
     private int outOfJailCards = 0;
     private int roundsInJail = 0;
     private ArrayList<ChanceCard> jailCards;
-
-    /**
-     * Setter for property 'extraTurn'.
-     *
-     * @param extraTurn Value to set for property 'extraTurn'.
-     */
-    public void setExtraTurn(boolean extraTurn) {
-        this.extraTurn = extraTurn;
-    }
-
     private boolean extraTurn = false;
 
     //
@@ -51,7 +41,6 @@ public class Player {
                 GameController.getGameBoard().getNumOfOwnedFields(this) +
                 getBalance();
     }
-
 
     public String getName() {
         return name;
@@ -79,6 +68,10 @@ public class Player {
         return jailCards.size();
     }
 
+    public void setOutOfJailCards(int outOfJailCards) {
+        this.outOfJailCards = outOfJailCards;
+    }
+
     public ArrayList<ChanceCard> getJailCardList() {
         return jailCards;
     }
@@ -100,11 +93,20 @@ public class Player {
     }
 
     public void addRoundsInJail(int rounds) {
-        roundsInJail = roundsInJail + rounds;
+        roundsInJail += rounds;
     }
 
     public boolean getExtraTurn() {
         return this.extraTurn;
+    }
+
+    /**
+     * Setter for property 'extraTurn'.
+     *
+     * @param extraTurn Value to set for property 'extraTurn'.
+     */
+    public void setExtraTurn(boolean extraTurn) {
+        this.extraTurn = extraTurn;
     }
 
     @Override
@@ -116,11 +118,8 @@ public class Player {
                 ", onField=" + onField +
                 ", outOfJailCards=" + outOfJailCards +
                 ", roundsInJail=" + roundsInJail +
+                ", jailCards=" + jailCards +
                 ", extraTurn=" + extraTurn +
                 '}';
-    }
-
-    public void setOutOfJailCards(int outOfJailCards) {
-        this.outOfJailCards = outOfJailCards;
     }
 }

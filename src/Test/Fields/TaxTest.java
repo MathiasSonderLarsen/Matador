@@ -5,6 +5,8 @@ import Game.Player;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+
 import static org.junit.Assert.*;
 
 
@@ -27,8 +29,8 @@ public class TaxTest {
     public void setUp() throws Exception {
         this.player = new Player("Player");
 
-        this.tax1 = new Tax("Tax1", 2, 1000, 1.0f);
-        this.tax2 = new Tax("Tax2", 2, 4000, 0.1f);
+        this.tax1 = new Tax("Tax1", 2, Color.black, 1000, 1.0f);
+        this.tax2 = new Tax("Tax2", 2,Color.black, 4000, 0.1f);
 
     }
 
@@ -100,5 +102,14 @@ public class TaxTest {
         assertEquals(expected, actual);
 
 
+    }
+
+    @Override
+    public String toString() {
+        return "TaxTest{" +
+                "player=" + player +
+                ", tax1=" + tax1 +
+                ", tax2=" + tax2 +
+                '}';
     }
 }

@@ -27,8 +27,14 @@ import java.util.Random;
 
 public class GameController {
 
-    private final int FIELD_COUNT = 40;
+    private static GameBoard gameBoard;
+    private final static int FIELD_COUNT = 40;
     private ChanceCard jailCard;
+    private ArrayList<Player> players = new ArrayList<Player>();
+
+    public GameController(Shaker shaker) {
+        gameBoard = new GameBoard(FIELD_COUNT, shaker);
+    }
 
     /**
      * Getter for property 'gameBoard'.
@@ -37,15 +43,6 @@ public class GameController {
      */
     public static GameBoard getGameBoard() {
         return gameBoard;
-    }
-
-    private static GameBoard gameBoard;
-
-    private ArrayList<Player> players = new ArrayList<Player>();
-
-
-    public GameController(Shaker shaker) {
-        gameBoard = new GameBoard(FIELD_COUNT, shaker);
     }
 
     private void initializePlayers() {
@@ -110,7 +107,7 @@ public class GameController {
         //displays the dice in the GUI
         displayDice(gameBoard.getShaker());
 
-        if (gameBoard.getShaker().getDoublesInARow() == 3 && player != null) {
+        if ((gameBoard.getShaker().getDoublesInARow() == 3) && (player != null)) {
 
             Jail theJailField = ((Jail) GameController.getGameBoard().getField(11));
 
@@ -141,10 +138,10 @@ public class GameController {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2, answer3);
                 jailCard = player.getJailCardList().get(0);
 
-                if (answer3 == answer) {
+                if (Objects.equals(answer3, answer)) {
                     Jail.removePlayer(player);
                     player.removeOutOfJailCard();
-                    getGameBoard().getChanceDeck().addJailCard(jailCard);
+                    gameBoard.getChanceDeck().addJailCard(jailCard);
                 }
 
             } else {
@@ -214,7 +211,7 @@ public class GameController {
 
                 playTurn(currentPlayer);
 
-                if (gameBoard.getShaker().getDoublesInARow() > 0 && gameBoard.getShaker().getDoublesInARow() != 3 && currentPlayer != null) {
+                if ((gameBoard.getShaker().getDoublesInARow() > 0) && (gameBoard.getShaker().getDoublesInARow() != 3) && (currentPlayer != null)) {
 
                     playTurn(currentPlayer);
                 }
@@ -234,5 +231,14 @@ public class GameController {
 
         BoundaryController.close();
 
+    }
+
+    @Override
+    public String toString() {
+        return "GameController{" +
+                "FIELD_COUNT=" + FIELD_COUNT +
+                ", jailCard=" + jailCard +
+                ", players=" + players +
+                '}';
     }
 }

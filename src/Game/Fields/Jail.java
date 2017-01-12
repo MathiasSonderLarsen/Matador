@@ -2,6 +2,7 @@ package Game.Fields;
 
 
 import Game.Player;
+import desktop_fields.Jail.Builder;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,11 +24,11 @@ import java.util.ArrayList;
 
 public class Jail extends Field {
 
-    private static ArrayList<Player> jailedPlayers = new ArrayList<Player>();
+    private static final ArrayList<Player> jailedPlayers = new ArrayList<>();
 
 
-    public Jail(String name, int groupID) {
-        super(name, groupID);
+    public Jail(String name, int groupID,Color color) {
+        super(name, groupID, color);
     }
 
     public static void addPlayer(Player player) {
@@ -43,13 +44,17 @@ public class Jail extends Field {
         return a;
     }
 
+    @Override
     public void landOnField(Player player) {
     }
 
+    @Override
+
     public desktop_fields.Jail convertToGUI() {
-        desktop_fields.Jail.Builder a = new desktop_fields.Jail.Builder()
-                .setTitle(this.getName())
-                .setBgColor(Color.red)
+        Builder a = new Builder()
+                .setTitle(name)
+                .setFgColor(Color.white)
+                .setBgColor(color)
                 .setSubText("");
         return a.build();
     }

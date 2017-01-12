@@ -7,6 +7,8 @@ import Game.Language;
 import Game.Player;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Keeps track of the rent, price, name, groupID and houseprice of the territories
@@ -28,8 +30,8 @@ public class Territory extends Ownable {
     private int numOfHouses = 0;
     private int housePrice;
 
-    public Territory(String name, int groupID, int price, int[] rentArray, int housePrice) {
-        super(name, groupID, price);
+    public Territory(String name, int groupID, Color color, int price, int[] rentArray, int housePrice) {
+        super(name, groupID, color, price);
 
         this.rentArray = rentArray;
         this.housePrice = housePrice;
@@ -97,14 +99,14 @@ public class Territory extends Ownable {
             // and don't have a hotel on all lots in the group
             boolean buyMode = true;
             do {
-                if (allLotsInGroupHasHotel(groupID)){
+                if (allLotsInGroupHasHotel(groupID)) {
                     break;
                 }
                 // Prompts the user with the question of whether o not he wants to buy a house
                 String inputAnswer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
 
                 // If the user answers "Yes"
-                if (inputAnswer == answer2) {
+                if (Objects.equals(inputAnswer, answer2)) {
 
                     // Defines an array of Territories in the group that you stand in
                     Territory[] houseBuyableFields = GameController.getGameBoard().getBuyableArray(groupID, numberOfPropertiesInGroup);
@@ -120,7 +122,7 @@ public class Territory extends Ownable {
 
                     // Finds the house the user picked and adds a house/hotel
                     for (Territory theTerritory : houseBuyableFields) {
-                        if (answer == theTerritory.getName()) {
+                        if (Objects.equals(answer, theTerritory.getName())) {
 
                             int fieldNumber = GameController.getGameBoard().getFieldPos(theTerritory);
                             if (theTerritory.getNumOfHouses() < 4) {
@@ -142,7 +144,7 @@ public class Territory extends Ownable {
 
                 }
 
-                if (inputAnswer == answer1) {
+                if (Objects.equals(inputAnswer, answer1)) {
                     buyMode = false;
                 }
 
@@ -150,6 +152,7 @@ public class Territory extends Ownable {
         }
 
     }
+
     // Returns the number of lots that has hotels
     private boolean allLotsInGroupHasHotel(int groupID) {
         boolean out = false;
@@ -163,6 +166,7 @@ public class Territory extends Ownable {
         return countTerritoriesWithXHouses(territories, 5) == GameController.getGameBoard().getNumberOfPropertiesInGroup(groupID);
 
     }
+
     // Returns string array of available options of lots you can build a house/hotel on
     private String[] getListOfBuyableFields(Territory[] houseBuyableFields, int minNumber, int numOptions) {
         String[] stringArray = new String[numOptions];
@@ -176,6 +180,7 @@ public class Territory extends Ownable {
         }
         return stringArray;
     }
+
     // Returns the number of houses that has the minimum number of houses
     private int countTerritoriesWithXHouses(Territory[] houseBuyableFields, int minNumber) {
         int number = 0;
@@ -187,6 +192,7 @@ public class Territory extends Ownable {
         }
         return number;
     }
+
     // Returns the minimum number of houses with the lots in the group compared
     private int getMinHouses(Territory[] houseBuyableFields) {
         int minNumber = Integer.MAX_VALUE;
@@ -200,10 +206,19 @@ public class Territory extends Ownable {
 
     public desktop_fields.Street convertToGUI() {
         desktop_fields.Street.Builder a = new desktop_fields.Street.Builder()
-                .setTitle(this.getName())
-                .setFgColor(Color.blue)
-                .setSubText(getPrice() + "");
+                .setTitle(name)
+                .setFgColor(Color.black)
+                .setBgColor(color)
+                .setSubText(price + "");
         return a.build();
     }
 
+    @Override
+    public String toString() {
+        return "Territory{" +
+                "rentArray=" + Arrays.toString(rentArray) +
+                ", numOfHouses=" + numOfHouses +
+                ", housePrice=" + housePrice +
+                '}';
+    }
 }

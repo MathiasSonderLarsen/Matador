@@ -31,4 +31,12 @@ public class MoveCard extends ChanceCard {
     public void action(Player user) {
         GameController.getGameBoard().movePlayerAnim(user, moveAmount, absolutePos);
     }
+
+    @Override
+    public String toString() {
+        return "MoveCard{" +
+                "moveAmount=" + moveAmount +
+                ", absolutePos=" + absolutePos +
+                '}';
+    }
 }

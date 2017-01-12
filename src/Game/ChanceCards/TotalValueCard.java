@@ -14,7 +14,7 @@ public class TotalValueCard extends ChanceCard {
 
     @Override
     public void action(Player user) {
-        if (user.getRealEstateValue() >= 15000){
+        if (user.getRealEstateValue() >= 15000) {
             user.addBalance(40000);
         }
     }

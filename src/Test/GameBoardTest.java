@@ -6,13 +6,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import javax.smartcardio.Card;
+import java.util.Objects;
 
 import static org.junit.Assert.*;
 
 /**
  * Created by Matt_Lab on 06012017.
- v.0.1
+ * v.0.1
  */
 
 
@@ -28,6 +28,7 @@ public class GameBoardTest {
 
         BoundaryController.setInterfaceMode(BoundaryController.Mode.Test);
     }
+
     @Before
     public void setUp() throws Exception {
         new GameController(new Shaker(2));
@@ -53,15 +54,15 @@ public class GameBoardTest {
                 Brewery.class, Territory.class, GoToJail.class, Territory.class, Territory.class, Chance.class, Territory.class,
                 Fleet.class, Chance.class, Territory.class, Tax.class, Territory.class};
 
-        String[] name = {"Start", "Rødovervej","Prøv lykken","Hvidovervej","Indkomstskat","Scandlines","Roskildevej","Prøv lykken",
-                "Valby Langgade","Allégade","Fængsel","Frederiksberg Allé","Tuborg","Büowsvej","Gl. Kongevej","Mols-Linien",
-                "Bernstorffsvej","Prøv lykken","Hellerupvej","Strandvejen","Parkering","Trianglen","Prøv lykken","Østerbrogade",
-                "Grønningen","Scandlines","Bredgade","Kgs. Nytorv","CocaCola","Østergade","De fængsles","Amagertorv","Vimmelskarftet",
-                "Prøv lykken","Nygade","Scandlines","Prøv lykken","Frederiksberg gade","Indkomstskat","Rådhuspladsen"};
+        String[] name = {"Start", "Rødovervej", "Prøv lykken", "Hvidovervej", "Indkomstskat", "Scandlines", "Roskildevej", "Prøv lykken",
+                "Valby Langgade", "Allégade", "Fængsel", "Frederiksberg Allé", "Tuborg", "Büowsvej", "Gl. Kongevej", "Mols-Linien",
+                "Bernstorffsvej", "Prøv lykken", "Hellerupvej", "Strandvejen", "Parkering", "Trianglen", "Prøv lykken", "Østerbrogade",
+                "Grønningen", "Scandlines", "Bredgade", "Kgs. Nytorv", "CocaCola", "Østergade", "De fængsles", "Amagertorv", "Vimmelskarftet",
+                "Prøv lykken", "Nygade", "Scandlines", "Prøv lykken", "Frederiksberg gade", "Indkomstskat", "Rådhuspladsen"};
 
-        int[] group = {1,2,3,2,4,5,6,3,6,6,7,8,9,8,8,5,10,3,10,10,11,12,3,12,12,5,13,13,9,13,10,14,14,3,14,5,3,15,4,15};
+        int[] group = {1, 2, 3, 2, 4, 5, 6, 3, 6, 6, 7, 8, 9, 8, 8, 5, 10, 3, 10, 10, 11, 12, 3, 12, 12, 5, 13, 13, 9, 13, 10, 14, 14, 3, 14, 5, 3, 15, 4, 15};
 
-        int[] price = {0,1200,0,1200,0,4000,2000,0,2000,2400,0,2800,3000,2800,3200,4000,3600,0,3600,4000,0,4400,0,4400,4800,4000,5200,5200,3000,5600,0,6000,6000,0,6400,4000,0,7000,0,8000};
+        int[] price = {0, 1200, 0, 1200, 0, 4000, 2000, 0, 2000, 2400, 0, 2800, 3000, 2800, 3200, 4000, 3600, 0, 3600, 4000, 0, 4400, 0, 4400, 4800, 4000, 5200, 5200, 3000, 5600, 0, 6000, 6000, 0, 6400, 4000, 0, 7000, 0, 8000};
         /**
          * the tests
          */
@@ -74,37 +75,37 @@ public class GameBoardTest {
         //assertNotNull(deck);
 
 
-        for (int i=1 ; i <= board.getBoard().length ; i++){
+        for (int i = 1; i <= board.getBoard().length; i++) {
             System.out.println(i);
             assertNotNull(board.getField(i));
             assertTrue(board.getField(i) instanceof Field);
 
-            assertEquals(true, board.getField(i).getClass() == type[i-1]);
+            assertEquals(true, Objects.equals(board.getField(i).getClass(), type[i - 1]));
 
             System.out.println(board.getField(i).getName());
-            System.out.println(name[i-1]);
+            System.out.println(name[i - 1]);
 
             String actual = board.getField(i).getName();
-            String expected = name[i-1];
-            assertEquals(expected,actual);
+            String expected = name[i - 1];
+            assertEquals(expected, actual);
 
             System.out.println(board.getField(i).getGroupID());
-            System.out.println(group[i-1]);
+            System.out.println(group[i - 1]);
 
             int actualint = board.getField(i).getGroupID();
-            int expectedint = group[i-1];
-            assertEquals(expectedint,actualint);
+            int expectedint = group[i - 1];
+            assertEquals(expectedint, actualint);
 
-            if(board.getField(i) instanceof Territory){
+            if (board.getField(i) instanceof Territory) {
                 actualint = ((Territory) board.getField(i)).getPrice();
-                expectedint = price[i-1];
-                assertEquals(expectedint,actualint);
+                expectedint = price[i - 1];
+                assertEquals(expectedint, actualint);
             }
 
-            if(board.getField(i) instanceof Fleet){
+            if (board.getField(i) instanceof Fleet) {
                 expectedint = 4000;
                 actualint = ((Fleet) board.getField(i)).getPrice();
-                assertEquals(expectedint,actualint);
+                assertEquals(expectedint, actualint);
             }
 
 //            if(type[i-1] == Territory.class){
@@ -125,9 +126,7 @@ public class GameBoardTest {
         assertTrue(player2.getAccount() instanceof Account);
 
 
-
     }
-
 
 
     @Test
@@ -165,4 +164,12 @@ public class GameBoardTest {
 
     }
 
+    @Override
+    public String toString() {
+        return "GameBoardTest{" +
+                "player1=" + player1 +
+                ", player2=" + player2 +
+                ", board=" + board +
+                '}';
+    }
 }

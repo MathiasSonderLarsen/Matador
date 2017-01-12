@@ -66,4 +66,10 @@ public class AccountTest {
     }
 
 
+    @Override
+    public String toString() {
+        return "AccountTest{" +
+                "account=" + account +
+                '}';
+    }
 }

@@ -1,5 +1,7 @@
 package Game;
 
+import java.util.Arrays;
+
 /**
  * Shaker class, contains the Die objects
  * <p>
@@ -49,11 +51,11 @@ public class Shaker {
      * Gets the sum of the rolled Dice
      */
     public int getSum() {
-        setSum(getDice()[0].getFaceValue()+getDice()[1].getFaceValue());
+        setSum(dice[0].getFaceValue() + dice[1].getFaceValue());
         return sum;
     }
 
-    public void setSum(int sum) {
+    private void setSum(int sum) {
         this.sum = sum;
     }
 
@@ -87,12 +89,20 @@ public class Shaker {
 
     }
 
-    public void setDice(int die1, int die2){
-        getDice()[0].setFaceValue(die1);
-        getDice()[1].setFaceValue(die2);
+    private void setDice(int die1, int die2) {
+        dice[0].setFaceValue(die1);
+        dice[1].setFaceValue(die2);
     }
 
 
+    @Override
+    public String toString() {
+        return "Shaker{" +
+                "dice=" + Arrays.toString(dice) +
+                ", sum=" + sum +
+                ", doublesInARow=" + doublesInARow +
+                '}';
+    }
 }
 
 

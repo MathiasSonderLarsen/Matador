@@ -29,16 +29,25 @@ public class MoneyCard extends ChanceCard {
         this.baseHotel = baseHotel;
     }
 
-    public int getAmount(){
+    public int getAmount() {
         return baseAmount;
     }
 
     @Override
     public void action(Player user) {
 
-        int[] HH = GameController.getGameBoard().getNumberOfOwnedHH(user);
+        int[] housesAndHotels = GameController.getGameBoard().getNumberOfOwnedHH(user);
 
-        user.addBalance(baseAmount + (baseHotel * HH[0]) * (baseHouse * HH[1]));
+        user.addBalance(baseAmount + ((baseHotel * housesAndHotels[0]) * (baseHouse * housesAndHotels[1])));
 
+    }
+
+    @Override
+    public String toString() {
+        return "MoneyCard{" +
+                "baseAmount=" + baseAmount +
+                ", baseHouse=" + baseHouse +
+                ", baseHotel=" + baseHotel +
+                '}';
     }
 }

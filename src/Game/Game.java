@@ -1,8 +1,6 @@
 package Game;
 
 
-import Test.FakeShaker;
-
 /**
  * Keeps track of the balance, and adds/subtracts by the points on the board.
  * <p>

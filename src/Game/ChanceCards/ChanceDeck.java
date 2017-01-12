@@ -1,7 +1,6 @@
 package Game.ChanceCards;
 
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -63,7 +62,7 @@ public class ChanceDeck {
 
     public ChanceCard getCard() {
 
-        int randomNumber = rand.nextInt(ChanceCards.size()+1);
+        int randomNumber = rand.nextInt(ChanceCards.size() + 1);
         ChanceCard chosen = ChanceCards.get(randomNumber);
 
         if (chosen instanceof JailCard) {
@@ -84,6 +83,12 @@ public class ChanceDeck {
         ChanceCards.add(jailCard);
     }
 
+    @Override
+    public String toString() {
+        return "ChanceDeck{" +
+                ", ChanceCards=" + ChanceCards +
+                '}';
+    }
 }
 
 

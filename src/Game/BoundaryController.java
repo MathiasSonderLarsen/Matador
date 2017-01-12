@@ -34,7 +34,7 @@ public class BoundaryController {
 
     public static void setPreDefinedAnswer(String[] newPreDefinedAnswer) {
         preDefinedAnswer = newPreDefinedAnswer;
-        answerNum=0;
+        answerNum = 0;
     }
 
     /**
@@ -53,15 +53,15 @@ public class BoundaryController {
      * The method to add a player to the game, with exception if the program runs in test mode.
      *
      * @param name          The players name.
-     * @param start_balance The players starting balance.
+     * @param startBalance The players starting balance.
      * @param car           The players car object.
      */
 
-    public static void addPlayer(String name, int start_balance, Car car) {
+    public static void addPlayer(String name, int startBalance, Car car) {
         switch (mode) {
 
             case GUI:
-                GUI.addPlayer(name, start_balance, car);
+                GUI.addPlayer(name, startBalance, car);
                 break;
 
             case Test:
@@ -278,7 +278,6 @@ public class BoundaryController {
                 GUI.removeOwner(fieldNumber);
 
 
-
                 break;
             case Test:
 
@@ -286,9 +285,9 @@ public class BoundaryController {
         }
     }
 
-    private static String getAnswer(){
+    private static String getAnswer() {
         answerNum++;
-        return preDefinedAnswer[answerNum-1];
+        return preDefinedAnswer[answerNum - 1];
     }
 
 
