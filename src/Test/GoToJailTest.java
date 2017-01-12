@@ -1,6 +1,8 @@
 package Test;
 
 import Game.Account;
+import Game.Fields.GoToJail;
+import Game.Fields.Jail;
 import Game.Player;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +22,7 @@ public class GoToJailTest {
 
     @Before
     public void setUp() {
-        goTo = new GoToJail("GoToJail");
+        goTo = new GoToJail("GoToJail",1231);
     }
 
     @Test
@@ -38,7 +40,7 @@ public class GoToJailTest {
 
         goTo.setName("Change");
         expected = "Change";
-        actual = goTo.getName;
+        actual = goTo.getName();
         assertEquals(expected, actual);
 
 

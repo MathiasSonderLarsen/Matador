@@ -119,4 +119,8 @@ public class Player {
                 ", extraTurn=" + extraTurn +
                 '}';
     }
+
+    public void setOutOfJailCards(int outOfJailCards) {
+        this.outOfJailCards = outOfJailCards;
+    }
 }
