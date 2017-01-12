@@ -1,10 +1,11 @@
 package Game.ChanceCards;
 
 import Game.Fields.Jail;
+import Game.GameController;
 import Game.Player;
 
 /**
- * goToJail does....blabla
+ * ToJailCard does....blabla
  * <p>
  * Bugs: none known
  *
@@ -16,14 +17,19 @@ import Game.Player;
  * @author Timothy Rasmussen
  * @version v.0.1
  */
-public class goToJail extends ChanceCard {
+public class ToJailCard extends ChanceCard {
 
-    public goToJail(String description) {
+    public ToJailCard(String description) {
         super(description);
     }
 
     @Override
     public void action(Player user) {
         Jail.addPlayer(user);
+
+
+        GameController.getGameBoard().movePlayerAnim(user, 11, true);
+
+
     }
 }

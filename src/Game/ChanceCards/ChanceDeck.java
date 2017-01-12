@@ -63,7 +63,7 @@ public class ChanceDeck {
 
     public ChanceCard getCard() {
 
-        int randomNumber = rand.nextInt(ChanceCards.size());
+        int randomNumber = rand.nextInt(ChanceCards.size()+1);
         ChanceCard chosen = ChanceCards.get(randomNumber);
 
         if (chosen instanceof JailCard) {
