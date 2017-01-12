@@ -170,7 +170,7 @@ public class GameBoard {
                 break;
             }
         }
-        return i + 1;
+        return i+1;
     }
 
     public Territory[] getBuyableArray(int groupID, int numberOfFields) {

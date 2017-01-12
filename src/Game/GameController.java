@@ -8,6 +8,7 @@ import desktop_codebehind.Car;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -53,7 +54,7 @@ public class GameController {
         String numberSelected = BoundaryController.getUserSelection(Language.getString("greeting"), "2", "3", "4", "5", "6");
         int numberOfPlayers = Integer.parseInt(numberSelected);
         for (int i = 0; i < numberOfPlayers; i++) {
-            String name = "Kurt" + i;//BoundaryController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
+            String name = BoundaryController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
             players.add(new Player(name)); //creates a new player object.
 
             Player thisPlayer = players.get(i);
@@ -101,6 +102,7 @@ public class GameController {
     */
     public void playTurn(Player player) {
 
+        System.out.println("Before move" + player.toString());
         //rolls the dice
         gameBoard.getShaker().shake();
 
@@ -148,16 +150,20 @@ public class GameController {
             } else {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
 
-                if (answer1 == answer) {
+                if (Objects.equals(answer1, answer)) {
                     gameBoard.getShaker().shake();
                     displayDice(gameBoard.getShaker());
 
                     if (gameBoard.getShaker().getDoublesInARow() > 0) {
                         Jail.removePlayer(player);
                     }
-                } else if (answer2 == answer) {
+                } else if (Objects.equals(answer2, answer)) {
                     player.addBalance(-4000);
                     Jail.removePlayer(player);
+                } else if (Objects.equals(answer3, answer)) {
+                    player.setOutOfJailCards(-1);
+                    Jail.removePlayer(player);
+                }
 
                 }
 
@@ -181,8 +187,7 @@ public class GameController {
 
         //controls what happens when the player lands on a specific field.
         Field currentField = gameBoard.getField(player.getOnField());
-        //BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
-        System.out.println(player.getName());
+        BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
         currentField.landOnField(player);
 
         //removes bankrupt players from the game
@@ -191,6 +196,7 @@ public class GameController {
             players.remove(player);
         }
 
+        System.out.println("After move" + player.toString());
     }
 
 
@@ -217,6 +223,7 @@ public class GameController {
 
 
                 if (currentPlayer.getExtraTurn()) {
+                    currentPlayer.setExtraTurn(false);
                     i--;
                     currentPlayer.setExtraTurn(false);
                 }

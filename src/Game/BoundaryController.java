@@ -192,16 +192,44 @@ public class BoundaryController {
     }
 
     public static void buyHouse(int field, int numberOfHouses) {
+        switch (mode) {
 
-        GUI.setHouses(field, numberOfHouses);
+            case GUI:
+                GUI.setHouses(field, numberOfHouses);
+
+
+                break;
+            case Test:
+
+                break;
+        }
     }
 
     public static void setHotel(int field, boolean setHotel) {
-        GUI.setHotel(field, setHotel);
+
+
+        switch (mode) {
+
+            case GUI:
+                GUI.setHotel(field, setHotel);
+                break;
+            case Test:
+
+                break;
+        }
     }
 
     public static void buyHotel(int field, boolean hasHotel) {
-        GUI.setHotel(field, hasHotel);
+        switch (mode) {
+
+            case GUI:
+                GUI.setHotel(field, hasHotel);
+
+                break;
+            case Test:
+
+                break;
+        }
     }
 
     /**
@@ -230,11 +258,32 @@ public class BoundaryController {
     }
 
     public static void setOwner(int fieldNumber, String name) {
-        GUI.setOwner(fieldNumber-1, name);
+        switch (mode) {
+
+            case GUI:
+                GUI.setOwner(fieldNumber, name);
+
+
+                break;
+            case Test:
+
+                break;
+        }
     }
 
     public static void removeOwner(int fieldNumber) {
-        GUI.removeOwner(fieldNumber);
+        switch (mode) {
+
+            case GUI:
+                GUI.removeOwner(fieldNumber);
+
+
+
+                break;
+            case Test:
+
+                break;
+        }
     }
 
     private static String getAnswer(){
