@@ -1,8 +1,7 @@
 package Game.ChanceCards;
 
-import Game.Game;
 
-import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,17 +23,50 @@ public class ChanceDeck {
     public ChanceDeck() {
 
         // TODO: 11-01-2017 Implement FileReader
-        //.FileReader fileReader = new FileReader("lol");
-        //this.ChanceCards = fileReader.getCards(46);
+        //Game.FileReader fileReader = null;
+        //fileReader = new FileReader("chanceCards.txt");
+        //ChanceCards = fileReader.getLineStrings().;
+
+        ChanceCards.add(new MoneyCard("eeeee", -3000, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", -3000, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", 0, 500, 2000));
+        ChanceCards.add(new MoneyCard("eeeee", -200, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", -1000, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", -1000, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", -2000, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", -200, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", 0, 800, 2300));
+        ChanceCards.add(new MoneyCard("eeeee", 1000, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", 1000, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", 1000, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", 1000, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", 200, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", 1000, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", 3000, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", 3000, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", 500, 0, 0));
+        ChanceCards.add(new MoneyCard("eeeee", 1000, 0, 0));
+        ChanceCards.add(new MoveCard("eeeee", 3, false));
+        ChanceCards.add(new MoveCard("eeeee", -3, false));
+        ChanceCards.add(new MoveCard("eeeee", 1, true));
+        ChanceCards.add(new MoveCard("eeeee", 25, true));
+        ChanceCards.add(new MoveCard("eeeee", 12, true));
+        ChanceCards.add(new MoveCard("eeeee", 40, true));
+        ChanceCards.add(new TotalValueCard("eeeee"));
+        ChanceCards.add(new MoveCard("eeeee", 3, false));
+        ChanceCards.add(new MoveCard("eeeee", -3, false));
+        ChanceCards.add(new JailCard("eeeee"));
+        ChanceCards.add(new JailCard("eeeee"));
+        ChanceCards.add(new MoveCard("eeeee", -3, false));
 
     }
 
     public ChanceCard getCard() {
 
-        int randomNumber = rand.nextInt(46);
+        int randomNumber = rand.nextInt(ChanceCards.size());
         ChanceCard chosen = ChanceCards.get(randomNumber);
 
-        if(chosen instanceof JailCard){
+        if (chosen instanceof JailCard) {
 
             removeJailCard(chosen);
         }
@@ -44,9 +76,13 @@ public class ChanceDeck {
     }
 
 
-    private void removeJailCard(ChanceCard jailCard){ ChanceCards.remove(jailCard); }
+    private void removeJailCard(ChanceCard jailCard) {
+        ChanceCards.remove(jailCard);
+    }
 
-    public void addJailCard(ChanceCard jailCard){ ChanceCards.add(jailCard); }
+    public void addJailCard(ChanceCard jailCard) {
+        ChanceCards.add(jailCard);
+    }
 
 }
 

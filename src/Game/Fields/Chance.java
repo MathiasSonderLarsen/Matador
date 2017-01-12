@@ -1,6 +1,8 @@
 package Game.Fields;
 
 
+import Game.BoundaryController;
+import Game.ChanceCards.ChanceCard;
 import Game.ChanceCards.ChanceDeck;
 import Game.GameController;
 
@@ -32,7 +34,13 @@ public class Chance extends Field {
     @Override
     public void landOnField(Game.Player player) {
 
-        GameController.getGameBoard().getChanceDeck().getCard().action(player);
+      ChanceCard a=  GameController.getGameBoard().getChanceDeck().getCard();
+
+
+
+        BoundaryController.showMessage("You drew:"+ a.getClass().toGenericString());
+        a.action(player);
+
     }
 
     public desktop_fields.Chance convertToGUI() {

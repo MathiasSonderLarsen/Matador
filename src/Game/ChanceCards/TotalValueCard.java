@@ -5,10 +5,10 @@ import Game.Player;
 /**
  * Created by ldylab on 11-01-2017.
  */
-public class TotaValueCard extends ChanceCard {
+public class TotalValueCard extends ChanceCard {
 
 
-    public TotaValueCard(String description) {
+    public TotalValueCard(String description) {
         super(description);
     }
 
