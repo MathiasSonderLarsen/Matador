@@ -113,7 +113,7 @@ public class GameController {
 
             theJailField.addPlayer(player);
 
-            gameBoard.movePlayerAnim(player, 11, true);
+            gameBoard.movePlayer(player, 11, true);
             return;
         }
 
@@ -121,7 +121,7 @@ public class GameController {
         if (Jail.isJailed(player) == false) {
 
             //moves the player's token on the gameBoard in the GUI
-            gameBoard.movePlayerAnim(player, gameBoard.getShaker().getSum(), false);
+            gameBoard.movePlayer(player, gameBoard.getShaker().getSum(), false);
 
         } else {
 
@@ -182,7 +182,7 @@ public class GameController {
 
         //controls what happens when the player lands on a specific field.
         Field currentField = gameBoard.getField(player.getOnField());
-        BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
+       // BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
         currentField.landOnField(player);
 
         //removes bankrupt players from the game
@@ -206,8 +206,6 @@ public class GameController {
             // For every player in the game
             for (int i = 0; i < players.size(); i++) {
                 Player currentPlayer = players.get(i);
-
-                Field currentField = gameBoard.getField(currentPlayer.getOnField());
 
                 playTurn(currentPlayer);
 

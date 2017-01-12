@@ -15,8 +15,8 @@ public class Start extends Field {
 
     private final static int START_BONUS = 4000;
 
-    public Start(String name, int groupID,Color color) {
-        super(name, groupID,color );
+    public Start(String name, int groupID, Color color) {
+        super(name, groupID, color);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Start extends Field {
 
     }
 
-    public int getStartBonus() {
+    public static int getStartBonus() {
         return START_BONUS;
     }
 

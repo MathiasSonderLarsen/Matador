@@ -23,7 +23,7 @@ public class GoToJail extends Field {
 
         theJailField.addPlayer(player);
 
-        GameController.getGameBoard().movePlayerAnim(player, 11, true);
+        GameController.getGameBoard().movePlayer(player, 11, true);
 
 
     }

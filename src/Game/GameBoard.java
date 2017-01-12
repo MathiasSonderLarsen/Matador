@@ -4,6 +4,7 @@ import Game.ChanceCards.ChanceDeck;
 import Game.Fields.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -18,6 +19,8 @@ import java.util.Objects;
 public class GameBoard {
 
     private final Field[] board = new Field[40];
+    private final int maxHouses = 32;
+    private final int maxHotels = 12;
     private int numberOfFields;
     private Shaker shaker;
     private ChanceDeck chanceDeck;
@@ -77,10 +80,6 @@ public class GameBoard {
         BoundaryController.showOnGui(board);
     }
 
-    public Field[] getBoard() {
-        return board;
-    }
-
     public ChanceDeck getChanceDeck() {
         return chanceDeck;
     }
@@ -88,7 +87,6 @@ public class GameBoard {
     public Shaker getShaker() {
         return shaker;
     }
-
 
     /**
      * Gets the field object of an index on the board
@@ -103,6 +101,11 @@ public class GameBoard {
         throw new ArrayIndexOutOfBoundsException();
     }
 
+
+    public Field[] getBoard() {
+        return board;
+    }
+
     /**
      * Gets the amount of fleets owned by a specific player
      *
@@ -113,8 +116,8 @@ public class GameBoard {
         int num = 0;
 
         for (Field theField : board) {
-            if ((theField instanceof Ownable) && (((Ownable) theField).getGroupID() == groupID)) {
-                if (Objects.equals(((Ownable) theField).getOwner(), player)) {
+            if ((theField instanceof Ownable) && ((Ownable) theField).getGroupID() == groupID) {
+                if (((Ownable) theField).getOwner() == player) {
                     num++;
                 }
             }
@@ -140,7 +143,7 @@ public class GameBoard {
 
         for (Field theField : board) {
             if (theField instanceof Ownable) {
-                if (Objects.equals(((Ownable) theField).getOwner(), player)) {
+                if (((Ownable) theField).getOwner() == player) {
                     ((Ownable) theField).removeOwner();
                 }
             }
@@ -149,13 +152,6 @@ public class GameBoard {
 
     }
 
-    public boolean playerOwnsAllInGroup(Player player, int groupID) {
-        if (getNumberOfPropertiesInGroup(groupID) == getNumInGroupOwned(player, groupID))
-            return true;
-        else {
-            return false;
-        }
-    }
 
     public int getFieldPos(Field fieldToFind) {
 
@@ -164,23 +160,11 @@ public class GameBoard {
                 return i + 1;
             }
         }
+
         return 0;
     }
 
-    public Territory[] getBuyableArray(int groupID, int numberOfFields) {
 
-        Territory[] houseBuyableFields = new Territory[numberOfFields];
-        int j = 0;
-
-        for (int i = 1; i <= 40; i++) {
-
-            if ((getField(i) instanceof Territory) && (getField(i).getGroupID() == groupID)) {
-                houseBuyableFields[j] = (Territory) getField(i);
-                j++;
-            }
-        }
-        return houseBuyableFields;
-    }
 
     public Field[] getFieldsInGroup(int groupID) {
 
@@ -195,48 +179,61 @@ public class GameBoard {
         return fields;
     }
 
+    public int calStepsToMove(Player thisPlayer, int fieldNum) {
+        int stepsToMove = fieldNum - thisPlayer.getOnField();
 
-    public void movePlayerRelative(Player thisPlayer, int stepsToMove) {
-        int playerPos = thisPlayer.getOnField();
-
-
-        //stores the players location on the gameBoard
-        if ((thisPlayer.getOnField() + stepsToMove) <= numberOfFields) {
-            thisPlayer.setOnField(thisPlayer.getOnField() + stepsToMove);
-        } else {
-            thisPlayer.setOnField((thisPlayer.getOnField() + stepsToMove) - numberOfFields);
+        if (stepsToMove <= 0) {
+            stepsToMove = stepsToMove + 40;
         }
 
-        BoundaryController.removeAllCars(thisPlayer.getName());
-        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+        return stepsToMove;
     }
 
 
-    public void movePlayerAbsolute(Player thisPlayer, int newPos) {
+    public void movePlayer(Player thisPlayer, int stepsToMove, boolean absolute) {
 
-        thisPlayer.setOnField(newPos);
-        BoundaryController.removeAllCars(thisPlayer.getName());
-        BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+        if (absolute == true) {
+            stepsToMove = calStepsToMove(thisPlayer, stepsToMove);
+        }
 
-    }
-
-    public void movePlayerAnim(Player thisPlayer, int moveToField, boolean absolutePos) {
-
-        if (absolutePos) {
-            movePlayerAbsolute(thisPlayer, moveToField);
-        } else {
-            for (int i = 0; i < moveToField; i++) {
-                movePlayerRelative(thisPlayer, 1);
-
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        if (stepsToMove > 0) {
+            for (int i = 0; i < stepsToMove; i++) {
+                //stores the players location on the gameBoard
+                if (thisPlayer.getOnField() + 1 > numberOfFields) {
+                    thisPlayer.setOnField(1);
+                    if (Jail.isJailed(thisPlayer) == false) {
+                        thisPlayer.addBalance(Start.getStartBonus());
+                    }
+                } else {
+                    thisPlayer.setOnField(thisPlayer.getOnField() + 1);
                 }
+
+                BoundaryController.removeAllCars(thisPlayer.getName());
+                BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
+            }
+        } else {
+            for (int i = 0; i > stepsToMove; i--) {
+                thisPlayer.setOnField(thisPlayer.getOnField() - 1);
+
+                BoundaryController.removeAllCars(thisPlayer.getName());
+                BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
             }
         }
+    }
 
+    /**
+     * @param fieldType
+     * @return the number of fields of a certain type in the gameboard
+     */
+    public int getNumOfFieldsOfTypeX(Class<?> fieldType) {
+        int numOfFieldOfTypeX = 0;
 
+        for (int i = 0; i < board.length; i++) {
+            if (board[i].getClass() == fieldType) {
+                numOfFieldOfTypeX++;
+            }
+        }
+        return numOfFieldOfTypeX;
     }
 
     public int[] getNumberOfOwnedHH(Player user) {
@@ -255,6 +252,23 @@ public class GameBoard {
             }
         }
         return new int[]{houses, hotels};
+    }
+
+    /**
+     * @param fieldType
+     * @return a field array containing all fields of a certain type
+     */
+    public Field[] getArrayOfFieldsByType(Class<?> fieldType) {
+        int numOfFields = getNumOfFieldsOfTypeX(fieldType);
+        Field[] arrayOfFieldByType = new Field[numOfFields];
+        int arrayIndex = 0;
+        for (int i = 1; i <= board.length; i++) {
+            if (getField(i).getClass() == fieldType) {
+                arrayOfFieldByType[arrayIndex] = getField(i);
+                arrayIndex++;
+            }
+        }
+        return arrayOfFieldByType;
     }
 
     public int getNumOfOwnedFields(Player player) {
@@ -277,5 +291,122 @@ public class GameBoard {
                 ", shaker=" + shaker +
                 ", chanceDeck=" + chanceDeck +
                 '}';
+    }
+
+
+    /**
+     * @param groupID
+     * @return the minimum number of houses in a group
+     */
+    public int getLowestNumOfHousesOnFieldsInThisGroup(int groupID) {
+        Field[] fieldsInGroup = getFieldsInGroup(groupID);
+        int lovesNumOfHousesOnFieldsInThisGroup = 5;
+        for (Field currentField : fieldsInGroup) {
+            Territory currentTerritory = (Territory) currentField;
+            if (currentTerritory.getNumOfHouses() < lovesNumOfHousesOnFieldsInThisGroup)
+                lovesNumOfHousesOnFieldsInThisGroup = currentTerritory.getNumOfHouses();
+        }
+        return lovesNumOfHousesOnFieldsInThisGroup;
+    }
+
+    /**
+     * @param player
+     * @return ArrayList of fields with houses or hotels owend by a player
+     */
+    public ArrayList<Territory> getListOfTerritoriesWithHousesByPlayer(Player player) {
+        ArrayList<Territory> territoriesWithHousesByPlayer = new ArrayList<>();
+
+        Territory[] allTerritories = (Territory[]) getArrayOfFieldsByType(Territory.class);
+        for (Territory currentTerritory : allTerritories) {
+            if (currentTerritory.getOwner() == player && currentTerritory.getNumOfHouses() > 0) {
+                territoriesWithHousesByPlayer.add(currentTerritory);
+            }
+        }
+        return territoriesWithHousesByPlayer;
+    }
+
+
+
+
+
+    public boolean playerOwensAllInGroup(Territory territory, Player player) {
+        int groupID = territory.getGroupID();
+        if (getNumInGroupOwned(player, groupID) == getNumberOfPropertiesInGroup(groupID)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param territory
+     * @return true if the player can buy a house og hotel on the territory in question.
+     * needs to own all fields in group and houses have to bee disturbed evenly on all fields in group.
+     */
+    public boolean canBuyHouse(Territory territory) {
+        int groupID = territory.getGroupID();
+        boolean owensAllInGroup = false;
+        if (getNumInGroupOwned(territory.getOwner(), groupID) == getNumberOfPropertiesInGroup(groupID)) {
+            owensAllInGroup = true;
+        }
+        int lowestNumHouses = getLowestNumOfHousesOnFieldsInThisGroup(groupID);
+        if (territory.getNumOfHouses() == lowestNumHouses) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param groupID
+     * @return ArrayList of territories where the player can buy houses og hotels. only in the group the player have just landet on
+     */
+    public ArrayList<Territory> getListOfBuyableHouseOptions(int groupID) {
+        Field[] fieldArray = getFieldsInGroup(groupID);
+        ArrayList<Territory> listOfBuyableFieldOptions = new ArrayList<>();
+        for (Field currentField : fieldArray) {
+            Territory currentTerritory = (Territory) currentField;
+            if (canBuyHouse(currentTerritory)) {
+                listOfBuyableFieldOptions.add(currentTerritory);
+            }
+        }
+        return listOfBuyableFieldOptions;
+    }
+
+    public String[] getStringOfBuyableFieldOptions(int groupID) {
+        ArrayList<Territory> listOfBuyableFieldOptions;
+        listOfBuyableFieldOptions = getListOfBuyableHouseOptions(groupID);
+        String[] StringOfBuyableFieldOptions = new String[listOfBuyableFieldOptions.size() + 1];
+        for (int i = 0; i < listOfBuyableFieldOptions.size(); i++) {
+            StringOfBuyableFieldOptions[i] = listOfBuyableFieldOptions.get(i).getName();
+
+        }
+        return StringOfBuyableFieldOptions;
+    }
+
+    /**
+     * checks if there is houses or hotel available according to the max amount.
+     *
+     * @param groupID
+     * @return boolean
+     */
+    public boolean houseAvailable(int groupID) {
+        Field[] territoryArray = getArrayOfFieldsByType(Territory.class);
+        int numOfHouses = 0;
+        int numOfHotels = 0;
+        for (Field currentField : territoryArray) {
+            Territory currentTerritory = (Territory) currentField;
+            if (currentTerritory.getNumOfHouses() == 5) {
+                numOfHotels++;
+            } else {
+                numOfHouses = numOfHouses + currentTerritory.getNumOfHouses();
+            }
+        }
+        if (numOfHouses < maxHouses && getLowestNumOfHousesOnFieldsInThisGroup(groupID) < 4) {
+            return true;
+        } else if (numOfHotels < maxHotels && getLowestNumOfHousesOnFieldsInThisGroup(groupID) == 4) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }

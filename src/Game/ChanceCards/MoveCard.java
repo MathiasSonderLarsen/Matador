@@ -29,7 +29,7 @@ public class MoveCard extends ChanceCard {
 
     @Override
     public void action(Player user) {
-        GameController.getGameBoard().movePlayerAnim(user, moveAmount, absolutePos);
+        GameController.getGameBoard().movePlayer(user, moveAmount, absolutePos);
     }
 
     @Override
