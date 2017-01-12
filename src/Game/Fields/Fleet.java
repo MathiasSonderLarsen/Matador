@@ -22,9 +22,9 @@ public class Fleet extends Ownable {
     //Declares an array of integers
     private final int[] rentArray;
 
-    public Fleet(String name, int price, int groupID, int[] rentArray) {
+    public Fleet(String name, int groupID, int price, int[] rentArray) {
 
-        super(name, price, groupID);
+        super(name, groupID, price);
         this.rentArray = rentArray;
 
 

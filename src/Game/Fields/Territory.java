@@ -28,8 +28,8 @@ public class Territory extends Ownable {
     private int numOfHouses = 0;
     private int housePrice;
 
-    public Territory(String name, int price, int[] rentArray, int groupID, int housePrice) {
-        super(name, price, groupID);
+    public Territory(String name, int groupID, int price, int[] rentArray, int housePrice) {
+        super(name, groupID, price);
 
         this.rentArray = rentArray;
         this.housePrice = housePrice;

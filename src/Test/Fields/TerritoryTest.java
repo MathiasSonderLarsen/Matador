@@ -2,7 +2,6 @@ package Test.Fields;
 
 import Game.Fields.Territory;
 import Game.GameBoard;
-import Game.GameController;
 import Game.Player;
 import org.junit.After;
 import org.junit.Before;
@@ -44,9 +43,9 @@ public class TerritoryTest {
 
         this.player = new Player("Player1");
 
-        this.territory1 = new Territory("Territory1", 1200, rentArrayT1, 1, 500);
-        this.territory2 = new Territory("Territory2", 1200, rentArrayT2, 1, 500);
-        this.territory3 = new Territory("Territory3", 2000, rentArrayT3, 2, 600);
+        this.territory1 = new Territory("Territory1", 1, 1200, rentArrayT1, 500);
+        this.territory2 = new Territory("Territory2", 1, 1200, rentArrayT2, 500);
+        this.territory3 = new Territory("Territory3", 2, 2000, rentArrayT3, 600);
 
     }
 

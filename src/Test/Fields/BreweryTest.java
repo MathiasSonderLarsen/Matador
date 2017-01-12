@@ -43,8 +43,8 @@ public class BreweryTest {
         this.player = new Player("Test1");
         this.player = new Player("Test2");
 
-        this.brewery1 = new Brewery("BrewTest1", 3000, baseRent, 6);
-        this.brewery2 = new Brewery("BrewTest2", 3000, baseRent, 6);
+        this.brewery1 = new Brewery("BrewTest1", 6, 3000, baseRent);
+        this.brewery2 = new Brewery("BrewTest2", 6, 3000, baseRent);
 
         gameBoard = GameController.getGameBoard();
 
