@@ -77,99 +77,45 @@ public class Territory extends Ownable {
     @Override
     public void landOnField(Player player) {
         super.landOnField(player);
-        // Defined as the number of propeties in the group you stand in
-        int numberOfPropertiesInGroup = GameController.getGameBoard().getNumberOfPropertiesInGroup(groupID);
 
-        // If you own every lot in the group
-        if (GameController.getGameBoard().playerOwnsAllInGroup(player, groupID) && !GameController.getGameBoard().playerOwensAllInGroup(this)) {
 
-            // Defines the question and answers for whether of not you wants to buy a house
-            final String question = player.getName() + (Language.getString("buyhouse")
-                    + " " + getName() + " " + Language.getString("buy2") + " "
-                    + housePrice + " " + Language.getString("point") + " ?"); // TODO: 09-01-2017 Fix string. 
+        if (GameController.getGameBoard().playerOwensAllInGroup(this, player) && GameController.getGameBoard().houseAvailable(this.groupID)) {
 
-            final String answer1 = Language.getString("no");
-            final String answer2 = Language.getString("yes");
+            String[] stringOfBuyableFieldOptions;
+            while (player.getBalance() > this.getHousePrice()) {
+                stringOfBuyableFieldOptions = GameController.getGameBoard().getStringOfBuyableFieldOptions(this.getGroupID());
+                stringOfBuyableFieldOptions[stringOfBuyableFieldOptions.length-1] = Language.getString("stop");
 
-            // Runs a do-while loop as long as you want to buy a house
-            // and don't have a hotel on all lots in the group
-            boolean buyMode = true;
-            do {
-                if (GameController.getGameBoard().houseAvailable(groupID)){
-                    break;
-                }
+                // Defines the question and answers for whether of not you wants to buy a house
+                //output "do 'player' want to buy a house for 'x' points"
+                String question = player.getName() + (Language.getString("buyhouse")
+                        + " " + Language.getString("buy2") + " "
+                        + housePrice + " " + Language.getString("point") + " ?"); // TODO: 09-01-2017 Fix string.
+
+                String answer1 = Language.getString("no");
+                String answer2 = Language.getString("yes");
+
                 // Prompts the user with the question of whether o not he wants to buy a house
                 String inputAnswer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
 
-                // If the user answers "Yes"
                 if (inputAnswer == answer2) {
+                    question = Language.getString("where");
+                    inputAnswer = BoundaryController.getUserButtonPressed(question, stringOfBuyableFieldOptions);
 
-
-
-
-                    ArrayList<Territory> listOfBuyableHouseOptions = GameController.getGameBoard().getListOfBuyableHouseOptions(GameController.getGameBoard().getFieldsInGroup(getGroupID()));
-                    // Defined as the house the user picks
-                    String answer = BoundaryController.getUserButtonPressed(question, GameController.getGameBoard().getStringOfBuyableFieldOptions(listOfBuyableHouseOptions));
-
-                    // Finds the house the user picked and adds a house/hotel
-                    for (Territory theTerritory : listOfBuyableHouseOptions) {
-                        if (answer == theTerritory.getName()) {
-
-                            int fieldNumber = GameController.getGameBoard().getFieldPos(theTerritory);
-                            if (theTerritory.getNumOfHouses() < 4) {
-                                int numberOfHouseToSet = theTerritory.getNumOfHouses() + 1;
-                                theTerritory.setNumOfHouses(numberOfHouseToSet);
-                                BoundaryController.buyHouse(fieldNumber, numberOfHouseToSet);
-                            } else {
-                                theTerritory.setNumOfHouses(5);
-                                BoundaryController.setHotel(fieldNumber, true);
-                            }
-
-                            BoundaryController.showMessage(player.getName() + " " + Language.getString("bought") + " "
-                                    + Language.getString("house1") + theTerritory.getName());
+                    Field[] fieldsInGroup = GameController.getGameBoard().getFieldsInGroup(groupID);
+                    for (Field currentField : fieldsInGroup) {
+                        Territory currentTerritory = (Territory) currentField;
+                        if (currentTerritory.getName().equals(inputAnswer)) {
+                            currentTerritory.setNumOfHouses(currentTerritory.getNumOfHouses() + 1);
+                            player.addBalance(-currentTerritory.getHousePrice());
+                            System.out.println(currentTerritory.getNumOfHouses());
                         }
-
-
                     }
-
-
                 }
-
-                if (inputAnswer == answer1) {
-                    buyMode = false;
-                }
-
-            } while (buyMode);
-        }
-
-    }
-    // Returns the number of lots that has hotels
-//    private boolean allLotsInGroupHasHotel(int groupID) {
-//        boolean out = false;
-//        Field[] fieldsInGroup = GameController.getGameBoard().getFieldsInGroup(groupID);
-//        Territory[] territories = new Territory[fieldsInGroup.length];
-//        for (int i = 0; i < fieldsInGroup.length; i++) {
-//            territories[i] = (Territory) fieldsInGroup[i];
-//        }
-//
-//
-//        return countTerritoriesWithXHouses(territories, 5) == GameController.getGameBoard().getNumberOfPropertiesInGroup(groupID);
-//
-//    }
-    // Returns string array of available options of lots you can build a house/hotel on
-    private String[] getListOfBuyableFields(Territory[] houseBuyableFields, int minNumber, int numOptions) {
-        String[] stringArray = new String[numOptions];
-        int i = 0;
-        for (Territory theTerritory : houseBuyableFields) {
-            if (theTerritory.getNumOfHouses() == minNumber) {
-                stringArray[i] = theTerritory.getName();
-                i++;
+                else break;
             }
-
         }
-        return stringArray;
     }
-
 
     public desktop_fields.Street convertToGUI() {
         desktop_fields.Street.Builder a = new desktop_fields.Street.Builder()

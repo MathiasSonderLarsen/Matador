@@ -114,7 +114,7 @@ public class GameBoard {
 
         for (Field theField : board) {
             if ((theField instanceof Ownable) && ((Ownable) theField).getGroupID() == groupID) {
-                if (((Ownable) theField).getOwner() == player) {
+                if (((Ownable) theField).getOwner() == player ) {
                     num++;
                 }
             }
@@ -248,7 +248,7 @@ public class GameBoard {
         int numOfFieldOfTypeX = 0;
 
         for(int i=0; i < board.length; i++){
-            if(board.getClass() == fieldType){
+            if(board[i].getClass() == fieldType){
                 numOfFieldOfTypeX++;
             }
         }
@@ -264,7 +264,7 @@ public class GameBoard {
         int numOfFields = getNumOfFieldsOfTypeX(fieldType);
         Field[] arrayOfFieldByType = new Field[numOfFields];
         int arrayIndex=0;
-        for(int i = 0; i < board.length; i++){
+        for(int i = 1; i <= board.length; i++){
             if(getField(i).getClass() == fieldType){
                 arrayOfFieldByType[arrayIndex] = getField(i);
                 arrayIndex++;
@@ -342,9 +342,9 @@ public class GameBoard {
     }
 
 
-    public boolean playerOwensAllInGroup(Territory territory){
+    public boolean playerOwensAllInGroup(Territory territory, Player player){
         int groupID = territory.getGroupID();
-            if(getNumInGroupOwned(territory.getOwner(), groupID) == getNumberOfPropertiesInGroup(groupID)){
+            if(getNumInGroupOwned(player, groupID) == getNumberOfPropertiesInGroup(groupID)){
                 return true;
             }
         return false;
@@ -370,13 +370,14 @@ public class GameBoard {
 
     /**
      *
-     * @param fieldArray
+     * @param groupID
      * @return ArrayList of territories where the player can buy houses og hotels. only in the group the player have just landet on
      */
-    public ArrayList<Territory> getListOfBuyableHouseOptions(Field[] fieldArray){
-        Territory[] territoryArray = ((Territory[]) fieldArray);
+    public ArrayList<Territory> getListOfBuyableHouseOptions(int groupID){
+        Field[] fieldArray = getFieldsInGroup(groupID);
         ArrayList<Territory> listOfBuyableFieldOptions = new ArrayList<>();
-        for (Territory currentTerritory: territoryArray) {
+        for (Field currentField: fieldArray) {
+            Territory currentTerritory =(Territory) currentField;
             if(canBuyHouse(currentTerritory)){
                listOfBuyableFieldOptions.add(currentTerritory);
             }
@@ -384,8 +385,10 @@ public class GameBoard {
         return listOfBuyableFieldOptions;
     }
 
-    public String[] getStringOfBuyableFieldOptions(ArrayList<Territory> listOfBuyableFieldOptions){
-        String[] StringOfBuyableFieldOptions = new String[listOfBuyableFieldOptions.size()];
+    public String[] getStringOfBuyableFieldOptions(int groupID){
+        ArrayList<Territory> listOfBuyableFieldOptions;
+        listOfBuyableFieldOptions = getListOfBuyableHouseOptions(groupID);
+        String[] StringOfBuyableFieldOptions = new String[listOfBuyableFieldOptions.size()+1];
         for (int i = 0; i< listOfBuyableFieldOptions.size(); i++) {
             StringOfBuyableFieldOptions[i] = listOfBuyableFieldOptions.get(i).getName();
 
@@ -395,10 +398,10 @@ public class GameBoard {
 
     /**
      * checks if there is houses or hotel available according to the max amount.
-     * @param groupiD
+     * @param groupID
      * @return boolean
      */
-    public boolean houseAvailable(int groupiD){
+    public boolean houseAvailable(int groupID){
         Field[] territoryArray = getArrayOfFieldsByType(Territory.class);
         int numOfHouses = 0;
         int numOfHotels = 0;
@@ -411,10 +414,10 @@ public class GameBoard {
                 numOfHouses = numOfHouses + currentTerritory.getNumOfHouses();
             }
         }
-        if(numOfHouses < maxHouses && getLowestNumOfHousesOnFieldsInThisGroup(groupiD) < 4){
+        if(numOfHouses < maxHouses && getLowestNumOfHousesOnFieldsInThisGroup(groupID) < 4){
             return true;
         }
-        else if(numOfHotels < maxHotels  && getLowestNumOfHousesOnFieldsInThisGroup(groupiD) == 4){
+        else if(numOfHotels < maxHotels  && getLowestNumOfHousesOnFieldsInThisGroup(groupID) == 4){
                 return true;
             }
             else {
