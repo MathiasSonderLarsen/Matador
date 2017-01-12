@@ -5,9 +5,11 @@ import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 /**
  * GameBoard encapsulates all the Fields used in the game
@@ -19,6 +21,8 @@ import java.nio.file.Paths;
  */
 public class GameBoard {
 
+    private final int maxHouses = 32;
+    private final int maxHotels = 12;
     private final Field[] board;
     private int numberOfFields;
     private Shaker shaker;
@@ -164,9 +168,9 @@ public class GameBoard {
         return i+1;
     }
 
-    public Territory[] getBuyableArray(int groupID, int numberOfFields) {
+    public Territory[] getBuyableArray(int groupID) {
 
-        Territory[] houseBuyableFields = new Territory[numberOfFields];
+        Territory[] houseBuyableFields = new Territory[getFieldsInGroup(groupID).length];
         int j = 0;
 
         for (int i = 1; i <= 40; i++) {
@@ -203,6 +207,7 @@ public class GameBoard {
     }
 
 
+
     public  void movePlayer(Player thisPlayer, int stepsToMove, boolean absolute) {
 
         if(absolute == true){
@@ -233,4 +238,190 @@ public class GameBoard {
             }
         }
     }
+
+    /**
+     *
+     * @param fieldType
+     * @return the number of fields of a certain type in the gameboard
+     */
+    public int getNumOfFieldsOfTypeX(Class<?> fieldType){
+        int numOfFieldOfTypeX = 0;
+
+        for(int i=0; i < board.length; i++){
+            if(board.getClass() == fieldType){
+                numOfFieldOfTypeX++;
+            }
+        }
+        return numOfFieldOfTypeX;
+    }
+
+    /**
+     *
+     * @param fieldType
+     * @return a field array containing all fields of a certain type
+     */
+    public Field[] getArrayOfFieldsByType(Class<?> fieldType){
+        int numOfFields = getNumOfFieldsOfTypeX(fieldType);
+        Field[] arrayOfFieldByType = new Field[numOfFields];
+        int arrayIndex=0;
+        for(int i = 0; i < board.length; i++){
+            if(getField(i).getClass() == fieldType){
+                arrayOfFieldByType[arrayIndex] = getField(i);
+                arrayIndex++;
+            }
+        }
+        return arrayOfFieldByType;
+    }
+
+
+    /**
+     *
+     * @param groupID
+     * @return the minimum number of houses in a group
+     */
+    public int getLowestNumOfHousesOnFieldsInThisGroup(int groupID){
+        Field[] fieldsInGroup = getFieldsInGroup(groupID);
+        int lovesNumOfHousesOnFieldsInThisGroup = 5;
+        for(Field currentField : fieldsInGroup){
+            Territory currentTerritory = (Territory) currentField;
+            if(currentTerritory.getNumOfHouses() < lovesNumOfHousesOnFieldsInThisGroup)
+                lovesNumOfHousesOnFieldsInThisGroup = currentTerritory.getNumOfHouses();
+        }
+        return lovesNumOfHousesOnFieldsInThisGroup;
+    }
+
+    /**
+     *
+     * @param groupID
+     * @return the maximum number of houses on fields in a group
+     */
+    public int getHigestNumOfHousesOnFieldsInThisGroup(int groupID){
+        Field[] fieldsInGroup = getFieldsInGroup(groupID);
+        int highestNumOfHousesOnFieldsInThisGroup = 0;
+        for(Field currentField : fieldsInGroup){
+            Territory currentTerritory = (Territory) currentField;
+            if(currentTerritory.getNumOfHouses() > highestNumOfHousesOnFieldsInThisGroup)
+                highestNumOfHousesOnFieldsInThisGroup = currentTerritory.getNumOfHouses();
+        }
+        return highestNumOfHousesOnFieldsInThisGroup;
+    }
+
+    /**
+     *
+     * @param player
+     * @return ArrayList of fields with houses or hotels owend by a player
+     */
+    public ArrayList<Territory> getListOfTerritoriesWithHousesByPlayer(Player player){
+        ArrayList<Territory> territoriesWithHousesByPlayer = new ArrayList<>();
+
+        Territory[] allTerritories = (Territory[]) getArrayOfFieldsByType(Territory.class);
+        for (Territory currentTerritory: allTerritories) {
+            if(currentTerritory.getOwner() == player && currentTerritory.getNumOfHouses() > 0){
+                territoriesWithHousesByPlayer.add(currentTerritory);
+            }
+        }
+        return territoriesWithHousesByPlayer;
+    }
+
+    /**
+     *
+     * @param player
+     * @return ArrayList of fields where the player can sell a house or hotel. houses and hotels have to bee disturbed evenly on all fields in group.
+     */
+    public ArrayList<String> getSellableHouseList(Player player){
+
+        ArrayList<Territory> listOfterritoriesWithHousesByPlayer = getListOfTerritoriesWithHousesByPlayer(player);
+        ArrayList<String> sellableHouseList = new ArrayList<>();
+        for (Territory currentTerritory:listOfterritoriesWithHousesByPlayer) {
+            if(currentTerritory.getNumOfHouses() == getHigestNumOfHousesOnFieldsInThisGroup(currentTerritory.getGroupID())){
+                sellableHouseList.add(currentTerritory.getName());
+            }
+        }
+
+        return sellableHouseList;
+    }
+
+
+    public boolean playerOwensAllInGroup(Territory territory){
+        int groupID = territory.getGroupID();
+            if(getNumInGroupOwned(territory.getOwner(), groupID) == getNumberOfPropertiesInGroup(groupID)){
+                return true;
+            }
+        return false;
+    }
+    /**
+     *
+     * @param territory
+     * @return true if the player can buy a house og hotel on the territory in question.
+     * needs to own all fields in group and houses have to bee disturbed evenly on all fields in group.
+     */
+    public boolean canBuyHouse(Territory territory){
+        int groupID = territory.getGroupID();
+        boolean owensAllInGroup = false;
+        if(getNumInGroupOwned(territory.getOwner(), groupID) == getNumberOfPropertiesInGroup(groupID)){
+            owensAllInGroup = true;
+        }
+        int lowestNumHouses = getLowestNumOfHousesOnFieldsInThisGroup(groupID);
+        if(territory.getNumOfHouses() == lowestNumHouses){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @param fieldArray
+     * @return ArrayList of territories where the player can buy houses og hotels. only in the group the player have just landet on
+     */
+    public ArrayList<Territory> getListOfBuyableHouseOptions(Field[] fieldArray){
+        Territory[] territoryArray = ((Territory[]) fieldArray);
+        ArrayList<Territory> listOfBuyableFieldOptions = new ArrayList<>();
+        for (Territory currentTerritory: territoryArray) {
+            if(canBuyHouse(currentTerritory)){
+               listOfBuyableFieldOptions.add(currentTerritory);
+            }
+        }
+        return listOfBuyableFieldOptions;
+    }
+
+    public String[] getStringOfBuyableFieldOptions(ArrayList<Territory> listOfBuyableFieldOptions){
+        String[] StringOfBuyableFieldOptions = new String[listOfBuyableFieldOptions.size()];
+        for (int i = 0; i< listOfBuyableFieldOptions.size(); i++) {
+            StringOfBuyableFieldOptions[i] = listOfBuyableFieldOptions.get(i).getName();
+
+        }
+        return StringOfBuyableFieldOptions;
+    }
+
+    /**
+     * checks if there is houses or hotel available according to the max amount.
+     * @param groupiD
+     * @return boolean
+     */
+    public boolean houseAvailable(int groupiD){
+        Field[] territoryArray = getArrayOfFieldsByType(Territory.class);
+        int numOfHouses = 0;
+        int numOfHotels = 0;
+        for (Field currentField :  territoryArray) {
+            Territory currentTerritory = (Territory) currentField;
+            if(currentTerritory.getNumOfHouses() == 5){
+                numOfHotels++;
+            }
+            else{
+                numOfHouses = numOfHouses + currentTerritory.getNumOfHouses();
+            }
+        }
+        if(numOfHouses < maxHouses && getLowestNumOfHousesOnFieldsInThisGroup(groupiD) < 4){
+            return true;
+        }
+        else if(numOfHotels < maxHotels  && getLowestNumOfHousesOnFieldsInThisGroup(groupiD) == 4){
+                return true;
+            }
+            else {
+                return false;
+            }
+
+    }
+
+
 }
