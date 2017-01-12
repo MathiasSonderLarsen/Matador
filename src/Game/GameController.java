@@ -165,8 +165,6 @@ public class GameController {
                     Jail.removePlayer(player);
                 }
 
-                }
-
             }
 
 
