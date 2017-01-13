@@ -27,12 +27,14 @@ public class MoveCard extends ChanceCard {
         this.absolutePos = absolutePos;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void action(Player user) {
         GameController.getGameBoard().movePlayer(user, moveAmount, absolutePos);
         GameController.getGameBoard().getField(user.getOnField()).landOnField(user);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "MoveCard{" +

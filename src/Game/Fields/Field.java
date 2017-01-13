@@ -32,10 +32,20 @@ public abstract class Field {
         this.color = color;
     }
 
+    /**
+     * Getter for property 'name'.
+     *
+     * @return Value for property 'name'.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Setter for property 'name'.
+     *
+     * @param newName Value to set for property 'name'.
+     */
     public void setName(String newName) {
         this.name = newName;
     }
@@ -56,8 +66,13 @@ public abstract class Field {
      */
     public abstract void landOnField(Player player);
 
+    /**
+     * Converts the field to a fieldtype the GUI can interact with.
+     * @return the UI field.
+     */
     public abstract desktop_fields.Field convertToGUI();
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Field{" +

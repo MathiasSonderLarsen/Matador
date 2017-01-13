@@ -20,6 +20,7 @@ public class FreeParking extends Field {
         super(name, groupID, color);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void landOnField(Player player) {
 
@@ -27,6 +28,7 @@ public class FreeParking extends Field {
 
     }
 
+    /** {@inheritDoc} */
     public desktop_fields.Street convertToGUI() {
         desktop_fields.Street.Builder a = new desktop_fields.Street.Builder()
                 .setTitle(this.getName())

@@ -19,6 +19,7 @@ public class ChanceDeck {
     ArrayList<ChanceCard> ChanceCards = new ArrayList<>();
 
 
+    /** Constructs a new ChanceDeck. */
     public ChanceDeck() {
 
         // TODO: 11-01-2017 Implement FileReader
@@ -63,6 +64,11 @@ public class ChanceDeck {
 
     }
 
+    /**
+     * Getter for property 'card'.
+     *
+     * @return Value for property 'card'.
+     */
     public ChanceCard getCard() {
 
         int randomNumber = rand.nextInt(ChanceCards.size());
@@ -77,15 +83,23 @@ public class ChanceDeck {
 
     }
 
-
+    /**
+     * Remove jailcard from the deck of cards.
+     * @param jailCard
+     */
     private void removeJailCard(ChanceCard jailCard) {
         ChanceCards.remove(jailCard);
     }
 
+    /**
+     * Add a jailcard to the deck of cards.
+     * @param jailCard
+     */
     public void addJailCard(ChanceCard jailCard) {
         ChanceCards.add(jailCard);
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "ChanceDeck{" +

@@ -27,10 +27,12 @@ public class Chance extends Field {
         super(name, groupID, color);
     }
 
+    /** {@inheritDoc} */
     public String getName() {
         return this.name;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void landOnField(Game.Player player) {
 
@@ -43,6 +45,7 @@ public class Chance extends Field {
 
     }
 
+    /** {@inheritDoc} */
     public desktop_fields.Chance convertToGUI() {
         desktop_fields.Chance.Builder a = new desktop_fields.Chance.Builder()
                 .setFgColor(Color.yellow)

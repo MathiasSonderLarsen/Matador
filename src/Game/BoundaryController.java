@@ -23,6 +23,7 @@ public class BoundaryController {
     private static String[] preDefinedAnswer;
     private static int answerNum = 0;
 
+    /** Do not instantiate BoundaryController. */
     private BoundaryController() {
     }
 
@@ -301,6 +302,11 @@ public class BoundaryController {
         }
     }
 
+    /**
+     * Getter for property 'answer'.
+     *
+     * @return Value for property 'answer'.
+     */
     private static String getAnswer() {
         answerNum++;
         return preDefinedAnswer[answerNum - 1];

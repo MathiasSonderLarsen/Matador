@@ -24,40 +24,17 @@ public abstract class Ownable extends Field {
     protected Player owner;
 
     /**
-     * The constructor of the Ownable type
+     * The constructor of the Ownable type.
      *
-     * @param name  The name of the Field
-     * @param color
-     * @param price The price of the Field
+     * @param name  The name of the Field.
+     * @param color The color of the Field.
+     * @param price The price of the Field.
      */
     public Ownable(String name, int groupID, Color color, int price) {
         super(name, groupID, color);
         this.price = price;
 
     }
-
-    /**
-     * Calculated the Prawn value
-     *
-     * @return the money amount you get for prawning the ownable.
-     */
-    private int calculatePawnValue() {
-        return price / 2;
-    }
-
-    public int getPawnPrice() {
-        return calculatePawnValue();
-    }
-
-    /**
-     * Gets the price of the Field
-     *
-     * @return the price
-     */
-    public int getPrice() {
-        return this.price;
-    }
-
     /**
      * Make sure all subclasses implement this method
      */
@@ -126,11 +103,16 @@ public abstract class Ownable extends Field {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Ownable{" +
                 "price=" + price +
                 ", owner=" + owner +
                 '}';
+    }
+
+    public int getPrice() {
+        return price;
     }
 }

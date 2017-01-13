@@ -39,15 +39,15 @@ public class Die {
         return faceValue;
     }
 
-    public void setFaceValue(int fValue) {
-
-        faceValue = fValue;
-    }
-
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Die{" +
                 ", faceValue=" + faceValue +
                 '}';
+    }
+
+    public void setFaceValue(int faceValue) {
+        this.faceValue = faceValue;
     }
 }

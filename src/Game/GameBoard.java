@@ -28,7 +28,8 @@ public class GameBoard {
     /**
      * The constructor of the class GameBoard
      *
-     * @param number The number of fields we want on the board
+     * @param number The number of fields the board has.
+     * @param shaker The Shaker the game should use.
      */
     public GameBoard(int number, Shaker shaker) {
 
@@ -80,10 +81,20 @@ public class GameBoard {
         BoundaryController.showOnGui(board);
     }
 
+    /**
+     * Getter for property 'chanceDeck'.
+     *
+     * @return Value for property 'chanceDeck'.
+     */
     public ChanceDeck getChanceDeck() {
         return chanceDeck;
     }
 
+    /**
+     * Getter for property 'shaker'.
+     *
+     * @return Value for property 'shaker'.
+     */
     public Shaker getShaker() {
         return shaker;
     }
@@ -102,6 +113,11 @@ public class GameBoard {
     }
 
 
+    /**
+     * Getter for property 'board'.
+     *
+     * @return Value for property 'board'.
+     */
     public Field[] getBoard() {
         return board;
     }
@@ -128,6 +144,12 @@ public class GameBoard {
         return num;
     }
 
+    /**
+     * Get the number of fields a specific group has.
+     *
+     * @param groupID The ID of the group.
+     * @return the number of fields in the group.
+     */
     public int getNumberOfPropertiesInGroup(int groupID) {
         int num = 0;
 
@@ -139,6 +161,11 @@ public class GameBoard {
         return num;
     }
 
+    /**
+     * Deletes the ownership of all fields owned by the player.
+     *
+     * @param player The player that should loose owner status of all fields.
+     */
     public void deleteOwnership(Player player) {
 
         for (Field theField : board) {
@@ -148,11 +175,14 @@ public class GameBoard {
                 }
             }
         }
-
-
     }
 
-
+    /**
+     * Get the position of any field on the Board.
+     *
+     * @param fieldToFind The field we want the position of.
+     * @return The position of the field on the board.
+     */
     public int getFieldPos(Field fieldToFind) {
 
         for (int i = 0; i < board.length; i++) {
@@ -164,7 +194,12 @@ public class GameBoard {
         return 0;
     }
 
-
+    /**
+     * Gets the fields in the group.
+     *
+     * @param groupID The group the fields should be a part of.
+     * @return The array of fields in the group.
+     */
     public Field[] getFieldsInGroup(int groupID) {
 
         Field[] fields = new Field[getNumberOfPropertiesInGroup(groupID)];
@@ -178,6 +213,13 @@ public class GameBoard {
         return fields;
     }
 
+    /**
+     * Calculates how many steps the player should move to get to a field position.
+     *
+     * @param thisPlayer The player we need to use as reference.
+     * @param fieldNum   The field to move to.
+     * @return
+     */
     public int calStepsToMove(Player thisPlayer, int fieldNum) {
         int stepsToMove = fieldNum - thisPlayer.getOnField();
 
@@ -189,6 +231,14 @@ public class GameBoard {
     }
 
 
+    /**
+     * Moves the player to a given position either relative or absolute.
+     *
+     * @param thisPlayer  The player that should be moved.
+     * @param stepsToMove The amount to move.
+     * @param absolute    If true, the player moves to a specific field number.
+     *                    If false the player moves relative to where he is now.
+     */
     public void movePlayer(Player thisPlayer, int stepsToMove, boolean absolute) {
 
         if (absolute == true) {
@@ -222,8 +272,9 @@ public class GameBoard {
     }
 
     /**
-     * @param fieldType
-     * @return the number of fields of a certain type in the gameboard
+     * Hom many fields of a given type exist on the board.
+     * @param fieldType The type of field to count.
+     * @return The number of fields of a certain type in the gameboard.
      */
     public int getNumOfFieldsOfTypeX(Class<?> fieldType) {
         int numOfFieldOfTypeX = 0;
@@ -236,6 +287,11 @@ public class GameBoard {
         return numOfFieldOfTypeX;
     }
 
+    /**
+     * Get the amount of Houses and hotels owned by a player on the board.
+     * @param user The owner to check.
+     * @return Array of houses and hotels in the format: [houses, hotels]
+     */
     public int[] getNumberOfOwnedHH(Player user) {
         int houses = 0;
         int hotels = 0;
@@ -255,8 +311,9 @@ public class GameBoard {
     }
 
     /**
-     * @param fieldType
-     * @return a field array containing all fields of a certain type
+     * Gets an array of the fields of a given type on the board.
+     * @param fieldType The type of fields to find.
+     * @return A field array containing all fields of a certain type
      */
     public Field[] getArrayOfFieldsByType(Class<?> fieldType) {
         int numOfFields = getNumOfFieldsOfTypeX(fieldType);
@@ -271,6 +328,11 @@ public class GameBoard {
         return arrayOfFieldByType;
     }
 
+    /**
+     * Gets the number of owned fields by a specific player on the board.
+     * @param player The owner of the fields.
+     * @return The number of fields owned by the player on the board.
+     */
     public int getNumOfOwnedFields(Player player) {
         int num = 0;
         for (Field theField : board) {
@@ -283,6 +345,9 @@ public class GameBoard {
         return num;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "GameBoard{" +
@@ -295,8 +360,9 @@ public class GameBoard {
 
 
     /**
-     * @param groupID
-     * @return the minimum number of houses in a group
+     * Finds the lowest number of houses on any fields in the group.
+     * @param groupID the group.
+     * @return The minimum number of houses in a group.
      */
     public int getLowestNumOfHousesOnFieldsInThisGroup(int groupID) {
         Field[] fieldsInGroup = getFieldsInGroup(groupID);
@@ -310,22 +376,11 @@ public class GameBoard {
     }
 
     /**
-     * @param player
-     * @return ArrayList of fields with houses or hotels owend by a player
+     * If the player owns all territories in the group.
+     * @param territory The reference territory.
+     * @param player The player that owns it.
+     * @return true if he own all.
      */
-    public ArrayList<Territory> getListOfTerritoriesWithHousesByPlayer(Player player) {
-        ArrayList<Territory> territoriesWithHousesByPlayer = new ArrayList<>();
-
-        Territory[] allTerritories = (Territory[]) getArrayOfFieldsByType(Territory.class);
-        for (Territory currentTerritory : allTerritories) {
-            if (currentTerritory.getOwner() == player && currentTerritory.getNumOfHouses() > 0) {
-                territoriesWithHousesByPlayer.add(currentTerritory);
-            }
-        }
-        return territoriesWithHousesByPlayer;
-    }
-
-
     public boolean playerOwnsAllInGroup(Territory territory, Player player) {
         int groupID = territory.getGroupID();
         if (getNumInGroupOwned(player, groupID) == getNumberOfPropertiesInGroup(groupID)) {
@@ -335,7 +390,8 @@ public class GameBoard {
     }
 
     /**
-     * @param territory
+     * Checks if a player can buy a house on a territory.
+     * @param territory The territory to check.
      * @return true if the player can buy a house og hotel on the territory in question.
      * needs to own all fields in group and houses have to bee disturbed evenly on all fields in group.
      */
@@ -349,8 +405,9 @@ public class GameBoard {
     }
 
     /**
-     * @param groupID
-     * @return ArrayList of territories where the player can buy houses og hotels. only in the group the player have just landet on
+     * Gets the Territories which the player can actually buy.
+     * @param groupID the group.
+     * @return ArrayList of territories where the player can buy houses og hotels. only in the group the player have just landed on.
      */
     public ArrayList<Territory> getListOfBuyableHouseOptions(int groupID) {
         Field[] fieldArray = getFieldsInGroup(groupID);
@@ -364,6 +421,11 @@ public class GameBoard {
         return listOfBuyableFieldOptions;
     }
 
+    /**
+     * Gets the names of the fields you can buy.
+     * @param groupID the group.
+     * @return an array of the names of the fields you gan buy.
+     */
     public String[] getStringOfBuyableFieldOptions(int groupID) {
         ArrayList<Territory> listOfBuyableFieldOptions;
         listOfBuyableFieldOptions = getListOfBuyableHouseOptions(groupID);
@@ -376,10 +438,10 @@ public class GameBoard {
     }
 
     /**
-     * checks if there is houses or hotel available according to the max amount.
+     * Checks if there is houses or hotel available according to the max amount.
      *
-     * @param groupID
-     * @return boolean
+     * @param groupID the groups.
+     * @return true if there is houses available.
      */
     public boolean houseAvailable(int groupID) {
         Field[] territoryArray = getArrayOfFieldsByType(Territory.class);

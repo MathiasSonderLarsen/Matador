@@ -70,28 +70,6 @@ public class TaxTest {
     }
 
     @Test
-    public void testTaxAmount() {
-        int expected = 1000;
-        int actual = tax1.getTaxAmount();
-        assertEquals(expected, actual);
-
-        expected = 4000;
-        actual = tax2.getTaxAmount();
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testTaxRate() {
-        float expected = 1.0f;
-        float actual = tax1.getTaxRate();
-        assertEquals(expected, actual, 0.001);
-
-        expected = 0.1f;
-        actual = tax2.getTaxRate();
-        assertEquals(expected, actual, 0.001);
-    }
-
-    @Test
     public void testTaxRelativTax() {
         int expected = -1000;
         int actual = tax1.calculateRelativeTax(1000);

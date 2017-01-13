@@ -25,7 +25,6 @@ public class Brewery extends Ownable {
 
     int baseRent;
 
-
     public Brewery(String name, int groupID, Color color, int price, int baseRent) {
         super(name, groupID, color, price);
         this.baseRent = baseRent;
@@ -33,6 +32,7 @@ public class Brewery extends Ownable {
     }
 
 
+    /** {@inheritDoc} */
     public int getRent() {
         // receive gameboard object from GameController
         GameBoard gameBoard = GameController.getGameBoard();
@@ -61,6 +61,7 @@ public class Brewery extends Ownable {
     }
 
 
+    /** {@inheritDoc} */
     public desktop_fields.Brewery convertToGUI() {
         desktop_fields.Brewery.Builder a = new desktop_fields.Brewery.Builder()
                 .setTitle(name)
@@ -70,6 +71,7 @@ public class Brewery extends Ownable {
         return a.build();
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Brewery{" +

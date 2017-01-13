@@ -12,6 +12,7 @@ public class TotalValueCard extends ChanceCard {
         super(description);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void action(Player user) {
         if (user.getRealEstateValue() >= 15000) {

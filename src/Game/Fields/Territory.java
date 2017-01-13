@@ -36,10 +36,16 @@ public class Territory extends Ownable {
         this.housePrice = housePrice;
     }
 
+    /**
+     * Getter for property 'housePrice'.
+     *
+     * @return Value for property 'housePrice'.
+     */
     public int getHousePrice() {
         return housePrice;
     }
 
+    /** {@inheritDoc} */
     public int getRent() {
 
         switch (numOfHouses) {
@@ -72,10 +78,20 @@ public class Territory extends Ownable {
 
     }
 
+    /**
+     * Getter for property 'numOfHouses'.
+     *
+     * @return Value for property 'numOfHouses'.
+     */
     public int getNumOfHouses() {
         return this.numOfHouses;
     }
 
+    /**
+     * Setter for property 'numOfHouses'.
+     *
+     * @param number Value to set for property 'numOfHouses'.
+     */
     public void setNumOfHouses(int number) {
         this.numOfHouses = number;
 
@@ -87,6 +103,7 @@ public class Territory extends Ownable {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void landOnField(Player player) {
         super.landOnField(player);
@@ -95,8 +112,8 @@ public class Territory extends Ownable {
         if (GameController.getGameBoard().playerOwnsAllInGroup(this, player) && GameController.getGameBoard().houseAvailable(this.groupID)) {
 
             String[] stringOfBuyableFieldOptions;
-            while (player.getBalance() > this.getHousePrice()) {
-                stringOfBuyableFieldOptions = GameController.getGameBoard().getStringOfBuyableFieldOptions(this.getGroupID());
+            while (player.getBalance() > housePrice) {
+                stringOfBuyableFieldOptions = GameController.getGameBoard().getStringOfBuyableFieldOptions(groupID);
                 stringOfBuyableFieldOptions[stringOfBuyableFieldOptions.length - 1] = Language.getString("stop");
 
                 // Defines the question and answers for whether of not you wants to buy a house
@@ -131,16 +148,18 @@ public class Territory extends Ownable {
         }
     }
 
+    /** {@inheritDoc} */
     public desktop_fields.Street convertToGUI() {
         desktop_fields.Street.Builder a = new desktop_fields.Street.Builder()
                 .setTitle(this.getName())
                 .setFgColor(Color.black)
                 .setBgColor(color)
-                .setSubText(getPrice() + "");
+                .setSubText(price + "");
         return a.build();
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Territory{" +

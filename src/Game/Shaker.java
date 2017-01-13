@@ -55,6 +55,11 @@ public class Shaker {
         return sum;
     }
 
+    /**
+     * Setter for property 'sum'.
+     *
+     * @param sum Value to set for property 'sum'.
+     */
     private void setSum(int sum) {
         this.sum = sum;
     }
@@ -77,7 +82,6 @@ public class Shaker {
     /**
      * Increments the doubles in a row counter
      */
-
     public void incrementDoublesInARow() {
 
         if (dice[0].getFaceValue() == dice[1].getFaceValue()) {
@@ -89,12 +93,9 @@ public class Shaker {
 
     }
 
-    private void setDice(int die1, int die2) {
-        dice[0].setFaceValue(die1);
-        dice[1].setFaceValue(die2);
-    }
 
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Shaker{" +

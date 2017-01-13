@@ -361,28 +361,6 @@ public class TerritoryTest {
     }
 
     /**
-     * Validates that: Pawn price can be calculated correctly
-     * and is half of the buy price
-     */
-    @Test
-    public void getPawnPrice() {
-        int actual, expected;
-
-        actual = territory1.getPawnPrice();
-        expected = 600;
-        assertEquals(expected, actual);
-
-        actual = territory2.getPawnPrice();
-        expected = 600;
-        assertEquals(expected, actual);
-
-        actual = territory3.getPawnPrice();
-        expected = 1000;
-        assertEquals(expected, actual);
-
-    }
-
-    /**
      * Validates that: FieldID can be returned
      */
     @Test

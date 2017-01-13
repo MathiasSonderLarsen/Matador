@@ -23,6 +23,7 @@ public class ToJailCard extends ChanceCard {
         super(description);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void action(Player user) {
         Jail.addPlayer(user);

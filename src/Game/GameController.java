@@ -25,6 +25,7 @@ import java.util.Random;
  * @version v.0.5
  */
 
+
 public class GameController {
 
     private final static int FIELD_COUNT = 40;
@@ -44,6 +45,9 @@ public class GameController {
         return gameBoard;
     }
 
+    /**
+     * Initializes the players with names and puts them on UI.
+     */
     private void initializePlayers() {
 
 
@@ -65,11 +69,10 @@ public class GameController {
         }
     }
 
-    public void checkIfCanMove() {
-        //if (shaker.DoublesInARow())
-    }
-
-
+    /**
+     * Displays the dice to the gui.
+     * @param shaker the shaker to show.
+     */
     private void displayDice(Shaker shaker) {
 
         // Declares face values to show the die in the GUI
@@ -81,21 +84,19 @@ public class GameController {
         BoundaryController.setDice(faceValue1, faceValue2);
     }
 
+    /**
+     * Gets a random color.
+     * @return
+     */
     private Color randomColor() {
         Random random = new Random();
         return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
 
-    /*
-        public  void reset() {
-            FIELD_COUNT = 21;
-            //gameBoard = new GameBoard(FIELD_COUNT);
-            //TODO fix shaker
-            currentPlayer = null;
-            players = new ArrayList<Player>(); //creates an ArrayList that can contain Player objects
-
-        }
-    */
+    /**
+     * Makes the player play a turn.
+     * @param player the player to play a turn.
+     */
     public void playTurn(Player player) {
 
         System.out.println("Before move" + this.toString());
@@ -194,7 +195,9 @@ public class GameController {
         System.out.println("After move" + this.toString());
     }
 
-
+    /**
+     * Starts the games main flow.
+     */
     public void startGame() {
 
         // Adds players to the game
@@ -232,6 +235,7 @@ public class GameController {
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "GameController{" +

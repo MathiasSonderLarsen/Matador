@@ -19,15 +19,22 @@ public class Start extends Field {
         super(name, groupID, color);
     }
 
+    /**
+     * Getter for property 'startBonus'.
+     *
+     * @return Value for property 'startBonus'.
+     */
     public static int getStartBonus() {
         return START_BONUS;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void landOnField(Game.Player player) {
 
     }
 
+    /** {@inheritDoc} */
     public desktop_fields.Start convertToGUI() {
         desktop_fields.Start.Builder a = new desktop_fields.Start.Builder()
                 .setTitle(name)

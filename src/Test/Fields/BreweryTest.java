@@ -83,13 +83,6 @@ public class BreweryTest {
 
     }
 
-    @Test
-    public void getPawnPrice() {
-
-        int pawnPrice = brewery1.getPawnPrice();
-        assertEquals(1500, pawnPrice);
-
-    }
 
     @Test
     public void rentTest() {

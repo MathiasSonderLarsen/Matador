@@ -18,9 +18,15 @@ public class Language {
     private static ResourceBundle language;
 
 
+    /** Do not instantiate Language. */
     private Language() {
     }
 
+    /**
+     * Setter for property 'language'.
+     *
+     * @param selectLanguage Value to set for property 'language'.
+     */
     public static void setLanguage(String selectLanguage) {
 
         // Selects the language through the String variable "inputString"
@@ -43,6 +49,11 @@ public class Language {
 
     }
 
+    /**
+     * Gets the string from the resource file in the chosen language.
+     * @param inputString the string identifier in the resource file.
+     * @return The translated string.
+     */
     public static String getString(String inputString) {
 
 
@@ -54,9 +65,5 @@ public class Language {
 
         // Returns the string in the selected language
         return language.getString(inputString);
-
-
     }
-
-
 }

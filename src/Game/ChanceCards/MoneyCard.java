@@ -29,10 +29,7 @@ public class MoneyCard extends ChanceCard {
         this.baseHotel = baseHotel;
     }
 
-    public int getAmount() {
-        return baseAmount;
-    }
-
+    /** {@inheritDoc} */
     @Override
     public void action(Player user) {
 
@@ -42,6 +39,7 @@ public class MoneyCard extends ChanceCard {
 
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "MoneyCard{" +

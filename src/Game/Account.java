@@ -44,6 +44,7 @@ public class Account {
         return balance;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Account{" +

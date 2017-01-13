@@ -36,6 +36,7 @@ public class Fleet extends Ownable {
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public int getRent() {
 
@@ -53,6 +54,7 @@ public class Fleet extends Ownable {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public Shipping convertToGUI() {
         Builder a = new Builder()
@@ -63,6 +65,7 @@ public class Fleet extends Ownable {
         return a.build();
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Fleet{" +

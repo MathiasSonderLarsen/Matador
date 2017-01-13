@@ -33,13 +33,6 @@ public class Tax extends Field {
     }
 
     /**
-     * Gets the permanent amount of tax the player needs to pay
-     */
-    public int getTaxAmount() {
-        return this.taxAmount;
-    }
-
-    /**
      * Calculates the tax the player needs to pay
      *
      * @param totalValue The total value of the player
@@ -47,11 +40,6 @@ public class Tax extends Field {
      */
     public int calculateRelativeTax(int totalValue) {
         return (int) (totalValue * -taxRate);
-    }
-
-
-    public float getTaxRate() {
-        return this.taxRate;
     }
 
     /**
@@ -77,6 +65,7 @@ public class Tax extends Field {
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public desktop_fields.Tax convertToGUI() {
         Builder a = new Builder()
@@ -87,6 +76,7 @@ public class Tax extends Field {
         return a.build();
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Tax{" +

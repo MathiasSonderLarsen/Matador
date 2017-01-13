@@ -22,13 +22,23 @@ public abstract class ChanceCard {
         this.description = description;
     }
 
+    /**
+     * Getter for property 'description'.
+     *
+     * @return Value for property 'description'.
+     */
     public String getDescription() {
 
         return description;
     }
 
+    /**
+     * The action the card executes when someone uses it.
+     * @param user
+     */
     public abstract void action(Player user);
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "ChanceCard{" +

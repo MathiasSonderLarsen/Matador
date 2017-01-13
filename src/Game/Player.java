@@ -31,6 +31,11 @@ public class Player {
 
     }
 
+    /**
+     * Getter for property 'realEstateValue'.
+     *
+     * @return Value for property 'realEstateValue'.
+     */
     public int getRealEstateValue() {
 
         int[] ownedHH = GameController.getGameBoard().getNumberOfOwnedHH(this);
@@ -40,14 +45,29 @@ public class Player {
                 getBalance();
     }
 
+    /**
+     * Getter for property 'name'.
+     *
+     * @return Value for property 'name'.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Getter for property 'onField'.
+     *
+     * @return Value for property 'onField'.
+     */
     public int getOnField() {
         return onField;
     }
 
+    /**
+     * Setter for property 'onField'.
+     *
+     * @param onField Value to set for property 'onField'.
+     */
     public void setOnField(int onField) {
         this.onField = onField;
     }
@@ -58,15 +78,30 @@ public class Player {
         BoundaryController.updateBalance(this);
     }
 
+    /**
+     * Getter for property 'balance'.
+     *
+     * @return Value for property 'balance'.
+     */
     public int getBalance() {
         return account.getBalance();
     }
 
+    /**
+     * Getter for property 'outOfJailCards'.
+     *
+     * @return Value for property 'outOfJailCards'.
+     */
     public int getOutOfJailCards() {
         return jailCards.size();
     }
 
 
+    /**
+     * Getter for property 'jailCardList'.
+     *
+     * @return Value for property 'jailCardList'.
+     */
     public ArrayList<JailCard> getJailCardList() {
         return jailCards;
     }
@@ -79,10 +114,20 @@ public class Player {
         jailCards.remove(0);
     }
 
+    /**
+     * Getter for property 'roundsInJail'.
+     *
+     * @return Value for property 'roundsInJail'.
+     */
     public int getRoundsInJail() {
         return roundsInJail;
     }
 
+    /**
+     * Getter for property 'account'.
+     *
+     * @return Value for property 'account'.
+     */
     public Account getAccount() {
         return this.account;
     }
@@ -91,6 +136,11 @@ public class Player {
         roundsInJail += rounds;
     }
 
+    /**
+     * Getter for property 'extraTurn'.
+     *
+     * @return Value for property 'extraTurn'.
+     */
     public boolean getExtraTurn() {
         return this.extraTurn;
     }
@@ -104,6 +154,7 @@ public class Player {
         this.extraTurn = extraTurn;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Player{" +

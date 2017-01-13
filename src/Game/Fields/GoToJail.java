@@ -16,6 +16,7 @@ public class GoToJail extends Field {
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public void landOnField(Game.Player player) {
 
@@ -28,6 +29,7 @@ public class GoToJail extends Field {
 
     }
 
+    /** {@inheritDoc} */
     public desktop_fields.Jail convertToGUI() {
         desktop_fields.Jail.Builder a = new desktop_fields.Jail.Builder()
                 .setTitle(name)

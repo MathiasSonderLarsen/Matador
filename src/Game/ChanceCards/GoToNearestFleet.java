@@ -23,6 +23,7 @@ public class GoToNearestFleet extends ChanceCard {
         super(description);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void action(Player user) {
             GameBoard gameboard = GameController.getGameBoard();
