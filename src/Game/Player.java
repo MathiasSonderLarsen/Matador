@@ -2,6 +2,8 @@ package Game;
 
 
 import Game.ChanceCards.ChanceCard;
+import Game.ChanceCards.JailCard;
+import Game.Fields.Jail;
 
 import java.util.ArrayList;
 
@@ -22,7 +24,7 @@ public class Player {
     private int onField = 1;
     private int outOfJailCards = 0;
     private int roundsInJail = 0;
-    private ArrayList<ChanceCard> jailCards;
+    private ArrayList<JailCard> jailCards;
     private boolean extraTurn = false;
 
     //
@@ -72,11 +74,11 @@ public class Player {
         this.outOfJailCards = outOfJailCards;
     }
 
-    public ArrayList<ChanceCard> getJailCardList() {
+    public ArrayList<JailCard> getJailCardList() {
         return jailCards;
     }
 
-    public void addOutOfJailCards(ChanceCard jailCard) {
+    public void addOutOfJailCards(JailCard jailCard) {
         jailCards.add(jailCard);
     }
 

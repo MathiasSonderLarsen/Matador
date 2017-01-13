@@ -15,7 +15,7 @@ package Game;
  */
 public class Account {
 
-    private final static int START_BALANCE = 30000000;
+    private final static int START_BALANCE = 30000;
     private int balance;
 
     /**

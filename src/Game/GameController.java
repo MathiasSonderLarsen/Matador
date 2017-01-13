@@ -2,6 +2,7 @@ package Game;
 
 
 import Game.ChanceCards.ChanceCard;
+import Game.ChanceCards.JailCard;
 import Game.Fields.Field;
 import Game.Fields.Jail;
 import desktop_codebehind.Car;
@@ -29,7 +30,6 @@ public class GameController {
 
     private static GameBoard gameBoard;
     private final static int FIELD_COUNT = 40;
-    private ChanceCard jailCard;
     private ArrayList<Player> players = new ArrayList<Player>();
 
     public GameController(Shaker shaker) {
@@ -99,7 +99,7 @@ public class GameController {
     */
     public void playTurn(Player player) {
 
-        System.out.println("Before move" + player.toString());
+        System.out.println("Before move" + this.toString());
         //rolls the dice
         gameBoard.getShaker().shake();
 
@@ -136,7 +136,7 @@ public class GameController {
 
             if (player.getOutOfJailCards() > 0) {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2, answer3);
-                jailCard = player.getJailCardList().get(0);
+                JailCard jailCard = player.getJailCardList().get(0);
 
                 if (Objects.equals(answer3, answer)) {
                     Jail.removePlayer(player);
@@ -182,7 +182,7 @@ public class GameController {
 
         //controls what happens when the player lands on a specific field.
         Field currentField = gameBoard.getField(player.getOnField());
-       // BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
+        BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
         currentField.landOnField(player);
 
         //removes bankrupt players from the game
@@ -191,7 +191,7 @@ public class GameController {
             players.remove(player);
         }
 
-        System.out.println("After move" + player.toString());
+        System.out.println("After move" + this.toString());
     }
 
 
@@ -231,12 +231,13 @@ public class GameController {
 
     }
 
+
     @Override
     public String toString() {
         return "GameController{" +
-                "FIELD_COUNT=" + FIELD_COUNT +
-                ", jailCard=" + jailCard +
-                ", players=" + players +
+                "players=" + players +
+                "gameboard=" + gameBoard +
+
                 '}';
     }
 }

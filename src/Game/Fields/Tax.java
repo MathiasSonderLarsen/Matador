@@ -22,7 +22,6 @@ public class Tax extends Field {
 
     private final int taxAmount;
     private final float taxRate;
-    private int relativeTax;
 
     /**
      * @param name      The name of the Field
@@ -71,7 +70,7 @@ public class Tax extends Field {
         String answer2 = "10%";
 
         if (taxRate != 1.0f && Game.BoundaryController.getUserSelection(question, answer1, answer2) == answer2) {
-            player.addBalance(calculateRelativeTax(player.getRealEstateValue()+player.getBalance()));
+            player.addBalance(tax);
 
         } else {
             player.addBalance(-this.taxAmount);

@@ -121,6 +121,11 @@ public class BoundaryController {
 
             case GUI:
                 GUI.setCar(onField, name);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 break;
             case Test:
                 break;
