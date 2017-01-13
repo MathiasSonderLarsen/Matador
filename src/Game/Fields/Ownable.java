@@ -116,8 +116,15 @@ public abstract class Ownable extends Field {
         }
         //Someone else owns the field
         if ((!Objects.equals(owner, player)) && (owner != null) && !Jail.isJailed(owner)) {
-            player.addBalance(-getRent());
-            owner.addBalance(getRent());
+
+            if ((this instanceof Territory) && GameController.getGameBoard().playerOwensAllInGroup((Territory) this, player)) {
+
+                player.addBalance(-getRent()*2);
+                owner.addBalance(getRent()*2);
+            }else {
+                player.addBalance(-getRent());
+                owner.addBalance(getRent());
+            }
         }
 
     }
