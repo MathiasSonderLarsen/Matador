@@ -196,6 +196,17 @@ public class BoundaryController {
         }
     }
 
+    public static void displayChanceCard(String text) {
+        switch (mode) {
+            case GUI:
+                GUI.displayChanceCard(text);
+                break;
+            case Test:
+                System.out.println("Chance card description");
+                break;
+        }
+    }
+
     public static void buyHouse(int field, int numberOfHouses) {
         switch (mode) {
 

@@ -37,7 +37,8 @@ public class Chance extends Field {
         ChanceCard card = GameController.getGameBoard().getChanceDeck().getCard();
 
 
-        BoundaryController.showMessage(Language.getString("youdrew") + ' ' + Language.getString(card.getDescription()));
+        BoundaryController.displayChanceCard(Language.getString("youdrew") + ' ' + Language.getString(card.getDescription()));
+        BoundaryController.showMessage("");
         card.action(player);
 
     }
