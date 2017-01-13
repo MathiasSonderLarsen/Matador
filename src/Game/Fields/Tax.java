@@ -94,7 +94,6 @@ public class Tax extends Field {
         return "Tax{" +
                 "taxAmount=" + taxAmount +
                 ", taxRate=" + taxRate +
-                ", relativeTax=" + relativeTax +
                 '}';
     }
 }
