@@ -56,6 +56,9 @@ public class ChanceDeck {
         ChanceCards.add(new JailCard("getoutofjail"));
         ChanceCards.add(new ToJailCard("gotojail"));
         ChanceCards.add(new ToJailCard("gotojail"));
+        ChanceCards.add(new GoToNearestFleet("nearestfleet"));
+        ChanceCards.add(new GoToNearestFleet("nearestfleet"));
+
 
 
     }
