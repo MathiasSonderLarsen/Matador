@@ -8,7 +8,6 @@ import Game.Player;
 
 import java.awt.*;
 import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * Keeps track of the rent, price, name, groupID and houseprice of the territories
@@ -95,7 +94,7 @@ public class Territory extends Ownable {
             String[] stringOfBuyableFieldOptions;
             while (player.getBalance() > this.getHousePrice()) {
                 stringOfBuyableFieldOptions = GameController.getGameBoard().getStringOfBuyableFieldOptions(this.getGroupID());
-                stringOfBuyableFieldOptions[stringOfBuyableFieldOptions.length-1] = Language.getString("stop");
+                stringOfBuyableFieldOptions[stringOfBuyableFieldOptions.length - 1] = Language.getString("stop");
 
                 // Defines the question and answers for whether of not you wants to buy a house
                 //output "do 'player' want to buy a house for 'x' points"
@@ -122,8 +121,7 @@ public class Territory extends Ownable {
                             System.out.println(currentTerritory.getNumOfHouses());
                         }
                     }
-                }
-                else{
+                } else {
                     break;
                 }
             }
@@ -138,7 +136,6 @@ public class Territory extends Ownable {
                 .setSubText(getPrice() + "");
         return a.build();
     }
-
 
 
     @Override

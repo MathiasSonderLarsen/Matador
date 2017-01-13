@@ -27,7 +27,7 @@ public class Brewery extends Ownable {
 
 
     public Brewery(String name, int groupID, Color color, int price, int baseRent) {
-        super(name, groupID,color , price);
+        super(name, groupID, color, price);
         this.baseRent = baseRent;
 
     }

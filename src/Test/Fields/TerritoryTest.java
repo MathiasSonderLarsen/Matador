@@ -47,8 +47,8 @@ public class TerritoryTest {
         this.player = new Player("Player1");
 
         this.territory1 = new Territory("Territory1", 1, Color.black, 1200, rentArrayT1, 500);
-        this.territory2 = new Territory("Territory2", 1,Color.black, 1200, rentArrayT2, 500);
-        this.territory3 = new Territory("Territory3", 2,Color.black, 2000, rentArrayT3, 600);
+        this.territory2 = new Territory("Territory2", 1, Color.black, 1200, rentArrayT2, 500);
+        this.territory3 = new Territory("Territory3", 2, Color.black, 2000, rentArrayT3, 600);
 
     }
 

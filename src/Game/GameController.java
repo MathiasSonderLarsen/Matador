@@ -1,7 +1,6 @@
 package Game;
 
 
-import Game.ChanceCards.ChanceCard;
 import Game.ChanceCards.JailCard;
 import Game.Fields.Field;
 import Game.Fields.Jail;
@@ -28,8 +27,8 @@ import java.util.Random;
 
 public class GameController {
 
-    private static GameBoard gameBoard;
     private final static int FIELD_COUNT = 40;
+    private static GameBoard gameBoard;
     private ArrayList<Player> players = new ArrayList<Player>();
 
     public GameController(Shaker shaker) {
@@ -51,7 +50,7 @@ public class GameController {
         String numberSelected = BoundaryController.getUserSelection(Language.getString("greeting"), "2", "3", "4", "5", "6");
         int numberOfPlayers = Integer.parseInt(numberSelected);
         for (int i = 0; i < numberOfPlayers; i++) {
-            String name = BoundaryController.getUserString(Language.getString("name1") +" "+ (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
+            String name = BoundaryController.getUserString(Language.getString("name1") + " " + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
             players.add(new Player(name)); //creates a new player object.
 
             Player thisPlayer = players.get(i);
@@ -156,7 +155,7 @@ public class GameController {
                         Jail.removePlayer(player);
                     }
                 } else if (Objects.equals(answer2, answer)) {
-                    player.addBalance(-4000);
+                    player.addBalance(-1000);
                     Jail.removePlayer(player);
                 } else if (Objects.equals(answer3, answer)) {
                     player.setOutOfJailCards(-1);

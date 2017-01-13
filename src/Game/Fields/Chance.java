@@ -24,7 +24,7 @@ import java.awt.*;
 public class Chance extends Field {
 
     public Chance(String name, int groupID, Color color) {
-        super(name, groupID,color );
+        super(name, groupID, color);
     }
 
     public String getName() {

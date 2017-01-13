@@ -1,9 +1,7 @@
 package Game;
 
 
-import Game.ChanceCards.ChanceCard;
 import Game.ChanceCards.JailCard;
-import Game.Fields.Jail;
 
 import java.util.ArrayList;
 

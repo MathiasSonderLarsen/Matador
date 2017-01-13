@@ -165,7 +165,6 @@ public class GameBoard {
     }
 
 
-
     public Field[] getFieldsInGroup(int groupID) {
 
         Field[] fields = new Field[getNumberOfPropertiesInGroup(groupID)];
@@ -324,9 +323,6 @@ public class GameBoard {
         }
         return territoriesWithHousesByPlayer;
     }
-
-
-
 
 
     public boolean playerOwensAllInGroup(Territory territory, Player player) {

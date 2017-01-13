@@ -30,7 +30,7 @@ public class TaxTest {
         this.player = new Player("Player");
 
         this.tax1 = new Tax("Tax1", 2, Color.black, 1000, 1.0f);
-        this.tax2 = new Tax("Tax2", 2,Color.black, 4000, 0.1f);
+        this.tax2 = new Tax("Tax2", 2, Color.black, 4000, 0.1f);
 
     }
 

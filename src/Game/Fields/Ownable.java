@@ -25,7 +25,8 @@ public abstract class Ownable extends Field {
 
     /**
      * The constructor of the Ownable type
-     *  @param name  The name of the Field
+     *
+     * @param name  The name of the Field
      * @param color
      * @param price The price of the Field
      */

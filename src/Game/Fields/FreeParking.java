@@ -17,7 +17,7 @@ import java.awt.*;
 public class FreeParking extends Field {
 
     public FreeParking(String name, int groupID, Color color) {
-        super(name, groupID,color );
+        super(name, groupID, color);
     }
 
     @Override

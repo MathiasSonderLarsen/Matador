@@ -19,13 +19,13 @@ public class Start extends Field {
         super(name, groupID, color);
     }
 
+    public static int getStartBonus() {
+        return START_BONUS;
+    }
+
     @Override
     public void landOnField(Game.Player player) {
 
-    }
-
-    public static int getStartBonus() {
-        return START_BONUS;
     }
 
     public desktop_fields.Start convertToGUI() {
@@ -33,7 +33,7 @@ public class Start extends Field {
                 .setTitle(name)
                 .setFgColor(Color.black)
                 .setBgColor(color)
-                .setSubText(START_BONUS + "");
+                .setSubText(Start.START_BONUS + "");
         return a.build();
     }
 }

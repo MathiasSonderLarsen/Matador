@@ -1,6 +1,10 @@
 package Game.Fields;
 
 
+import Game.GameController;
+import desktop_fields.Shipping;
+import desktop_fields.Shipping.Builder;
+
 import java.awt.*;
 import java.util.Arrays;
 
@@ -23,7 +27,7 @@ public class Fleet extends Ownable {
     //Declares an array of integers
     private final int[] rentArray;
 
-    public Fleet(String name, int groupID , Color color, int price, int[] rentArray) {
+    public Fleet(String name, int groupID, Color color, int price, int[] rentArray) {
 
         super(name, groupID, color, price);
         this.rentArray = rentArray;
@@ -32,35 +36,37 @@ public class Fleet extends Ownable {
     }
 
 
+    @Override
     public int getRent() {
 
-        switch (Game.GameController.getGameBoard().getNumberOfPropertiesInGroup(this.getGroupID())) {
+        switch (GameController.getGameBoard().getNumberOfPropertiesInGroup(getGroupID())) {
             case 1:
-                return rentArray[0];
+                return this.rentArray[0];
             case 2:
-                return rentArray[1];
+                return this.rentArray[1];
             case 3:
-                return rentArray[2];
+                return this.rentArray[2];
             case 4:
-                return rentArray[3];
+                return this.rentArray[3];
             default:
                 return 0; //Should never happen
         }
     }
 
-    public desktop_fields.Shipping convertToGUI() {
-        desktop_fields.Shipping.Builder a = new desktop_fields.Shipping.Builder()
-                .setTitle(name)
+    @Override
+    public Shipping convertToGUI() {
+        Builder a = new Builder()
+                .setTitle(this.name)
                 .setFgColor(Color.black)
-                .setBgColor(color)
-                .setSubText(price + "");
+                .setBgColor(this.color)
+                .setSubText(this.price + "");
         return a.build();
     }
 
     @Override
     public String toString() {
         return "Fleet{" +
-                "rentArray=" + Arrays.toString(rentArray) +
+                "rentArray=" + Arrays.toString(this.rentArray) +
                 '}';
     }
 }

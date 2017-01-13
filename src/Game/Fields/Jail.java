@@ -27,7 +27,7 @@ public class Jail extends Field {
     private static final ArrayList<Player> jailedPlayers = new ArrayList<>();
 
 
-    public Jail(String name, int groupID,Color color) {
+    public Jail(String name, int groupID, Color color) {
         super(name, groupID, color);
     }
 

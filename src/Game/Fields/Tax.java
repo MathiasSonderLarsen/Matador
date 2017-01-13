@@ -7,7 +7,6 @@ import Game.Player;
 import desktop_fields.Tax.Builder;
 
 import java.awt.*;
-import java.util.Objects;
 
 /**
  * Keeps track of the balance, and adds/subtracts by the points on the board.
@@ -28,7 +27,7 @@ public class Tax extends Field {
      * @param taxAmount The permanent tax on the Field
      */
     public Tax(String name, int groupID, Color color, int taxAmount, float taxRate) {
-        super(name, groupID, color );
+        super(name, groupID, color);
         this.taxAmount = taxAmount;
         this.taxRate = taxRate;
     }
@@ -69,14 +68,13 @@ public class Tax extends Field {
         String answer1 = taxAmount + "";
         String answer2 = "10%";
 
-        if (taxRate != 1.0f && Game.BoundaryController.getUserSelection(question, answer1, answer2) == answer2) {
+        if (taxRate != 1.0f && BoundaryController.getUserSelection(question, answer1, answer2) == answer2) {
             player.addBalance(tax);
 
         } else {
             player.addBalance(-this.taxAmount);
         }
     }
-
 
 
     @Override

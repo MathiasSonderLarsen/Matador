@@ -52,9 +52,9 @@ public class BoundaryController {
     /**
      * The method to add a player to the game, with exception if the program runs in test mode.
      *
-     * @param name          The players name.
+     * @param name         The players name.
      * @param startBalance The players starting balance.
-     * @param car           The players car object.
+     * @param car          The players car object.
      */
 
     public static void addPlayer(String name, int startBalance, Car car) {

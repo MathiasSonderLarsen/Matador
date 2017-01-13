@@ -10,7 +10,7 @@ import java.awt.*;
  */
 public class GoToJail extends Field {
 
-    public GoToJail(String name, int groupID,Color color) {
+    public GoToJail(String name, int groupID, Color color) {
         super(name, groupID, color);
 
     }

@@ -22,7 +22,7 @@ public abstract class Field {
     /**
      * Constructs a Field
      *
-     * @param name The name of the Field
+     * @param name  The name of the Field
      * @param color
      */
     public Field(String name, int groupID, Color color) {
@@ -33,11 +33,11 @@ public abstract class Field {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String newName) {
-        name = newName;
+        this.name = newName;
     }
 
     /**
@@ -46,7 +46,7 @@ public abstract class Field {
      * @return Value for property 'groupID'.
      */
     public int getGroupID() {
-        return this.groupID;
+        return groupID;
     }
 
     /**
@@ -61,8 +61,8 @@ public abstract class Field {
     @Override
     public String toString() {
         return "Field{" +
-                "groupID=" + groupID +
-                ", name='" + name + '\'' +
+                "groupID=" + this.groupID +
+                ", name='" + this.name + '\'' +
                 '}';
     }
 }
