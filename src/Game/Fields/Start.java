@@ -13,10 +13,10 @@ import java.awt.*;
  */
 public class Start extends Field {
 
-    final static int START_BONUS = 4000;
+    private final static int START_BONUS = 4000;
 
-    public Start(String name, int groupID) {
-        super(name, groupID);
+    public Start(String name, int groupID, Color color) {
+        super(name, groupID, color);
     }
 
     @Override
@@ -24,16 +24,16 @@ public class Start extends Field {
 
     }
 
-    public int getStartBonus() {
+    public static int getStartBonus() {
         return START_BONUS;
     }
 
     public desktop_fields.Start convertToGUI() {
         desktop_fields.Start.Builder a = new desktop_fields.Start.Builder()
-                .setTitle(this.getName())
-                .setBgColor(Color.red)
-                //.setFgColor(Color.red)
-                .setSubText(getStartBonus() + "");
+                .setTitle(name)
+                .setFgColor(Color.black)
+                .setBgColor(color)
+                .setSubText(START_BONUS + "");
         return a.build();
     }
 }

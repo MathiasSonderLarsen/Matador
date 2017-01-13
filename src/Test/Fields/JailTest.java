@@ -5,6 +5,8 @@ import Game.Player;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -34,7 +36,7 @@ public class JailTest {
         this.player1 = new Player("Player1");
         this.player2 = new Player("Player2");
         this.player3 = new Player("Player3");
-        this.jail = new Jail("Jail", 0);
+        this.jail = new Jail("Jail", 0, Color.black);
     }
 
     @Test
@@ -55,5 +57,15 @@ public class JailTest {
     @Test
     public void getIsJailed() {
 
+    }
+
+    @Override
+    public String toString() {
+        return "JailTest{" +
+                "player1=" + player1 +
+                ", player2=" + player2 +
+                ", player3=" + player3 +
+                ", jail=" + jail +
+                '}';
     }
 }

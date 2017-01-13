@@ -10,8 +10,8 @@ import java.awt.*;
  */
 public class GoToJail extends Field {
 
-    public GoToJail(String name, int groupID) {
-        super(name, groupID);
+    public GoToJail(String name, int groupID,Color color) {
+        super(name, groupID, color);
 
     }
 
@@ -23,15 +23,16 @@ public class GoToJail extends Field {
 
         theJailField.addPlayer(player);
 
-        GameController.getGameBoard().movePlayerAnim(player, 11, true);
+        GameController.getGameBoard().movePlayer(player, 11, true);
 
 
     }
 
     public desktop_fields.Jail convertToGUI() {
         desktop_fields.Jail.Builder a = new desktop_fields.Jail.Builder()
-                .setTitle(this.getName())
-                .setBgColor(Color.red)
+                .setTitle(name)
+                .setFgColor(Color.white)
+                .setBgColor(color)
                 .setSubText("");
         return a.build();
     }

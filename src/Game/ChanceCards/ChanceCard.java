@@ -28,4 +28,11 @@ public abstract class ChanceCard {
     }
 
     public abstract void action(Player user);
+
+    @Override
+    public String toString() {
+        return "ChanceCard{" +
+                "description='" + description + '\'' +
+                '}';
+    }
 }

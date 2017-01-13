@@ -2,6 +2,7 @@ package Game;
 
 
 import Game.ChanceCards.ChanceCard;
+import Game.ChanceCards.JailCard;
 import Game.Fields.Field;
 import Game.Fields.Jail;
 import desktop_codebehind.Car;
@@ -27,8 +28,13 @@ import java.util.Random;
 
 public class GameController {
 
-    private final int FIELD_COUNT = 40;
-    private ChanceCard jailCard;
+    private static GameBoard gameBoard;
+    private final static int FIELD_COUNT = 40;
+    private ArrayList<Player> players = new ArrayList<Player>();
+
+    public GameController(Shaker shaker) {
+        gameBoard = new GameBoard(FIELD_COUNT, shaker);
+    }
 
     /**
      * Getter for property 'gameBoard'.
@@ -37,15 +43,6 @@ public class GameController {
      */
     public static GameBoard getGameBoard() {
         return gameBoard;
-    }
-
-    private static GameBoard gameBoard;
-
-    private ArrayList<Player> players = new ArrayList<Player>();
-
-
-    public GameController(Shaker shaker) {
-        gameBoard = new GameBoard(FIELD_COUNT, shaker);
     }
 
     private void initializePlayers() {
@@ -102,7 +99,7 @@ public class GameController {
     */
     public void playTurn(Player player) {
 
-        System.out.println("Before move" + player.toString());
+        System.out.println("Before move" + this.toString());
         //rolls the dice
         gameBoard.getShaker().shake();
 
@@ -110,13 +107,13 @@ public class GameController {
         //displays the dice in the GUI
         displayDice(gameBoard.getShaker());
 
-        if (gameBoard.getShaker().getDoublesInARow() == 3 && player != null) {
+        if ((gameBoard.getShaker().getDoublesInARow() == 3) && (player != null)) {
 
             Jail theJailField = ((Jail) GameController.getGameBoard().getField(11));
 
             theJailField.addPlayer(player);
 
-            gameBoard.movePlayerAnim(player, 11, true);
+            gameBoard.movePlayer(player, 11, true);
             return;
         }
 
@@ -124,7 +121,7 @@ public class GameController {
         if (Jail.isJailed(player) == false) {
 
             //moves the player's token on the gameBoard in the GUI
-            gameBoard.movePlayerAnim(player, gameBoard.getShaker().getSum(), false);
+            gameBoard.movePlayer(player, gameBoard.getShaker().getSum(), false);
 
         } else {
 
@@ -139,12 +136,12 @@ public class GameController {
 
             if (player.getOutOfJailCards() > 0) {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2, answer3);
-                jailCard = player.getJailCardList().get(0);
+                JailCard jailCard = player.getJailCardList().get(0);
 
-                if (answer3 == answer) {
+                if (Objects.equals(answer3, answer)) {
                     Jail.removePlayer(player);
                     player.removeOutOfJailCard();
-                    getGameBoard().getChanceDeck().addJailCard(jailCard);
+                    gameBoard.getChanceDeck().addJailCard(jailCard);
                 }
 
             } else {
@@ -194,7 +191,7 @@ public class GameController {
             players.remove(player);
         }
 
-        System.out.println("After move" + player.toString());
+        System.out.println("After move" + this.toString());
     }
 
 
@@ -210,11 +207,9 @@ public class GameController {
             for (int i = 0; i < players.size(); i++) {
                 Player currentPlayer = players.get(i);
 
-                Field currentField = gameBoard.getField(currentPlayer.getOnField());
-
                 playTurn(currentPlayer);
 
-                if (gameBoard.getShaker().getDoublesInARow() > 0 && gameBoard.getShaker().getDoublesInARow() != 3 && currentPlayer != null) {
+                if ((gameBoard.getShaker().getDoublesInARow() > 0) && (gameBoard.getShaker().getDoublesInARow() != 3) && (currentPlayer != null)) {
 
                     playTurn(currentPlayer);
                 }
@@ -234,5 +229,15 @@ public class GameController {
 
         BoundaryController.close();
 
+    }
+
+
+    @Override
+    public String toString() {
+        return "GameController{" +
+                "players=" + players +
+                "gameboard=" + gameBoard +
+
+                '}';
     }
 }

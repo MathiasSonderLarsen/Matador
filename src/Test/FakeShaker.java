@@ -2,6 +2,8 @@ package Test;
 
 import Game.Shaker;
 
+import java.util.Arrays;
+
 /**
  * Created by Matt_Lab on 10/01/2017.
  */
@@ -11,13 +13,22 @@ public class FakeShaker extends Shaker {
 
     int i = 0;
 
-    public FakeShaker(int dieCount){
+    public FakeShaker(int dieCount) {
         super(dieCount);
     }
 
     @Override
-    public void shake(){
+    public void shake() {
         getDice()[0].setFaceValue(die1[i]);
         getDice()[1].setFaceValue(die2[i++]);
+    }
+
+    @Override
+    public String toString() {
+        return "FakeShaker{" +
+                "die1=" + Arrays.toString(die1) +
+                ", die2=" + Arrays.toString(die2) +
+                ", i=" + i +
+                '}';
     }
 }

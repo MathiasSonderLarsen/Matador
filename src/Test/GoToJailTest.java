@@ -1,15 +1,14 @@
 package Test;
 
-import Game.Account;
 import Game.Fields.GoToJail;
 import Game.Fields.Jail;
 import Game.Player;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import java.awt.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by Matt_Lab on 05/01/2017.
@@ -22,18 +21,18 @@ public class GoToJailTest {
 
     @Before
     public void setUp() {
-        goTo = new GoToJail("GoToJail",4);
+        goTo = new GoToJail("GoToJail", 4, Color.black);
     }
 
     @Test
-    public void testEntities (){
+    public void testEntities() {
         assertNotNull(this.goTo);
 
         assertTrue(this.goTo instanceof GoToJail);
     }
 
     @Test
-    public void testName (){
+    public void testName() {
         String expected = "GoToJail";
         String actual = goTo.getName();
         assertEquals(expected, actual);
@@ -44,5 +43,14 @@ public class GoToJailTest {
         assertEquals(expected, actual);
 
 
+    }
+
+    @Override
+    public String toString() {
+        return "GoToJailTest{" +
+                "player=" + player +
+                ", goTo=" + goTo +
+                ", jail=" + jail +
+                '}';
     }
 }

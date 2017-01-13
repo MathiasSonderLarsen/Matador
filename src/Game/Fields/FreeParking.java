@@ -1,10 +1,10 @@
 package Game.Fields;
 
 
-import Game.GameController;
 import Game.Player;
 
 import java.awt.*;
+
 
 /**
  * FreeParking class
@@ -16,8 +16,8 @@ import java.awt.*;
  */
 public class FreeParking extends Field {
 
-    public FreeParking(String name, int groupID) {
-        super(name, groupID);
+    public FreeParking(String name, int groupID, Color color) {
+        super(name, groupID,color );
     }
 
     @Override
@@ -30,7 +30,8 @@ public class FreeParking extends Field {
     public desktop_fields.Street convertToGUI() {
         desktop_fields.Street.Builder a = new desktop_fields.Street.Builder()
                 .setTitle(this.getName())
-                .setBgColor(Color.red)
+                .setFgColor(Color.black)
+                .setBgColor(color)
                 .setSubText("");
         return a.build();
     }

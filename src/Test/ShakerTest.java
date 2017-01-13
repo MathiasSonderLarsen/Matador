@@ -182,4 +182,10 @@ public class ShakerTest {
     }
 
 
+    @Override
+    public String toString() {
+        return "ShakerTest{" +
+                "shaker=" + shaker +
+                '}';
+    }
 }

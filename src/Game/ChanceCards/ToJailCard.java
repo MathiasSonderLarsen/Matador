@@ -28,7 +28,7 @@ public class ToJailCard extends ChanceCard {
         Jail.addPlayer(user);
 
 
-        GameController.getGameBoard().movePlayerAnim(user, 11, true);
+        GameController.getGameBoard().movePlayer(user, 11, true);
 
 
     }

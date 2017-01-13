@@ -8,6 +8,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.awt.*;
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 /**
@@ -43,9 +46,9 @@ public class TerritoryTest {
 
         this.player = new Player("Player1");
 
-        this.territory1 = new Territory("Territory1", 1, 1200, rentArrayT1, 500);
-        this.territory2 = new Territory("Territory2", 1, 1200, rentArrayT2, 500);
-        this.territory3 = new Territory("Territory3", 2, 2000, rentArrayT3, 600);
+        this.territory1 = new Territory("Territory1", 1, Color.black, 1200, rentArrayT1, 500);
+        this.territory2 = new Territory("Territory2", 1,Color.black, 1200, rentArrayT2, 500);
+        this.territory3 = new Territory("Territory3", 2,Color.black, 2000, rentArrayT3, 600);
 
     }
 
@@ -400,4 +403,17 @@ public class TerritoryTest {
 
     }
 
+    @Override
+    public String toString() {
+        return "TerritoryTest{" +
+                "player=" + player +
+                ", territory1=" + territory1 +
+                ", territory2=" + territory2 +
+                ", territory3=" + territory3 +
+                ", gameBoard=" + gameBoard +
+                ", rentArrayT1=" + Arrays.toString(rentArrayT1) +
+                ", rentArrayT2=" + Arrays.toString(rentArrayT2) +
+                ", rentArrayT3=" + Arrays.toString(rentArrayT3) +
+                '}';
+    }
 }

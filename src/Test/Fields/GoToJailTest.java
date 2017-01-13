@@ -6,6 +6,8 @@ import Game.Player;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+
 import static org.junit.Assert.*;
 
 /**
@@ -19,7 +21,7 @@ public class GoToJailTest {
 
     @Before
     public void setUp() {
-        goTo = new GoToJail("GoToJail", 0);
+        goTo = new GoToJail("GoToJail", 0, Color.black);
     }
 
     @Test
@@ -41,5 +43,14 @@ public class GoToJailTest {
         assertEquals(expected, actual);
 
 
+    }
+
+    @Override
+    public String toString() {
+        return "GoToJailTest{" +
+                "player=" + player +
+                ", goTo=" + goTo +
+                ", jail=" + jail +
+                '}';
     }
 }
