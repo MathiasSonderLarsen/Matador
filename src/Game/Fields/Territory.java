@@ -89,7 +89,7 @@ public class Territory extends Ownable {
         super.landOnField(player);
 
 
-        if (GameController.getGameBoard().playerOwensAllInGroup(this, player) && GameController.getGameBoard().houseAvailable(this.groupID)) {
+        if (GameController.getGameBoard().playerOwnsAllInGroup(this, player) && GameController.getGameBoard().houseAvailable(this.groupID)) {
 
             String[] stringOfBuyableFieldOptions;
             while (player.getBalance() > this.getHousePrice()) {

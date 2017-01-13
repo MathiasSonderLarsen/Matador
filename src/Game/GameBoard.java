@@ -325,7 +325,7 @@ public class GameBoard {
     }
 
 
-    public boolean playerOwensAllInGroup(Territory territory, Player player) {
+    public boolean playerOwnsAllInGroup(Territory territory, Player player) {
         int groupID = territory.getGroupID();
         if (getNumInGroupOwned(player, groupID) == getNumberOfPropertiesInGroup(groupID)) {
             return true;
