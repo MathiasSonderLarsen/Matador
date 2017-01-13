@@ -29,10 +29,11 @@ public class GoToNearestFleet extends ChanceCard {
             int distNextFleet=0;
 
 
-            for (int i=0; i < gameboard.getBoard().length ; i++){
+
+            for (int i=1; i <= gameboard.getBoard().length ; i++){
                 if(gameboard.getField(i) instanceof Fleet){
 
-                    int nearestFleet=gameboard.calStepsToMove(user, gameboard.getFieldPos(gameboard.getField(i)));
+                    int nearestFleet=gameboard.calStepsToMove(user, i);
                     if( distNextFleet < nearestFleet && distNextFleet != 0) {
                         distNextFleet = nearestFleet;
                     }

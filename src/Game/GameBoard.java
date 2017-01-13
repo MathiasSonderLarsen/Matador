@@ -211,6 +211,7 @@ public class GameBoard {
                 BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
             }
         } else {
+            // TODO: 13-01-2017 Program crashes when you try to move from the first chance field and 3 steps back.
             for (int i = 0; i > stepsToMove; i--) {
                 thisPlayer.setOnField(thisPlayer.getOnField() - 1);
 
@@ -340,12 +341,8 @@ public class GameBoard {
      */
     public boolean canBuyHouse(Territory territory) {
         int groupID = territory.getGroupID();
-        boolean owensAllInGroup = false;
-        if (getNumInGroupOwned(territory.getOwner(), groupID) == getNumberOfPropertiesInGroup(groupID)) {
-            owensAllInGroup = true;
-        }
         int lowestNumHouses = getLowestNumOfHousesOnFieldsInThisGroup(groupID);
-        if (territory.getNumOfHouses() == lowestNumHouses) {
+        if (playerOwnsAllInGroup(territory, territory.getOwner()) && territory.getNumOfHouses() == lowestNumHouses && territory.getNumOfHouses() <= 5) {
             return true;
         }
         return false;
