@@ -158,7 +158,7 @@ public class GameController {
                     player.addBalance(-1000);
                     Jail.removePlayer(player);
                 } else if (Objects.equals(answer3, answer)) {
-                    player.setOutOfJailCards(-1);
+                    player.removeOutOfJailCard();
                     Jail.removePlayer(player);
                 }
 

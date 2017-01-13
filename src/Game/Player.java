@@ -18,9 +18,7 @@ public class Player {
 
     private final String name;
     private final Account account;
-    private int realEstateValue = 0;
     private int onField = 1;
-    private int outOfJailCards = 0;
     private int roundsInJail = 0;
     private ArrayList<JailCard> jailCards;
     private boolean extraTurn = false;
@@ -68,9 +66,6 @@ public class Player {
         return jailCards.size();
     }
 
-    public void setOutOfJailCards(int outOfJailCards) {
-        this.outOfJailCards = outOfJailCards;
-    }
 
     public ArrayList<JailCard> getJailCardList() {
         return jailCards;
@@ -114,9 +109,7 @@ public class Player {
         return "Player{" +
                 "name='" + name + '\'' +
                 ", account=" + account +
-                ", realEstateValue=" + realEstateValue +
                 ", onField=" + onField +
-                ", outOfJailCards=" + outOfJailCards +
                 ", roundsInJail=" + roundsInJail +
                 ", jailCards=" + jailCards +
                 ", extraTurn=" + extraTurn +
