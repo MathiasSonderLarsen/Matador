@@ -51,7 +51,7 @@ public class GameController {
         String numberSelected = BoundaryController.getUserSelection(Language.getString("greeting"), "2", "3", "4", "5", "6");
         int numberOfPlayers = Integer.parseInt(numberSelected);
         for (int i = 0; i < numberOfPlayers; i++) {
-            String name = BoundaryController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
+            String name = BoundaryController.getUserString(Language.getString("name1") +" "+ (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
             players.add(new Player(name)); //creates a new player object.
 
             Player thisPlayer = players.get(i);
@@ -142,6 +142,7 @@ public class GameController {
                     Jail.removePlayer(player);
                     player.removeOutOfJailCard();
                     gameBoard.getChanceDeck().addJailCard(jailCard);
+                    playTurn(player);
                 }
 
             } else {
@@ -237,7 +238,6 @@ public class GameController {
         return "GameController{" +
                 "players=" + players +
                 "gameboard=" + gameBoard +
-
                 '}';
     }
 }
