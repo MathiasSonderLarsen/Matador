@@ -47,8 +47,8 @@ public class Tax extends Field {
      * @param totalValue The total value of the player
      * @return The amount of money the player needs to pay
      */
-    public int calcuateRelativeTax(int totalValue) {
-        return (int) (totalValue * -this.taxRate);
+    public int calculateRelativeTax(int totalValue) {
+        return (int) (totalValue * -taxRate);
     }
 
 
@@ -64,14 +64,14 @@ public class Tax extends Field {
     @Override
     public void landOnField(Player player) {
 
-        int tax = this.calcuateRelativeTax(player.getRealEstateValue() + player.getBalance());
+        int tax = calculateRelativeTax(player.getRealEstateValue() + player.getBalance());
 
         String question = Language.getString("paytax1") + " " + this.taxAmount + " " + Language.getString("paytax2") + " " + "10% (" + tax + ")";
         String answer1 = taxAmount + "";
         String answer2 = "10%";
 
-        if (this.taxRate != 1.0f && Objects.equals(BoundaryController.getUserSelection(question, answer1, answer2), answer2)) {
-            player.addBalance(this.relativeTax);
+        if (taxRate != 1.0f && Game.BoundaryController.getUserSelection(question, answer1, answer2) == answer2) {
+            player.addBalance(calculateRelativeTax(player.getRealEstateValue()+player.getBalance()));
 
         } else {
             player.addBalance(-this.taxAmount);
