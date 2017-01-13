@@ -45,7 +45,7 @@ public class Territory extends Ownable {
         switch (numOfHouses) {
 
             case 0:
-                if ( GameController.getGameBoard().playerOwensAllInGroup(this, owner)) {
+                if ( GameController.getGameBoard().playerOwnsAllInGroup(this, owner)) {
                     return rentArray[0]*2;
                 }else {
                     return rentArray[0];
