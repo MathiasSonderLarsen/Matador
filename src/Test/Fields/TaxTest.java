@@ -94,11 +94,11 @@ public class TaxTest {
     @Test
     public void testTaxRelativTax() {
         int expected = -1000;
-        int actual = tax1.calcuateRelativeTax(1000);
+        int actual = tax1.calculateRelativeTax(1000);
         assertEquals(expected, actual);
 
         expected = -100;
-        actual = tax2.calcuateRelativeTax(1000);
+        actual = tax2.calculateRelativeTax(1000);
         assertEquals(expected, actual);
 
 
