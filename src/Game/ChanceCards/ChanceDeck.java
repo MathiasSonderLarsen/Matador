@@ -26,37 +26,37 @@ public class ChanceDeck {
         //fileReader = new FileReader("chanceCards.txt");
         //ChanceCards = fileReader.getLineStrings().;
 
-        ChanceCards.add(new MoneyCard("eeeee", -3000, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", -3000, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", 0, 500, 2000));
-        ChanceCards.add(new MoneyCard("eeeee", -200, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", -1000, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", -1000, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", -2000, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", -200, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", 0, 800, 2300));
-        ChanceCards.add(new MoneyCard("eeeee", 1000, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", 1000, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", 1000, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", 1000, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", 200, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", 1000, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", 3000, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", 3000, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", 500, 0, 0));
-        ChanceCards.add(new MoneyCard("eeeee", 1000, 0, 0));
-        ChanceCards.add(new MoveCard("eeeee", 3, false));
-        ChanceCards.add(new MoveCard("eeeee", -3, false));
-        ChanceCards.add(new MoveCard("eeeee", 1, true));
-        ChanceCards.add(new MoveCard("eeeee", 25, true));
-        ChanceCards.add(new MoveCard("eeeee", 12, true));
-        ChanceCards.add(new MoveCard("eeeee", 40, true));
-        ChanceCards.add(new TotalValueCard("eeeee"));
-        ChanceCards.add(new MoveCard("eeeee", 3, false));
-        ChanceCards.add(new MoveCard("eeeee", -3, false));
-        ChanceCards.add(new JailCard("eeeee"));
-        ChanceCards.add(new JailCard("eeeee"));
-        ChanceCards.add(new MoveCard("eeeee", -3, false));
+        ChanceCards.add(new MoneyCard("pay3000car1", -3000, 0, 0));
+        ChanceCards.add(new MoneyCard("pay3000car2", -3000, 0, 0));
+        ChanceCards.add(new MoneyCard("payperhousehotel1", 0, 500, 2000));
+        ChanceCards.add(new MoneyCard("pay200parking", -200, 0, 0));
+        ChanceCards.add(new MoneyCard("pay1000carinsurance", -1000, 0, 0));
+        ChanceCards.add(new MoneyCard("pay1000redlight", -1000, 0, 0));
+        ChanceCards.add(new MoneyCard("pay2000dentist", -2000, 0, 0));
+        ChanceCards.add(new MoneyCard("pay200cigarette", -200, 0, 0));
+        ChanceCards.add(new MoneyCard("payperhouhotel2", 0, 800, 2300));
+        ChanceCards.add(new MoneyCard("get1000stock1", 1000, 0, 0));
+        ChanceCards.add(new MoneyCard("get1000stock2", 1000, 0, 0));
+        ChanceCards.add(new MoneyCard("get1000stock3", 1000, 0, 0));
+        ChanceCards.add(new MoneyCard("get1000raise", 1000, 0, 0));
+        ChanceCards.add(new MoneyCard("get200produce", 200, 0, 0));
+        ChanceCards.add(new MoneyCard("get1000premium1", 1000, 0, 0));
+        ChanceCards.add(new MoneyCard("get1000premium2", 1000, 0, 0));
+        ChanceCards.add(new MoneyCard("get3000quarterlytax", 3000, 0, 0));
+        ChanceCards.add(new MoneyCard("get500lottery", 500, 0, 0));
+        ChanceCards.add(new MoneyCard("get1000tip", 1000, 0, 0));
+        ChanceCards.add(new MoveCard("move3forward", 3, false));
+        ChanceCards.add(new MoveCard("move3backwards", -3, false));
+        ChanceCards.add(new MoveCard("movetostart", 1, true));
+        ChanceCards.add(new MoveCard("movetogroeningen", 25, true));
+        ChanceCards.add(new MoveCard("movetoalle", 12, true));
+        ChanceCards.add(new MoveCard("movetoraadshuspladsen", 40, true));
+        ChanceCards.add(new TotalValueCard("legate"));
+        ChanceCards.add(new JailCard("getoutofjail"));
+        ChanceCards.add(new JailCard("getoutofjail"));
+        ChanceCards.add(new ToJailCard("gotojail"));
+        ChanceCards.add(new ToJailCard("gotojail"));
+
 
     }
 
