@@ -48,7 +48,7 @@ public class Brewery extends Ownable {
             otherField = (Ownable) gameBoard.getField(29);
         }
 
-        if (this.getOwner().equals(otherField.getOwner())) {
+        if (Objects.equals(this.getOwner(), otherField.getOwner())) {
 
             baseRent = gameBoard.getShaker().getSum() * 200;
 

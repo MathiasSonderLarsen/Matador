@@ -1,6 +1,7 @@
 package Test.Fields;
 
 import Game.Fields.Brewery;
+import Game.BoundaryController;
 import Game.GameBoard;
 import Game.GameController;
 import Game.Player;
@@ -31,11 +32,13 @@ public class BreweryTest {
     private Player player;
     private GameBoard gameBoard;
 
-
+    
     @BeforeClass
     public static void setUpBeforeClass() {
 
+        BoundaryController.setInterfaceMode(BoundaryController.Mode.Test);
     }
+
 
     @Before
     public void setUp() {
@@ -69,7 +72,7 @@ public class BreweryTest {
     public void nameTest() {
 
         String name = brewery1.getName();
-        assertEquals("BrewTest", name);
+        assertEquals("BrewTest1", name);
 
     }
 
