@@ -1,8 +1,10 @@
 package Test;
 
 import Game.Account;
+import Game.BoundaryController;
 import Game.Player;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -18,7 +20,11 @@ import static org.junit.Assert.*;
 public class PlayerTest {
 
     private Player player;
+    @BeforeClass
+    public static void setUpBeforeClass() {
 
+        BoundaryController.setInterfaceMode(BoundaryController.Mode.Test);
+    }
     @Before
     public void setUp() {
         player = new Player("Player1");
