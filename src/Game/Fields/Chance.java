@@ -1,6 +1,11 @@
 package Game.Fields;
 
 
+import Game.BoundaryController;
+import Game.ChanceCards.ChanceCard;
+import Game.GameController;
+import Game.Language;
+
 import java.awt.*;
 
 /**
@@ -14,29 +19,37 @@ import java.awt.*;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.1
+ * @version v.0.3
  */
 public class Chance extends Field {
 
-    public Chance(String name, int groupID) {
-
-        super(name, groupID);
-
+    public Chance(String name, int groupID, Color color) {
+        super(name, groupID, color);
     }
 
+    /** {@inheritDoc} */
     public String getName() {
         return this.name;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void landOnField(Game.Player player) {
-        // TODO: 05-01-2017 implement
+
+        ChanceCard card = GameController.getGameBoard().getChanceDeck().getCard();
+
+
+        BoundaryController.displayChanceCard(Language.getString("youdrew") + ' ' + Language.getString(card.getDescription()));
+        BoundaryController.showMessage("");
+        card.action(player);
+
     }
 
+    /** {@inheritDoc} */
     public desktop_fields.Chance convertToGUI() {
         desktop_fields.Chance.Builder a = new desktop_fields.Chance.Builder()
-                .setBgColor(Color.black)
-                .setFgColor(Color.green);
+                .setFgColor(Color.yellow)
+                .setBgColor(color);
         return a.build();
     }
 }

@@ -1,8 +1,10 @@
 package Test;
 
 import Game.Account;
+import Game.BoundaryController;
 import Game.Player;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -18,7 +20,11 @@ import static org.junit.Assert.*;
 public class PlayerTest {
 
     private Player player;
+    @BeforeClass
+    public static void setUpBeforeClass() {
 
+        BoundaryController.setInterfaceMode(BoundaryController.Mode.Test);
+    }
     @Before
     public void setUp() {
         player = new Player("Player1");
@@ -34,36 +40,6 @@ public class PlayerTest {
 
         assertTrue(this.player instanceof Player);
         assertTrue(this.player.getAccount() instanceof Account);
-    }
-
-    /**
-     * validates that the realEstateValue can be changed and returned. this value is the value of the fields owned by the player.
-     *
-     * @throws Exception
-     */
-    @Test
-    public void testRealEstateValue() throws Exception {
-
-        int expected = 0;
-        int actual = player.getRealEstateValue();
-        assertEquals(expected, actual);
-
-        player.addRealEstateValue(5000);
-
-        expected = 5000;
-        actual = player.getRealEstateValue();
-        assertEquals(expected, actual);
-
-        player.addRealEstateValue(1000);
-
-        expected = 6000;
-        actual = player.getRealEstateValue();
-        assertEquals(expected, actual);
-
-        player.addRealEstateValue(-2000);
-        expected = 4000;
-        actual = player.getRealEstateValue();
-        assertEquals(expected, actual);
     }
 
     /**
@@ -120,5 +96,12 @@ public class PlayerTest {
         expected = 5;
         actual = player.getOnField();
         assertEquals(expected, actual);
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerTest{" +
+                "player=" + player +
+                '}';
     }
 }

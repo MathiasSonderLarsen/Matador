@@ -5,6 +5,8 @@ import Game.Player;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
+
 import static org.junit.Assert.*;
 
 
@@ -27,8 +29,8 @@ public class TaxTest {
     public void setUp() throws Exception {
         this.player = new Player("Player");
 
-        this.tax1 = new Tax("Tax1", 2, 1000, 1.0f);
-        this.tax2 = new Tax("Tax2", 2, 4000, 0.1f);
+        this.tax1 = new Tax("Tax1", 2, Color.black, 1000, 1.0f);
+        this.tax2 = new Tax("Tax2", 2, Color.black, 4000, 0.1f);
 
     }
 
@@ -68,37 +70,24 @@ public class TaxTest {
     }
 
     @Test
-    public void testTaxAmount() {
-        int expected = 1000;
-        int actual = tax1.getTaxAmount();
-        assertEquals(expected, actual);
-
-        expected = 4000;
-        actual = tax2.getTaxAmount();
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testTaxRate() {
-        float expected = 1.0f;
-        float actual = tax1.getTaxRate();
-        assertEquals(expected, actual, 0.001);
-
-        expected = 0.1f;
-        actual = tax2.getTaxRate();
-        assertEquals(expected, actual, 0.001);
-    }
-
-    @Test
     public void testTaxRelativTax() {
         int expected = -1000;
-        int actual = tax1.calcuateRelativeTax(1000);
+        int actual = tax1.calculateRelativeTax(1000);
         assertEquals(expected, actual);
 
         expected = -100;
-        actual = tax2.calcuateRelativeTax(1000);
+        actual = tax2.calculateRelativeTax(1000);
         assertEquals(expected, actual);
 
 
+    }
+
+    @Override
+    public String toString() {
+        return "TaxTest{" +
+                "player=" + player +
+                ", tax1=" + tax1 +
+                ", tax2=" + tax2 +
+                '}';
     }
 }

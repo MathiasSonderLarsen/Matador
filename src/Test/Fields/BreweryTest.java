@@ -1,6 +1,7 @@
 package Test.Fields;
 
 import Game.Fields.Brewery;
+import Game.BoundaryController;
 import Game.GameBoard;
 import Game.GameController;
 import Game.Player;
@@ -8,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.awt.*;
 
 import static org.junit.Assert.*;
 
@@ -28,14 +31,14 @@ public class BreweryTest {
     private Brewery brewery1, brewery2;
     private Player player;
     private GameBoard gameBoard;
-    private int price;
-    private int baseRent;
-    private int groupID;
 
+    
     @BeforeClass
     public static void setUpBeforeClass() {
 
+        BoundaryController.setInterfaceMode(BoundaryController.Mode.Test);
     }
+
 
     @Before
     public void setUp() {
@@ -43,8 +46,8 @@ public class BreweryTest {
         this.player = new Player("Test1");
         this.player = new Player("Test2");
 
-        this.brewery1 = new Brewery("BrewTest1", 3000, baseRent, 6);
-        this.brewery2 = new Brewery("BrewTest2", 3000, baseRent, 6);
+        this.brewery1 = new Brewery("BrewTest1", 6, Color.black, 3000, 100);
+        this.brewery2 = new Brewery("BrewTest2", 6, Color.black, 3000, 1000);
 
         gameBoard = GameController.getGameBoard();
 
@@ -69,7 +72,7 @@ public class BreweryTest {
     public void nameTest() {
 
         String name = brewery1.getName();
-        assertEquals("BrewTest", name);
+        assertEquals("BrewTest1", name);
 
     }
 
@@ -83,13 +86,6 @@ public class BreweryTest {
 
     }
 
-    @Test
-    public void getPawnPrice() {
-
-        int pawnPrice = brewery1.getPawnPrice();
-        assertEquals(1500, pawnPrice);
-
-    }
 
     @Test
     public void rentTest() {

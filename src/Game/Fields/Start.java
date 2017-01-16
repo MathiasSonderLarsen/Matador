@@ -13,27 +13,34 @@ import java.awt.*;
  */
 public class Start extends Field {
 
-    final static int START_BONUS = 4000;
+    private final static int START_BONUS = 4000;
 
-    public Start(String name, int groupID) {
-        super(name, groupID);
+    public Start(String name, int groupID, Color color) {
+        super(name, groupID, color);
     }
 
+    /**
+     * Getter for property 'startBonus'.
+     *
+     * @return Value for property 'startBonus'.
+     */
+    public static int getStartBonus() {
+        return START_BONUS;
+    }
+
+    /** {@inheritDoc} */
     @Override
     public void landOnField(Game.Player player) {
 
     }
 
-    public int getStartBonus() {
-        return START_BONUS;
-    }
-
+    /** {@inheritDoc} */
     public desktop_fields.Start convertToGUI() {
         desktop_fields.Start.Builder a = new desktop_fields.Start.Builder()
-                .setTitle(this.getName())
-                .setBgColor(Color.red)
-                //.setFgColor(Color.red)
-                .setSubText(getStartBonus() + "");
+                .setTitle(name)
+                .setFgColor(Color.black)
+                .setBgColor(color)
+                .setSubText(Start.START_BONUS + "");
         return a.build();
     }
 }

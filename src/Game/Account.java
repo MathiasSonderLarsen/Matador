@@ -15,7 +15,7 @@ package Game;
  */
 public class Account {
 
-    private final int START_BALANCE = 30000;
+    private final static int START_BALANCE = 30000;
     private int balance;
 
     /**
@@ -32,7 +32,7 @@ public class Account {
      * @param amount the amount to add to balance
      */
     public void addBalance(int amount) {
-        balance = balance + amount;
+        balance += amount;
     }
 
     /**
@@ -44,6 +44,7 @@ public class Account {
         return balance;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Account{" +

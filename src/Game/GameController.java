@@ -1,6 +1,7 @@
 package Game;
 
 
+import Game.ChanceCards.JailCard;
 import Game.Fields.Field;
 import Game.Fields.Jail;
 import desktop_codebehind.Car;
@@ -21,12 +22,19 @@ import java.util.Random;
  * @author Michael Klan
  * @author Rasmus Blichfeldt
  * @author Timothy Rasmussen
- * @version v.0.4
+ * @version v.0.5
  */
+
 
 public class GameController {
 
-    private final int FIELD_COUNT = 40;
+    private final static int FIELD_COUNT = 40;
+    private static GameBoard gameBoard;
+    private ArrayList<Player> players = new ArrayList<Player>();
+
+    public GameController(Shaker shaker) {
+        gameBoard = new GameBoard(FIELD_COUNT, shaker);
+    }
 
     /**
      * Getter for property 'gameBoard'.
@@ -37,33 +45,16 @@ public class GameController {
         return gameBoard;
     }
 
-    private static GameBoard gameBoard;
-
-
     /**
-     * Getter for property 'currentPlayer'.
-     *
-     * @return Value for property 'currentPlayer'.
+     * Initializes the players with names and puts them on UI.
      */
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    private Player currentPlayer;
-    private ArrayList<Player> players = new ArrayList<Player>();
-
-
-    public GameController(Shaker shaker) {
-        gameBoard = new GameBoard(FIELD_COUNT, shaker);
-    }
-
     private void initializePlayers() {
 
 
         String numberSelected = BoundaryController.getUserSelection(Language.getString("greeting"), "2", "3", "4", "5", "6");
         int numberOfPlayers = Integer.parseInt(numberSelected);
         for (int i = 0; i < numberOfPlayers; i++) {
-            String name = BoundaryController.getUserString(Language.getString("name1") + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
+            String name = BoundaryController.getUserString(Language.getString("name1") + " " + (i + 1) + Language.getString("name2")); //the + (i+1) changes the number so system prints player1 then player2...
             players.add(new Player(name)); //creates a new player object.
 
             Player thisPlayer = players.get(i);
@@ -78,11 +69,10 @@ public class GameController {
         }
     }
 
-    public void checkIfCanMove() {
-        //if (shaker.DoublesInARow())
-    }
-
-
+    /**
+     * Displays the dice to the gui.
+     * @param shaker the shaker to show.
+     */
     private void displayDice(Shaker shaker) {
 
         // Declares face values to show the die in the GUI
@@ -94,34 +84,44 @@ public class GameController {
         BoundaryController.setDice(faceValue1, faceValue2);
     }
 
+    /**
+     * Gets a random color.
+     * @return
+     */
     private Color randomColor() {
         Random random = new Random();
         return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
 
-    /*
-        public  void reset() {
-            FIELD_COUNT = 21;
-            //gameBoard = new GameBoard(FIELD_COUNT);
-            //TODO fix shaker
-            currentPlayer = null;
-            players = new ArrayList<Player>(); //creates an ArrayList that can contain Player objects
-
-        }
-    */
+    /**
+     * Makes the player play a turn.
+     * @param player the player to play a turn.
+     */
     public void playTurn(Player player) {
 
-        System.out.println("Before move" + player.toString());
+        System.out.println("Before move" + this.toString());
         //rolls the dice
         gameBoard.getShaker().shake();
+
 
         //displays the dice in the GUI
         displayDice(gameBoard.getShaker());
 
+        if ((gameBoard.getShaker().getDoublesInARow() == 3) && (player != null)) {
+
+            Jail theJailField = ((Jail) GameController.getGameBoard().getField(11));
+
+            theJailField.addPlayer(player);
+
+            gameBoard.movePlayer(player, 11, true);
+            return;
+        }
+
+
         if (Jail.isJailed(player) == false) {
 
             //moves the player's token on the gameBoard in the GUI
-            gameBoard.movePlayerAnim(player, gameBoard.getShaker().getSum(), false);
+            gameBoard.movePlayer(player, gameBoard.getShaker().getSum(), false);
 
         } else {
 
@@ -133,8 +133,18 @@ public class GameController {
             final String answer2 = Language.getString("pay4000");
             final String answer3 = Language.getString("useChanceCard");
 
+
             if (player.getOutOfJailCards() > 0) {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2, answer3);
+                JailCard jailCard = player.getJailCardList().get(0);
+
+                if (Objects.equals(answer3, answer)) {
+                    Jail.removePlayer(player);
+                    player.removeOutOfJailCard();
+                    gameBoard.getChanceDeck().addJailCard(jailCard);
+                    playTurn(player);
+                }
+
             } else {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
 
@@ -146,26 +156,27 @@ public class GameController {
                         Jail.removePlayer(player);
                     }
                 } else if (Objects.equals(answer2, answer)) {
-                    player.addBalance(-4000);
+                    player.addBalance(-1000);
                     Jail.removePlayer(player);
                 } else if (Objects.equals(answer3, answer)) {
-                    player.setOutOfJailCards(-1);
+                    player.removeOutOfJailCard();
                     Jail.removePlayer(player);
                 }
 
-                // Adds jailRound to the player if he still is in jail (Because he rolls dice)
-                if (Jail.isJailed(player)) {
-                    player.addRoundsInJail(1);
-                }
+            }
 
-                // After 3 rounds in jail, the player must pay bail.
-                if (player.getRoundsInJail() == 3) {
 
-                    player.addBalance(-1000);
-                    player.addRoundsInJail(-3);
-                    Jail.removePlayer(player);
+            // Adds jailRound to the player if he still is in jail (Because he rolls dice)
+            if (Jail.isJailed(player)) {
+                player.addRoundsInJail(1);
+            }
 
-                }
+            // After 3 rounds in jail, the player must pay bail.
+            if (player.getRoundsInJail() == 3) {
+
+                player.addBalance(-1000);
+                player.addRoundsInJail(-3);
+                Jail.removePlayer(player);
 
             }
         }
@@ -181,10 +192,12 @@ public class GameController {
             players.remove(player);
         }
 
-        System.out.println("After move" + player.toString());
+        System.out.println("After move" + this.toString());
     }
 
-
+    /**
+     * Starts the games main flow.
+     */
     public void startGame() {
 
         // Adds players to the game
@@ -195,26 +208,20 @@ public class GameController {
 
             // For every player in the game
             for (int i = 0; i < players.size(); i++) {
-                currentPlayer = players.get(i);
+                Player currentPlayer = players.get(i);
 
                 playTurn(currentPlayer);
 
-                if (gameBoard.getShaker().getDoublesInARow() > 0 && gameBoard.getShaker().getDoublesInARow() != 3 && currentPlayer != null) {
+                if ((gameBoard.getShaker().getDoublesInARow() > 0) && (gameBoard.getShaker().getDoublesInARow() != 3) && (currentPlayer != null)) {
 
                     playTurn(currentPlayer);
                 }
 
-                if (gameBoard.getShaker().getDoublesInARow() == 3 && currentPlayer != null) {
-
-                    Jail theJailField = ((Jail) GameController.getGameBoard().getField(11));
-
-                    theJailField.addPlayer(currentPlayer);
-
-                    gameBoard.movePlayerAnim(currentPlayer, 11, true);
-                }
 
                 if (currentPlayer.getExtraTurn()) {
+                    currentPlayer.setExtraTurn(false);
                     i--;
+                    currentPlayer.setExtraTurn(false);
                 }
             }
 
@@ -225,5 +232,15 @@ public class GameController {
 
         BoundaryController.close();
 
+    }
+
+
+    /** {@inheritDoc} */
+    @Override
+    public String toString() {
+        return "GameController{" +
+                "players=" + players +
+                "gameboard=" + gameBoard +
+                '}';
     }
 }

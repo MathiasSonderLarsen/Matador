@@ -1,5 +1,7 @@
 package Game.ChanceCards;
 
+import Game.Player;
+
 /**
  * <p>
  * Bugs: none known
@@ -12,23 +14,35 @@ package Game.ChanceCards;
  * @author Timothy Rasmussen
  * @version v.0.2
  */
-public class ChanceCard {
+public abstract class ChanceCard {
 
-    protected String name;
     protected String description;
 
-    public ChanceCard(String name, String description) {
-        this.name = name;
+    public ChanceCard(String description) {
         this.description = description;
     }
 
+    /**
+     * Getter for property 'description'.
+     *
+     * @return Value for property 'description'.
+     */
     public String getDescription() {
 
         return description;
     }
 
-    public String getName() {
+    /**
+     * The action the card executes when someone uses it.
+     * @param user
+     */
+    public abstract void action(Player user);
 
-        return name;
+    /** {@inheritDoc} */
+    @Override
+    public String toString() {
+        return "ChanceCard{" +
+                "description='" + description + '\'' +
+                '}';
     }
 }

@@ -152,7 +152,7 @@ public class FleetTest {
         assertEquals(expected, actual);
 
         //player1 buys fleet 1
-        BoundaryController.setPreDefinedAnswer(new String[] {Language.getString("yes")});
+        BoundaryController.setPreDefinedAnswer(new String[]{Language.getString("yes")});
         this.fleet1.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
@@ -166,11 +166,11 @@ public class FleetTest {
         assertEquals(expectedOwner, actualOwner);
 
         this.fleet1.landOnField(player2);
-        expected = 29500;
+        expected = 30000;
         actual = player2.getBalance();
         assertEquals(expected, actual);
 
-        expected = 26500;
+        expected = 26000;
         actual = player1.getBalance();
         assertEquals(expected, actual);
 
@@ -179,11 +179,11 @@ public class FleetTest {
          * owner ship of 2 fleets
          */
         //player1 buys fleet 1
-        BoundaryController.setPreDefinedAnswer(new String[] {Language.getString("yes")});
+        BoundaryController.setPreDefinedAnswer(new String[]{Language.getString("yes")});
         this.fleet2.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
-        expected = 22500;
+        expected = 22000;
         actual = this.player1.getBalance();
         assertEquals(expected, actual);
 
@@ -193,11 +193,11 @@ public class FleetTest {
         assertEquals(expectedOwner, actualOwner);
 
         this.fleet2.landOnField(player2);
-        expected = 28500;
+        expected = 30000;
         actual = player2.getBalance();
         assertEquals(expected, actual);
 
-        expected = 23500;
+        expected = 22000;
         actual = player1.getBalance();
         assertEquals(expected, actual);
 
@@ -205,11 +205,11 @@ public class FleetTest {
          * owner ship of 3 fleets
          */
         //player1 buys fleet 1
-        BoundaryController.setPreDefinedAnswer(new String[] {Language.getString("yes")});
+        BoundaryController.setPreDefinedAnswer(new String[]{Language.getString("yes")});
         this.fleet3.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
-        expected = 19500;
+        expected = 18000;
         actual = this.player1.getBalance();
         assertEquals(expected, actual);
 
@@ -219,11 +219,11 @@ public class FleetTest {
         assertEquals(expectedOwner, actualOwner);
 
         this.fleet3.landOnField(player2);
-        expected = 26500;
+        expected = 30000;
         actual = player2.getBalance();
         assertEquals(expected, actual);
 
-        expected = 21500;
+        expected = 18000;
         actual = player1.getBalance();
         assertEquals(expected, actual);
 
@@ -231,11 +231,11 @@ public class FleetTest {
          * owner ship of 4 fleets
          */
         //player1 buys fleet 1
-        BoundaryController.setPreDefinedAnswer(new String[] {Language.getString("yes")});
+        BoundaryController.setPreDefinedAnswer(new String[]{Language.getString("yes")});
         this.fleet4.landOnField(this.player1);
 
         //tests that the price of the field have been transferred.
-        expected = 17500;
+        expected = 14000;
         actual = this.player1.getBalance();
         assertEquals(expected, actual);
 
@@ -245,12 +245,25 @@ public class FleetTest {
         assertEquals(expectedOwner, actualOwner);
 
         this.fleet1.landOnField(player2);
-        expected = 22500;
+        expected = 30000;
         actual = player2.getBalance();
         assertEquals(expected, actual);
 
-        expected = 21500;
+        expected = 14000;
         actual = player1.getBalance();
         assertEquals(expected, actual);
+    }
+
+    @Override
+    public String toString() {
+        return "FleetTest{" +
+                "player1=" + player1 +
+                ", player2=" + player2 +
+                ", gameBoard=" + gameBoard +
+                ", fleet1=" + fleet1 +
+                ", fleet2=" + fleet2 +
+                ", fleet3=" + fleet3 +
+                ", fleet4=" + fleet4 +
+                '}';
     }
 }

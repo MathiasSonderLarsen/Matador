@@ -23,6 +23,7 @@ public class BoundaryController {
     private static String[] preDefinedAnswer;
     private static int answerNum = 0;
 
+    /** Do not instantiate BoundaryController. */
     private BoundaryController() {
     }
 
@@ -34,7 +35,7 @@ public class BoundaryController {
 
     public static void setPreDefinedAnswer(String[] newPreDefinedAnswer) {
         preDefinedAnswer = newPreDefinedAnswer;
-        answerNum=0;
+        answerNum = 0;
     }
 
     /**
@@ -52,16 +53,16 @@ public class BoundaryController {
     /**
      * The method to add a player to the game, with exception if the program runs in test mode.
      *
-     * @param name          The players name.
-     * @param start_balance The players starting balance.
-     * @param car           The players car object.
+     * @param name         The players name.
+     * @param startBalance The players starting balance.
+     * @param car          The players car object.
      */
 
-    public static void addPlayer(String name, int start_balance, Car car) {
+    public static void addPlayer(String name, int startBalance, Car car) {
         switch (mode) {
 
             case GUI:
-                GUI.addPlayer(name, start_balance, car);
+                GUI.addPlayer(name, startBalance, car);
                 break;
 
             case Test:
@@ -121,6 +122,11 @@ public class BoundaryController {
 
             case GUI:
                 GUI.setCar(onField, name);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 break;
             case Test:
                 break;
@@ -187,6 +193,17 @@ public class BoundaryController {
                 break;
             case Test:
                 System.out.println("The players balance was set to " + balance);
+                break;
+        }
+    }
+
+    public static void displayChanceCard(String text) {
+        switch (mode) {
+            case GUI:
+                GUI.displayChanceCard(text);
+                break;
+            case Test:
+                System.out.println("Chance card description");
                 break;
         }
     }
@@ -261,7 +278,7 @@ public class BoundaryController {
         switch (mode) {
 
             case GUI:
-                GUI.setOwner(fieldNumber-1, name);
+                GUI.setOwner(fieldNumber, name);
 
 
                 break;
@@ -278,7 +295,6 @@ public class BoundaryController {
                 GUI.removeOwner(fieldNumber);
 
 
-
                 break;
             case Test:
 
@@ -286,9 +302,14 @@ public class BoundaryController {
         }
     }
 
-    private static String getAnswer(){
+    /**
+     * Getter for property 'answer'.
+     *
+     * @return Value for property 'answer'.
+     */
+    private static String getAnswer() {
         answerNum++;
-        return preDefinedAnswer[answerNum-1];
+        return preDefinedAnswer[answerNum - 1];
     }
 
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="libs">
+    <archive path="D:/BitSync/Programering/Java/14_final/libs/junit-4.12.jar" />
+    <archive path="D:/BitSync/Programering/Java/14_final/libs/hamcrest-core-1.3.jar" />
+    <archive path="D:/BitSync/Programering/Java/14_final/libs/GUI.jar" />
+  </library>
+</eclipse-userlibraries>
+

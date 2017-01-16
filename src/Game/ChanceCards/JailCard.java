@@ -1,7 +1,9 @@
 package Game.ChanceCards;
 
+import Game.Player;
+
 /**
- * MoneyTransfer does....blabla
+ * Get-out-of-jail-free card
  * <p>
  * Bugs: none known
  *
@@ -13,15 +15,16 @@ package Game.ChanceCards;
  * @author Timothy Rasmussen
  * @version v.0.1
  */
-public class MoneyTransfer extends ChanceCard {
+public class JailCard extends ChanceCard {
 
-    private int amount;
+    public JailCard(String description) {
+        super(description);
 
-    public MoneyTransfer(String name, String description, int amount) {
-        super(name, description);
     }
 
-    public int getAmount() {
-        return amount;
+    /** {@inheritDoc} */
+    @Override
+    public void action(Player user) {
+        user.addOutOfJailCards(this);
     }
 }

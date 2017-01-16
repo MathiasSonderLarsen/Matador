@@ -6,6 +6,7 @@ import Game.GameController;
 import Game.Language;
 import Game.Player;
 
+import java.awt.*;
 import java.util.Objects;
 
 /**
@@ -19,43 +20,21 @@ import java.util.Objects;
  */
 public abstract class Ownable extends Field {
 
-    private final int price;
-    private Player owner;
+    protected final int price;
+    protected Player owner;
 
     /**
-     * The constructor of the Ownable type
+     * The constructor of the Ownable type.
      *
-     * @param name  The name of the Field
-     * @param price The price of the Field
+     * @param name  The name of the Field.
+     * @param color The color of the Field.
+     * @param price The price of the Field.
      */
-    public Ownable(String name, int price, int groupID) {
-        super(name, groupID);
+    public Ownable(String name, int groupID, Color color, int price) {
+        super(name, groupID, color);
         this.price = price;
 
     }
-
-    /**
-     * Calculated the Prawn value
-     *
-     * @return the money amount you get for prawning the ownable.
-     */
-    private int calculatePawnValue() {
-        return price / 2;
-    }
-
-    public int getPawnPrice() {
-        return calculatePawnValue();
-    }
-
-    /**
-     * Gets the price of the Field
-     *
-     * @return the price
-     */
-    public int getPrice() {
-        return this.price;
-    }
-
     /**
      * Make sure all subclasses implement this method
      */
@@ -93,7 +72,7 @@ public abstract class Ownable extends Field {
         // TODO: 05-01-2017 add code
 
         // No one owns the field and the player has the money to buy it
-        if (owner == null && price <= player.getBalance()) {
+        if ((owner == null) && (price <= player.getBalance())) {
 
 
             final String question = player.getName() + (Language.getString("turn1") + " " +
@@ -107,17 +86,33 @@ public abstract class Ownable extends Field {
             if (Objects.equals(stringA, answer2)) {
 
                 player.addBalance(-price);
-                player.addRealEstateValue(price);
                 this.setOwner(player);
                 BoundaryController.showMessage(player.getName() + " " + Language.getString("bought") + " " + getName());
 
             }
         }
         //Someone else owns the field
-        if (owner != player && owner != null && !Jail.isJailed(owner)) {
-            player.addBalance(-getRent());
-            owner.addBalance(getRent());
-        }
+        if ((!Objects.equals(owner, player)) && (owner != null) && !Jail.isJailed(owner)) {
 
+            if ((this instanceof Territory) && GameController.getGameBoard().playerOwnsAllInGroup((Territory) this, player)) {
+
+                player.addBalance(-getRent());
+                owner.addBalance(getRent());
+            }
+
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public String toString() {
+        return "Ownable{" +
+                "price=" + price +
+                ", owner=" + owner +
+                '}';
+    }
+
+    public int getPrice() {
+        return price;
     }
 }

@@ -1,7 +1,12 @@
 package Game.Fields;
 
 
+import Game.GameController;
+import desktop_fields.Shipping;
+import desktop_fields.Shipping.Builder;
+
 import java.awt.*;
+import java.util.Arrays;
 
 /**
  * Keeps track of the balance, and adds/subtracts by the points on the board.
@@ -22,37 +27,49 @@ public class Fleet extends Ownable {
     //Declares an array of integers
     private final int[] rentArray;
 
-    public Fleet(String name, int price, int groupID, int[] rentArray) {
+    public Fleet(String name, int groupID, Color color, int price, int[] rentArray) {
 
-        super(name, price, groupID);
+        super(name, groupID, color, price);
         this.rentArray = rentArray;
 
 
     }
 
 
+    /** {@inheritDoc} */
+    @Override
     public int getRent() {
 
-        switch (Game.GameController.getGameBoard().getNumberOfPropertiesInGroup(this.getGroupID())) {
+        switch (GameController.getGameBoard().getNumberOfPropertiesInGroup(getGroupID())) {
             case 1:
-                return rentArray[0];
+                return this.rentArray[0];
             case 2:
-                return rentArray[1];
+                return this.rentArray[1];
             case 3:
-                return rentArray[2];
+                return this.rentArray[2];
             case 4:
-                return rentArray[3];
+                return this.rentArray[3];
             default:
                 return 0; //Should never happen
         }
     }
 
-    public desktop_fields.Shipping convertToGUI() {
-        desktop_fields.Shipping.Builder a = new desktop_fields.Shipping.Builder()
-                .setTitle(this.getName())
-                .setBgColor(Color.red)
-                .setSubText(getPrice() + "");
+    /** {@inheritDoc} */
+    @Override
+    public Shipping convertToGUI() {
+        Builder a = new Builder()
+                .setTitle(this.name)
+                .setFgColor(Color.black)
+                .setBgColor(this.color)
+                .setSubText(this.price + "");
         return a.build();
     }
 
+    /** {@inheritDoc} */
+    @Override
+    public String toString() {
+        return "Fleet{" +
+                "rentArray=" + Arrays.toString(this.rentArray) +
+                '}';
+    }
 }
