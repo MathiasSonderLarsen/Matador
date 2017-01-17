@@ -44,6 +44,7 @@ public class Shaker {
             die.roll();
             sum += die.getFaceValue();
         }
+        //Also checks if we rolled doubles. Should be named DoublesInARow or something else.
         incrementDoublesInARow();
     }
 

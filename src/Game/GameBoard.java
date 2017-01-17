@@ -264,7 +264,7 @@ public class GameBoard {
             // TODO: 13-01-2017 Program crashes when you try to move from the first chance field and 3 steps back.
             for (int i = 0; i > stepsToMove; i--) {
                 thisPlayer.setOnField(thisPlayer.getOnField() - 1);
-
+                //If you pass Start backwards your player is removed from the array and the game crashes
                 BoundaryController.removeAllCars(thisPlayer.getName());
                 BoundaryController.setCar(thisPlayer.getOnField(), thisPlayer.getName());
             }

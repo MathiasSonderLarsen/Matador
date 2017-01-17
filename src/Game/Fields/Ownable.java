@@ -61,7 +61,7 @@ public abstract class Ownable extends Field {
 
     public void removeOwner() {
         BoundaryController.removeOwner(GameController.getGameBoard().getFieldPos(this));
-    }
+    }   //Should remove the owner from the field. The reference remains giving the player money after he went bankrupt
 
     /**
      * Runs when a player lands on the Field
@@ -77,6 +77,7 @@ public abstract class Ownable extends Field {
 
             final String question = player.getName() + (Language.getString("turn1") + " " +
                     Language.getString("buy1") + " " + getName() + " " + Language.getString("buy2") + " " + price + " " + Language.getString("point") + " ?");
+                    // You could make all these getStrings a single line and replace some chars in the line with price and getName.
 
             final String answer1 = Language.getString("no");
             final String answer2 = Language.getString("yes");
@@ -95,7 +96,7 @@ public abstract class Ownable extends Field {
         if ((!Objects.equals(owner, player)) && (owner != null) && !Jail.isJailed(owner)) {
 
             if ((this instanceof Territory) && GameController.getGameBoard().playerOwnsAllInGroup((Territory) this, player)) {
-
+                //remove above if statement. As of now you only pay rent on Territory.
                 player.addBalance(-getRent());
                 owner.addBalance(getRent());
             }

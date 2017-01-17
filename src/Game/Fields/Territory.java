@@ -128,7 +128,7 @@ public class Territory extends Ownable {
                 // Prompts the user with the question of whether o not he wants to buy a house
                 String inputAnswer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
 
-                if (inputAnswer == answer2) {
+                if (inputAnswer == answer2) {       //Should be Objects.equals
                     question = Language.getString("where");
                     inputAnswer = BoundaryController.getUserButtonPressed(question, stringOfBuyableFieldOptions);
 

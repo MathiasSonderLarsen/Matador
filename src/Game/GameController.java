@@ -111,10 +111,10 @@ public class GameController {
 
             Jail theJailField = ((Jail) GameController.getGameBoard().getField(11));
 
-            theJailField.addPlayer(player);
+            theJailField.addPlayer(player);    //Jail.addPlayer is static now and hence makes it possible to just write Jail.addPlayer(player)
 
             gameBoard.movePlayer(player, 11, true);
-            return;
+            return;             //We write return so it breaks the method and doesn't continue.
         }
 
 
@@ -130,7 +130,7 @@ public class GameController {
             String answer;
             final String question = Language.getString("methodOutOfJail");
             final String answer1 = Language.getString("rollTwoOfTheSame");
-            final String answer2 = Language.getString("pay4000");
+            final String answer2 = Language.getString("pay4000");       //Burde være pay1000. Teksten er forkert men man mister faktisk det rigtige antal (1000)
             final String answer3 = Language.getString("useChanceCard");
 
 
@@ -142,57 +142,57 @@ public class GameController {
                     Jail.removePlayer(player);
                     player.removeOutOfJailCard();
                     gameBoard.getChanceDeck().addJailCard(jailCard);
-                    playTurn(player);
+                    playTurn(player);                                   //should be run in every if or after the nesting
                 }
 
             } else {
                 answer = BoundaryController.getUserButtonPressed(question, answer1, answer2);
 
-                if (Objects.equals(answer1, answer)) {
+                if (Objects.equals(answer1, answer)) {          //because it is a String we have to use the SUPER class Objects. If we just set answer1==answer we'd be checking references.
                     gameBoard.getShaker().shake();
                     displayDice(gameBoard.getShaker());
 
                     if (gameBoard.getShaker().getDoublesInARow() > 0) {
                         Jail.removePlayer(player);
+                        playTurn(player);       //added 17-jan because it fixes a bug where the player didn't get their turn
                     }
                 } else if (Objects.equals(answer2, answer)) {
                     player.addBalance(-1000);
                     Jail.removePlayer(player);
-                } else if (Objects.equals(answer3, answer)) {
-                    player.removeOutOfJailCard();
-                    Jail.removePlayer(player);
+                    playTurn(player);
+//                } else if (Objects.equals(answer3, answer)) {
+//                    player.removeOutOfJailCard();
+//                    Jail.removePlayer(player);          // TODO: 17-Jan-17 code duplication. it's run in 151
+//                }
                 }
 
+                // Adds jailRound to the player if he still is in jail (Because he rolls dice)
+                if (Jail.isJailed(player)) {
+                    player.addRoundsInJail(1);      //should be countRoundsInJail or incrementRoundsInJail. Remove the (1).
+                }
+
+                // After 3 rounds in jail, the player must pay bail.
+                if (player.getRoundsInJail() == 3) {
+
+                    player.addBalance(-1000);
+                    player.addRoundsInJail(-3);     //could be an if statement saying if roundsInJail>3 {roundsInJail=0; Jail.removePlayer(player)}
+                    Jail.removePlayer(player);
+                }
             }
 
+            //controls what happens when the player lands on a specific field.
+            Field currentField = gameBoard.getField(player.getOnField());
+            BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
+            currentField.landOnField(player);
 
-            // Adds jailRound to the player if he still is in jail (Because he rolls dice)
-            if (Jail.isJailed(player)) {
-                player.addRoundsInJail(1);
+            //removes bankrupt players from the game
+            if (player.getBalance() <= 0) {
+                gameBoard.deleteOwnership(player);
+                players.remove(player);
             }
 
-            // After 3 rounds in jail, the player must pay bail.
-            if (player.getRoundsInJail() == 3) {
-
-                player.addBalance(-1000);
-                player.addRoundsInJail(-3);
-                Jail.removePlayer(player);
-
-            }
+            System.out.println("After move" + this.toString()); //This refers to the variables declared in the object. It isn't necessary but helps with understanding the code.
         }
-
-        //controls what happens when the player lands on a specific field.
-        Field currentField = gameBoard.getField(player.getOnField());
-        BoundaryController.showMessage(player.getName() + " " + Language.getString("landed") + " " + currentField.getName());
-        currentField.landOnField(player);
-
-        //removes bankrupt players from the game
-        if (player.getBalance() <= 0) {
-            gameBoard.deleteOwnership(player);
-            players.remove(player);
-        }
-
-        System.out.println("After move" + this.toString());
     }
 
     /**

@@ -35,7 +35,7 @@ public class MoneyCard extends ChanceCard {
 
         int[] housesAndHotels = GameController.getGameBoard().getNumberOfOwnedHH(user);
 
-        user.addBalance(baseAmount + ((baseHotel * housesAndHotels[0]) * (baseHouse * housesAndHotels[1])));
+        user.addBalance(baseAmount + ((baseHotel * housesAndHotels[0]) * (baseHouse * housesAndHotels[1])));  //should be a '+' instead of '*'
 
     }
 

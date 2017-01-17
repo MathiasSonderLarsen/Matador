@@ -38,7 +38,7 @@ public class Player {
      */
     public int getRealEstateValue() {
 
-        int[] ownedHH = GameController.getGameBoard().getNumberOfOwnedHH(this);
+        int[] ownedHH = GameController.getGameBoard().getNumberOfOwnedHH(this);     //Lacks the price of the houses. As of now it just gives the number of houses and hotels and returns that number.
 
         return ownedHH[0] + ownedHH[1] +
                 GameController.getGameBoard().getNumOfOwnedFields(this) +
