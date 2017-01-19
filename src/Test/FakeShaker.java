@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class FakeShaker extends Shaker {
     int[] die1 = {1, 4, 6, 3, 5, 1, 5, 6, 3,};
-    int[] die2 = {2, 4, 6, 2, 6, 3, 6, 6, 1,};
+    int[] die2 = {2, 2, 6, 2, 6, 3, 5, 6, 1,};
 
     int i = 0;
 
