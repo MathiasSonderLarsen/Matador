@@ -8,8 +8,8 @@ import java.util.Arrays;
  * Created by Matt_Lab on 10/01/2017.
  */
 public class FakeShaker extends Shaker {
-    int[] die1 = {1, 4, 6, 3, 5, 1, 5, 6, 3,};
-    int[] die2 = {2, 2, 6, 2, 6, 3, 5, 6, 1,};
+    int[] die1 = {1, 4, 6, 3, 5, 1, 5, 6, 3, 2};
+    int[] die2 = {2, 2, 6, 2, 6, 3, 5, 6, 1, 2};
 
     int i = 0;
 
@@ -24,7 +24,7 @@ public class FakeShaker extends Shaker {
             getDice()[1].setFaceValue(die2[i++]);
             incrementDoublesInARow();
 
-        }else {
+        } else {
             super.shake();
         }
     }
