@@ -22,6 +22,8 @@ public class FakeShaker extends Shaker {
         if (i < die1.length) {
             getDice()[0].setFaceValue(die1[i]);
             getDice()[1].setFaceValue(die2[i++]);
+            incrementDoublesInARow();
+
         }else {
             super.shake();
         }
